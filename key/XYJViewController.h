@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  XYJViewController.h
 //  key
 //
 //  Created by MissYasiky on 2018/11/2.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface XYJViewController : UIViewController
 
 
 @end

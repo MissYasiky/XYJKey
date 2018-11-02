@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  XYJAppDelegate.h
 //  key
 //
 //  Created by MissYasiky on 2018/11/2.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface XYJAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

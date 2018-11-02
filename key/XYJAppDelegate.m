@@ -1,22 +1,28 @@
 //
-//  AppDelegate.m
+//  XYJAppDelegate.m
 //  key
 //
 //  Created by MissYasiky on 2018/11/2.
 //  Copyright © 2018年 netease. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "XYJAppDelegate.h"
+#import "XYJViewController.h"
 
-@interface AppDelegate ()
+@interface XYJAppDelegate ()
+
+@property (nonatomic, strong) XYJViewController *rootViewController;
 
 @end
 
-@implementation AppDelegate
+@implementation XYJAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.rootViewController = [[XYJViewController alloc] init];
+    self.window.rootViewController = self.rootViewController;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
