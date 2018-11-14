@@ -11,6 +11,7 @@
 		21E4258D218C8DF20072D134 /* XYJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E4258C218C8DF20072D134 /* XYJViewController.m */; };
 		21E42592218C8DF50072D134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E42591218C8DF50072D134 /* Assets.xcassets */; };
 		21E42598218C8DF50072D134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42597218C8DF50072D134 /* main.m */; };
+		21E425A0219C15080072D134 /* XYJAddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,8 @@
 		21E42591218C8DF50072D134 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21E42596218C8DF50072D134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21E42597218C8DF50072D134 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		21E4259E219C15080072D134 /* XYJAddBankCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAddBankCardViewController.h; sourceTree = "<group>"; };
+		21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAddBankCardViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,8 @@
 				21E42591218C8DF50072D134 /* Assets.xcassets */,
 				21E42596218C8DF50072D134 /* Info.plist */,
 				21E42597218C8DF50072D134 /* main.m */,
+				21E4259E219C15080072D134 /* XYJAddBankCardViewController.h */,
+				21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */,
 			);
 			path = key;
 			sourceTree = "<group>";
@@ -135,6 +140,7 @@
 			files = (
 				21E4258D218C8DF20072D134 /* XYJViewController.m in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
+				21E425A0219C15080072D134 /* XYJAddBankCardViewController.m in Sources */,
 				21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

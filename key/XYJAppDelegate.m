@@ -9,19 +9,13 @@
 #import "XYJAppDelegate.h"
 #import "XYJViewController.h"
 
-@interface XYJAppDelegate ()
-
-@property (nonatomic, strong) XYJViewController *rootViewController;
-
-@end
-
 @implementation XYJAppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.rootViewController = [[XYJViewController alloc] init];
-    self.window.rootViewController = self.rootViewController;
+    XYJViewController *vctrl = [[XYJViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
+    self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
     return YES;
 }
