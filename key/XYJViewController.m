@@ -26,7 +26,8 @@
 
 - (void)addBankCard {
     XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] init];
-    [self.navigationController pushViewController:vctrl animated:YES];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
+    [self.navigationController presentViewController:navi animated:YES completion:nil];
 }
 
 

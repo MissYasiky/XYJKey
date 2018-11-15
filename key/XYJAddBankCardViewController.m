@@ -16,17 +16,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithRed:0xf4/255.0 green:0xf4/255.0 blue:0xf4/255.0 alpha:1.0];
+    
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(save)];
+    [cancelItem setTintColor:[UIColor colorWithRed:0x4c/255.0 green:0x4c/255.0 blue:0x4c/255.0 alpha:1.0]];
+    [saveItem setTintColor:[UIColor colorWithRed:0x4c/255.0 green:0x4c/255.0 blue:0x4c/255.0 alpha:1.0]];
+    self.navigationItem.leftBarButtonItem = cancelItem;
+    self.navigationItem.rightBarButtonItem = saveItem;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)dismiss {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
+- (void)save {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
