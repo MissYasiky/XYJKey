@@ -12,6 +12,7 @@
 		21E42592218C8DF50072D134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E42591218C8DF50072D134 /* Assets.xcassets */; };
 		21E42598218C8DF50072D134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42597218C8DF50072D134 /* main.m */; };
 		21E425A0219C15080072D134 /* XYJAddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */; };
+		21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425A9219D779B0072D134 /* XYJDailyTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,9 @@
 		21E42597218C8DF50072D134 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		21E4259E219C15080072D134 /* XYJAddBankCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAddBankCardViewController.h; sourceTree = "<group>"; };
 		21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAddBankCardViewController.m; sourceTree = "<group>"; };
+		21E425A2219D72E30072D134 /* XYJDailyTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJDailyTools.h; sourceTree = "<group>"; };
+		21E425A9219D779B0072D134 /* XYJDailyTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJDailyTools.m; sourceTree = "<group>"; };
+		21E425AD219D78E20072D134 /* KeyPrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyPrefix.pch; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,17 +61,28 @@
 		21E42587218C8DF20072D134 /* key */ = {
 			isa = PBXGroup;
 			children = (
+				21E425AC219D789C0072D134 /* Supporting Files */,
 				21E42588218C8DF20072D134 /* XYJAppDelegate.h */,
 				21E42589218C8DF20072D134 /* XYJAppDelegate.m */,
 				21E4258B218C8DF20072D134 /* XYJViewController.h */,
 				21E4258C218C8DF20072D134 /* XYJViewController.m */,
+				21E4259E219C15080072D134 /* XYJAddBankCardViewController.h */,
+				21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */,
+				21E425A2219D72E30072D134 /* XYJDailyTools.h */,
+				21E425A9219D779B0072D134 /* XYJDailyTools.m */,
+			);
+			path = key;
+			sourceTree = "<group>";
+		};
+		21E425AC219D789C0072D134 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				21E42591218C8DF50072D134 /* Assets.xcassets */,
 				21E42596218C8DF50072D134 /* Info.plist */,
 				21E42597218C8DF50072D134 /* main.m */,
-				21E4259E219C15080072D134 /* XYJAddBankCardViewController.h */,
-				21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */,
+				21E425AD219D78E20072D134 /* KeyPrefix.pch */,
 			);
-			path = key;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +156,7 @@
 				21E4258D218C8DF20072D134 /* XYJViewController.m in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
 				21E425A0219C15080072D134 /* XYJAddBankCardViewController.m in Sources */,
+				21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */,
 				21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +283,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -286,6 +304,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

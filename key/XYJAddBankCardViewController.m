@@ -16,12 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0xf4/255.0 green:0xf4/255.0 blue:0xf4/255.0 alpha:1.0];
+    self.view.backgroundColor = XYJColor(0xf4f4f4, 1.0);
     
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(save)];
-    [cancelItem setTintColor:[UIColor colorWithRed:0x4c/255.0 green:0x4c/255.0 blue:0x4c/255.0 alpha:1.0]];
-    [saveItem setTintColor:[UIColor colorWithRed:0x4c/255.0 green:0x4c/255.0 blue:0x4c/255.0 alpha:1.0]];
+    [cancelItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    [saveItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
     self.navigationItem.leftBarButtonItem = cancelItem;
     self.navigationItem.rightBarButtonItem = saveItem;
 }

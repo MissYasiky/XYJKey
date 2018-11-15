@@ -17,10 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0xf4/255.0 green:0xf4/255.0 blue:0xf4/255.0 alpha:1.0];
+    self.view.backgroundColor = XYJColor(0xf4f4f4, 1.0);
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBankCard)];
-    [item setTintColor:[UIColor colorWithRed:0x4c/255.0 green:0x4c/255.0 blue:0x4c/255.0 alpha:1.0]];
+    [item setTintColor:XYJColor(0x4c4c4c, 1.0)];
     self.navigationItem.rightBarButtonItem = item;
 }
 
