@@ -13,6 +13,8 @@ UITableViewDelegate,
 UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *titleArray;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
 
 @end
 
@@ -30,6 +32,7 @@ UITableViewDataSource>
     self.navigationItem.rightBarButtonItem = saveItem;
     
     [self.view addSubview:self.tableView];
+    [self.view addGestureRecognizer:self.tap];
 }
 
 #pragma mark - Getter & Setter
@@ -44,6 +47,19 @@ UITableViewDataSource>
     return _tableView;
 }
 
+- (NSArray *)titleArray {
+    if (_titleArray == nil) {
+        _titleArray = @[@"银行",@"账号",@"信用卡",@"网银密码",@"查询密码",@"取款密码"];
+    }
+    return _titleArray;
+}
+
+- (UITapGestureRecognizer *)tap {
+    if (_tap == nil) {
+        _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyboard)];
+    }
+    return _tap;
+}
 #pragma mark - Action
 
 - (void)dismiss {
@@ -52,6 +68,10 @@ UITableViewDataSource>
 
 - (void)save {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)hiddenKeyboard {
+    [self.view endEditing:YES];
 }
 
 #pragma mark - UITableView DataSource
@@ -69,14 +89,79 @@ UITableViewDataSource>
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"cellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                       reuseIdentifier:cellIdentifier];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            static NSString *cellRow0Identifier = @"cellRow0Identifier";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellRow0Identifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:cellRow0Identifier];
+                cell.textLabel.font = [UIFont systemFontOfSize:18];
+                cell.textLabel.textColor = XYJColor(0x696969, 1.0);
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                UILabel *label = [[UILabel alloc] init];
+                label.text = @"招商银行";
+                label.font = [UIFont systemFontOfSize:16];
+                label.textColor = XYJColor(0xa4a4a4, 1.0);
+                label.textAlignment = NSTextAlignmentRight;
+                label.frame = CGRectMake(120, 11, XYJScreenWidth() - 120 - 30, 20);
+                [cell.contentView addSubview:label];
+            }
+            cell.textLabel.text = self.titleArray[indexPath.row];
+            return cell;
+        } else if (indexPath.row == 2) {
+            static NSString *cellRow2Identifier = @"cellRow2Identifier";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellRow2Identifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:cellRow2Identifier];
+                cell.textLabel.font = [UIFont systemFontOfSize:18];
+                cell.textLabel.textColor = XYJColor(0x696969, 1.0);
+                
+                UISwitch *onoff = [[UISwitch alloc] init];
+                onoff.on = YES;
+                CGPoint point = CGPointZero;
+                point.x = XYJScreenWidth() - onoff.frame.size.width - 15;
+                point.y = (42 - onoff.frame.size.height) / 2.;
+                onoff.frame = CGRectMake(point.x, point.y, 0, 0);
+                [cell.contentView addSubview:onoff];
+            }
+            cell.textLabel.text = self.titleArray[indexPath.row];
+            return cell;
+        } else {
+            static NSString *cellIdentifier = @"cellIdentifier";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:cellIdentifier];
+                cell.textLabel.font = [UIFont systemFontOfSize:18];
+                cell.textLabel.textColor = XYJColor(0x696969, 1.0);
+                
+                UITextField *textField = [[UITextField alloc] init];
+                textField.font = [UIFont systemFontOfSize:16];
+                textField.textColor = XYJColor(0xa4a4a4, 1.0);
+                textField.textAlignment = NSTextAlignmentRight;
+                textField.frame = CGRectMake(120, 11, XYJScreenWidth() - 120 - 15, 20);
+                [cell.contentView addSubview:textField];
+            }
+            cell.textLabel.text = self.titleArray[indexPath.row];
+            return cell;
+        }
+        
+    } else {
+        static NSString *cellIdentifier2 = @"cellIdentifier2";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:cellIdentifier2];
+            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, XYJScreenWidth() - 30, 100 - 30)];
+            textView.font = [UIFont systemFontOfSize:16];
+            textView.textColor = XYJColor(0xa4a4a4, 1.0);
+            [cell.contentView addSubview:textView];
+        }
+        return cell;
     }
-    cell.textLabel.text = @"ee";
-    return cell;
 }
 
 #pragma mark - UITableView Delegate
