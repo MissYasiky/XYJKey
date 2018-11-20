@@ -34,6 +34,7 @@ UIPickerViewDataSource>
 @property (nonatomic, strong) UIToolbar *pickerToolBar;
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, assign) NSInteger pickerSelectedIndex;
+@property (nonatomic, strong) NSArray *pickerDataArray;
 
 @property (nonatomic, strong) UITapGestureRecognizer *hiddenKeyboardTap;
 
@@ -52,7 +53,7 @@ UIPickerViewDataSource>
     self.navigationItem.leftBarButtonItem = cancelItem;
     self.navigationItem.rightBarButtonItem = saveItem;
     
-    self.pickerSelectedIndex = -1;
+    self.pickerDataArray = @[@"招商银行", @"中国银行", @"广发银行", @"华夏银行", @"浦发银行"];
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.pickerBackgroundView];
@@ -67,7 +68,7 @@ UIPickerViewDataSource>
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _tableView.delegate = nil;
-    _pickerView.delegate = self;
+    _pickerView.delegate = nil;
 }
 
 #pragma mark - Getter & Setter
@@ -159,7 +160,9 @@ UIPickerViewDataSource>
 
 - (void)hiddenPicker:(id)sender {
     if (sender != self.pickerViewTap) {
-        NSLog(@"row = %zd", self.pickerSelectedIndex);
+        if (self.pickerSelectedIndex >= 0 && self.pickerSelectedIndex < self.pickerDataArray.count) {
+            NSLog(@"%@", self.pickerDataArray[self.pickerSelectedIndex]);
+        }
     }
     [UIView animateWithDuration:0.3 animations:^{
         self.pickerToolBar.frame = CGRectMake(0, XYJScreenHeight(), XYJScreenWidth(), pickerToolbarHeight);
@@ -323,14 +326,14 @@ UIPickerViewDataSource>
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 9;
+    return self.pickerDataArray.count;
 }
 
 #pragma mark - UIPickerViewDelegate
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return @"22";
+    return self.pickerDataArray[row];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
