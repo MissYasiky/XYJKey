@@ -35,6 +35,8 @@ UIPickerViewDataSource>
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, assign) NSInteger pickerSelectedIndex;
 
+@property (nonatomic, strong) UITapGestureRecognizer *hiddenKeyboardTap;
+
 @end
 
 @implementation XYJAddBankCardViewController
@@ -57,6 +59,15 @@ UIPickerViewDataSource>
     [self.pickerBackgroundView addGestureRecognizer:self.pickerViewTap];
     [self.pickerBackgroundView addSubview:self.pickerToolBar];
     [self.pickerBackgroundView addSubview:self.pickerView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _tableView.delegate = nil;
+    _pickerView.delegate = self;
 }
 
 #pragma mark - Getter & Setter
@@ -117,6 +128,13 @@ UIPickerViewDataSource>
     return _titleArray;
 }
 
+- (UITapGestureRecognizer *)hiddenKeyboardTap {
+    if (_hiddenKeyboardTap == nil) {
+        _hiddenKeyboardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyboard)];
+    }
+    return _hiddenKeyboardTap;
+}
+
 #pragma mark - Action
 
 - (void)dismiss {
@@ -149,6 +167,16 @@ UIPickerViewDataSource>
     } completion:^(BOOL finished) {
         self.pickerBackgroundView.hidden = YES;
     }];
+}
+
+#pragma mark - NSNotification
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    [self.view addGestureRecognizer:self.hiddenKeyboardTap];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [self.view removeGestureRecognizer:self.hiddenKeyboardTap];
 }
 
 #pragma mark - UITableView DataSource
