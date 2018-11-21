@@ -7,24 +7,34 @@
 //
 
 #import "XYJAddBankCardViewController.h"
+#import "XYJTextFieldCell.h"
+#import "XYJTextViewCell.h"
 
 static CGFloat tableViewRowHeight = 42.0;
-static CGFloat tableViewBigRowHeight = 100.0;
 static CGFloat pickerHeight = 200.0;
 static CGFloat pickerToolbarHeight = 34.0;
 static CGFloat pickerRowHeight = 34.0;
+
+static NSInteger kTextFieldTagPlus = 100;
+
+static NSString *kRemark = @"备注";
 
 @interface XYJAddBankCardViewController ()<
 UITableViewDelegate,
 UITableViewDataSource,
 UIPickerViewDelegate,
-UIPickerViewDataSource>
+UIPickerViewDataSource,
+UITextFieldDelegate,
+UITextViewDelegate>
 
 /*
  * 列表相关属性
  */
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *titleArray;
+@property (nonatomic, strong) NSDictionary *placeholderDict;
+@property (nonatomic, strong) NSDictionary *keyboardTypeDict;
+@property (nonatomic, strong) NSMutableDictionary *inputDataDict;
 
 /*
  * 选择器相关属性
@@ -53,7 +63,7 @@ UIPickerViewDataSource>
     self.navigationItem.leftBarButtonItem = cancelItem;
     self.navigationItem.rightBarButtonItem = saveItem;
     
-    self.pickerDataArray = @[@"招商银行", @"中国银行", @"广发银行", @"华夏银行", @"浦发银行"];
+    [self initData];
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.pickerBackgroundView];
@@ -69,6 +79,22 @@ UIPickerViewDataSource>
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _tableView.delegate = nil;
     _pickerView.delegate = nil;
+}
+
+#pragma mark initialize
+
+- (void)initData {
+    self.pickerDataArray = @[@"招商银行", @"中国银行", @"广发银行", @"华夏银行", @"浦发银行"];
+    
+    self.titleArray = @[@"银行",@"账号",@"信用卡",@"网银密码",@"查询密码",@"取款密码"];
+    
+    self.placeholderDict = @{self.titleArray[1]:@"请输入银行账号", self.titleArray[3]:@"请输入网银密码",  self.titleArray[4]:@"请输入查询密码",  self.titleArray[5]:@"请输入取款密码"};
+    
+    self.keyboardTypeDict = @{self.titleArray[1]:@(UIKeyboardTypeNumberPad), self.titleArray[3]:@(UIKeyboardTypeDefault),  self.titleArray[4]:@(UIKeyboardTypeNumberPad),  self.titleArray[5]:@(UIKeyboardTypeNumberPad)};
+    
+    self.inputDataDict = [NSMutableDictionary new];
+    NSDictionary *dict = @{self.titleArray[0]:@(0), self.titleArray[1]:@"",  self.titleArray[2]:@(0),  self.titleArray[3]:@"",  self.titleArray[4]:@"",  self.titleArray[5]:@"",  kRemark:@""};
+    self.inputDataDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
 }
 
 #pragma mark - Getter & Setter
@@ -120,13 +146,6 @@ UIPickerViewDataSource>
         _pickerViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenPicker:)];
     }
     return _pickerViewTap;
-}
-
-- (NSArray *)titleArray {
-    if (_titleArray == nil) {
-        _titleArray = @[@"银行",@"账号",@"信用卡",@"网银密码",@"查询密码",@"取款密码"];
-    }
-    return _titleArray;
 }
 
 - (UITapGestureRecognizer *)hiddenKeyboardTap {
@@ -182,6 +201,22 @@ UIPickerViewDataSource>
     [self.view removeGestureRecognizer:self.hiddenKeyboardTap];
 }
 
+#pragma mark - UITextField Delegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSInteger row = textField.tag - kTextFieldTagPlus;
+    NSString *key = self.titleArray[row];
+    [self.inputDataDict setObject:textField.text forKey:key];
+    NSLog(@"%@", self.inputDataDict);
+}
+
+#pragma mark - UITextView Delegate
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self.inputDataDict setObject:textView.text forKey:kRemark];
+    NSLog(@"%@", self.inputDataDict);
+}
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -228,7 +263,7 @@ UIPickerViewDataSource>
                 cell.textLabel.textColor = XYJColor(0x696969, 1.0);
                 
                 UISwitch *onoff = [[UISwitch alloc] init];
-                onoff.on = YES;
+                onoff.on = NO;
                 CGPoint point = CGPointZero;
                 point.x = XYJScreenWidth() - onoff.frame.size.width - 15;
                 point.y = (tableViewRowHeight - onoff.frame.size.height) / 2.;
@@ -239,35 +274,29 @@ UIPickerViewDataSource>
             return cell;
         } else {
             static NSString *cellIdentifier = @"cellIdentifier";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            XYJTextFieldCell *cell = (XYJTextFieldCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                cell = [[XYJTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault
                                               reuseIdentifier:cellIdentifier];
-                cell.textLabel.font = [UIFont systemFontOfSize:18];
-                cell.textLabel.textColor = XYJColor(0x696969, 1.0);
-                
-                UITextField *textField = [[UITextField alloc] init];
-                textField.font = [UIFont systemFontOfSize:16];
-                textField.textColor = XYJColor(0xa4a4a4, 1.0);
-                textField.textAlignment = NSTextAlignmentRight;
-                textField.frame = CGRectMake(120, 11, XYJScreenWidth() - 120 - 15, 20);
-                [cell.contentView addSubview:textField];
             }
-            cell.textLabel.text = self.titleArray[indexPath.row];
+            NSString *key = self.titleArray[indexPath.row];
+            UIKeyboardType type = [self.keyboardTypeDict[key] integerValue];
+            [cell setTextFieldTag:(indexPath.row + kTextFieldTagPlus)
+                      placeholder:self.placeholderDict[key]
+                         delegate:self
+                     keyboardTyep:type];
+            [cell setLeftLabelText:key textFieldContent:self.inputDataDict[key]];
             return cell;
         }
         
     } else {
         static NSString *cellIdentifier2 = @"cellIdentifier2";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier2];
+        XYJTextViewCell *cell = (XYJTextViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier2];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+            cell = [[XYJTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:cellIdentifier2];
-            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, XYJScreenWidth() - 30, tableViewBigRowHeight - 15 * 2)];
-            textView.font = [UIFont systemFontOfSize:16];
-            textView.textColor = XYJColor(0xa4a4a4, 1.0);
-            [cell.contentView addSubview:textView];
         }
+        [cell setTextViewContent:self.inputDataDict[kRemark] delegate:self];
         return cell;
     }
 }
@@ -276,9 +305,9 @@ UIPickerViewDataSource>
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return tableViewRowHeight;
+        return [XYJTextFieldCell height];
     } else {
-        return tableViewBigRowHeight;
+        return [XYJTextViewCell height];
     }
 }
 
@@ -290,7 +319,7 @@ UIPickerViewDataSource>
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];
         label.font = [UIFont systemFontOfSize:14];
         label.textColor = XYJColor(0x696969, 1.0);
-        label.text = @"备注";
+        label.text = kRemark;
         [view addSubview:label];
         return view;
     }

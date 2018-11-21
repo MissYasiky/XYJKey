@@ -8,27 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42589218C8DF20072D134 /* XYJAppDelegate.m */; };
-		21E4258D218C8DF20072D134 /* XYJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E4258C218C8DF20072D134 /* XYJViewController.m */; };
 		21E42592218C8DF50072D134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E42591218C8DF50072D134 /* Assets.xcassets */; };
 		21E42598218C8DF50072D134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42597218C8DF50072D134 /* main.m */; };
-		21E425A0219C15080072D134 /* XYJAddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */; };
 		21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425A9219D779B0072D134 /* XYJDailyTools.m */; };
+		21E425B621A589250072D134 /* XYJTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425B521A589250072D134 /* XYJTextFieldCell.m */; };
+		21E425BB21A595820072D134 /* XYJTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425BA21A595820072D134 /* XYJTextViewCell.m */; };
+		21E425C321A59D060072D134 /* XYJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425C021A59D060072D134 /* XYJViewController.m */; };
+		21E425C421A59D060072D134 /* XYJAddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		21E42585218C8DF20072D134 /* key.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = key.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E42588218C8DF20072D134 /* XYJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAppDelegate.h; sourceTree = "<group>"; };
 		21E42589218C8DF20072D134 /* XYJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAppDelegate.m; sourceTree = "<group>"; };
-		21E4258B218C8DF20072D134 /* XYJViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJViewController.h; sourceTree = "<group>"; };
-		21E4258C218C8DF20072D134 /* XYJViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJViewController.m; sourceTree = "<group>"; };
 		21E42591218C8DF50072D134 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21E42596218C8DF50072D134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21E42597218C8DF50072D134 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		21E4259E219C15080072D134 /* XYJAddBankCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAddBankCardViewController.h; sourceTree = "<group>"; };
-		21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAddBankCardViewController.m; sourceTree = "<group>"; };
 		21E425A2219D72E30072D134 /* XYJDailyTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJDailyTools.h; sourceTree = "<group>"; };
 		21E425A9219D779B0072D134 /* XYJDailyTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJDailyTools.m; sourceTree = "<group>"; };
 		21E425AD219D78E20072D134 /* KeyPrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyPrefix.pch; sourceTree = SOURCE_ROOT; };
+		21E425B421A589250072D134 /* XYJTextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJTextFieldCell.h; sourceTree = "<group>"; };
+		21E425B521A589250072D134 /* XYJTextFieldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJTextFieldCell.m; sourceTree = "<group>"; };
+		21E425B921A595820072D134 /* XYJTextViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJTextViewCell.h; sourceTree = "<group>"; };
+		21E425BA21A595820072D134 /* XYJTextViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJTextViewCell.m; sourceTree = "<group>"; };
+		21E425BF21A59D060072D134 /* XYJAddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYJAddBankCardViewController.h; path = key/Controller/XYJAddBankCardViewController.h; sourceTree = SOURCE_ROOT; };
+		21E425C021A59D060072D134 /* XYJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYJViewController.m; path = key/Controller/XYJViewController.m; sourceTree = SOURCE_ROOT; };
+		21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYJAddBankCardViewController.m; path = key/Controller/XYJAddBankCardViewController.m; sourceTree = SOURCE_ROOT; };
+		21E425C221A59D060072D134 /* XYJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYJViewController.h; path = key/Controller/XYJViewController.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,15 +67,12 @@
 		21E42587218C8DF20072D134 /* key */ = {
 			isa = PBXGroup;
 			children = (
-				21E425AC219D789C0072D134 /* Supporting Files */,
 				21E42588218C8DF20072D134 /* XYJAppDelegate.h */,
 				21E42589218C8DF20072D134 /* XYJAppDelegate.m */,
-				21E4258B218C8DF20072D134 /* XYJViewController.h */,
-				21E4258C218C8DF20072D134 /* XYJViewController.m */,
-				21E4259E219C15080072D134 /* XYJAddBankCardViewController.h */,
-				21E4259F219C15080072D134 /* XYJAddBankCardViewController.m */,
-				21E425A2219D72E30072D134 /* XYJDailyTools.h */,
-				21E425A9219D779B0072D134 /* XYJDailyTools.m */,
+				21E425B121A5887D0072D134 /* Utils */,
+				21E425C521A59D2F0072D134 /* Controller */,
+				21E425BD21A59CC60072D134 /* View */,
+				21E425AC219D789C0072D134 /* Supporting Files */,
 			);
 			path = key;
 			sourceTree = "<group>";
@@ -83,6 +86,37 @@
 				21E425AD219D78E20072D134 /* KeyPrefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		21E425B121A5887D0072D134 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				21E425A2219D72E30072D134 /* XYJDailyTools.h */,
+				21E425A9219D779B0072D134 /* XYJDailyTools.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		21E425BD21A59CC60072D134 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				21E425B421A589250072D134 /* XYJTextFieldCell.h */,
+				21E425B521A589250072D134 /* XYJTextFieldCell.m */,
+				21E425B921A595820072D134 /* XYJTextViewCell.h */,
+				21E425BA21A595820072D134 /* XYJTextViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		21E425C521A59D2F0072D134 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				21E425BF21A59D060072D134 /* XYJAddBankCardViewController.h */,
+				21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */,
+				21E425C221A59D060072D134 /* XYJViewController.h */,
+				21E425C021A59D060072D134 /* XYJViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,11 +187,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21E4258D218C8DF20072D134 /* XYJViewController.m in Sources */,
+				21E425BB21A595820072D134 /* XYJTextViewCell.m in Sources */,
+				21E425C421A59D060072D134 /* XYJAddBankCardViewController.m in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
-				21E425A0219C15080072D134 /* XYJAddBankCardViewController.m in Sources */,
 				21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */,
 				21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */,
+				21E425B621A589250072D134 /* XYJTextFieldCell.m in Sources */,
+				21E425C321A59D060072D134 /* XYJViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
