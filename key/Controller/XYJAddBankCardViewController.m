@@ -7,10 +7,11 @@
 //
 
 #import "XYJAddBankCardViewController.h"
+#import "XYJPickerCell.h"
+#import "XYJSwitchCell.h"
 #import "XYJTextFieldCell.h"
 #import "XYJTextViewCell.h"
 
-static CGFloat tableViewRowHeight = 42.0;
 static CGFloat pickerHeight = 200.0;
 static CGFloat pickerToolbarHeight = 34.0;
 static CGFloat pickerRowHeight = 34.0;
@@ -84,6 +85,7 @@ UITextViewDelegate>
 #pragma mark initialize
 
 - (void)initData {
+    self.pickerSelectedIndex = 0;
     self.pickerDataArray = @[@"招商银行", @"中国银行", @"广发银行", @"华夏银行", @"浦发银行"];
     
     self.titleArray = @[@"银行",@"账号",@"信用卡",@"网银密码",@"查询密码",@"取款密码"];
@@ -93,7 +95,7 @@ UITextViewDelegate>
     self.keyboardTypeDict = @{self.titleArray[1]:@(UIKeyboardTypeNumberPad), self.titleArray[3]:@(UIKeyboardTypeDefault),  self.titleArray[4]:@(UIKeyboardTypeNumberPad),  self.titleArray[5]:@(UIKeyboardTypeNumberPad)};
     
     self.inputDataDict = [NSMutableDictionary new];
-    NSDictionary *dict = @{self.titleArray[0]:@(0), self.titleArray[1]:@"",  self.titleArray[2]:@(0),  self.titleArray[3]:@"",  self.titleArray[4]:@"",  self.titleArray[5]:@"",  kRemark:@""};
+    NSDictionary *dict = @{self.titleArray[0]:@(self.pickerSelectedIndex), self.titleArray[1]:@"",  self.titleArray[2]:@(0),  self.titleArray[3]:@"",  self.titleArray[4]:@"",  self.titleArray[5]:@"",  kRemark:@""};
     self.inputDataDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
 }
 
@@ -162,7 +164,8 @@ UITextViewDelegate>
 }
 
 - (void)save {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"data = %@", self.inputDataDict);
+//    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)hiddenKeyboard {
@@ -189,6 +192,12 @@ UITextViewDelegate>
     } completion:^(BOOL finished) {
         self.pickerBackgroundView.hidden = YES;
     }];
+}
+
+- (void)creditCardSwitch:(id)sender {
+    UISwitch *aSwitch = (UISwitch *)sender;
+    NSString *key = self.titleArray[2];
+    [self.inputDataDict setObject:@(aSwitch.on) forKey:key];
 }
 
 #pragma mark - NSNotification
@@ -235,42 +244,25 @@ UITextViewDelegate>
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             static NSString *cellRow0Identifier = @"cellRow0Identifier";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellRow0Identifier];
+            XYJPickerCell *cell = (XYJPickerCell *)[tableView dequeueReusableCellWithIdentifier:cellRow0Identifier];
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:cellRow0Identifier];
-                cell.textLabel.font = [UIFont systemFontOfSize:18];
-                cell.textLabel.textColor = XYJColor(0x696969, 1.0);
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                UILabel *label = [[UILabel alloc] init];
-                label.text = @"招商银行";
-                label.font = [UIFont systemFontOfSize:16];
-                label.textColor = XYJColor(0xa4a4a4, 1.0);
-                label.textAlignment = NSTextAlignmentRight;
-                label.frame = CGRectMake(120, 11, XYJScreenWidth() - 120 - 30, 20);
-                [cell.contentView addSubview:label];
+                cell = [[XYJPickerCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:cellRow0Identifier];
             }
-            cell.textLabel.text = self.titleArray[indexPath.row];
+            [cell setLeftLabelText:self.titleArray[indexPath.row]
+                    rightLabelText:self.pickerDataArray[self.pickerSelectedIndex]];
             return cell;
         } else if (indexPath.row == 2) {
             static NSString *cellRow2Identifier = @"cellRow2Identifier";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellRow2Identifier];
+            XYJSwitchCell *cell = (XYJSwitchCell *)[tableView dequeueReusableCellWithIdentifier:cellRow2Identifier];
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                cell = [[XYJSwitchCell alloc] initWithStyle:UITableViewCellStyleDefault
                                               reuseIdentifier:cellRow2Identifier];
-                cell.textLabel.font = [UIFont systemFontOfSize:18];
-                cell.textLabel.textColor = XYJColor(0x696969, 1.0);
-                
-                UISwitch *onoff = [[UISwitch alloc] init];
-                onoff.on = NO;
-                CGPoint point = CGPointZero;
-                point.x = XYJScreenWidth() - onoff.frame.size.width - 15;
-                point.y = (tableViewRowHeight - onoff.frame.size.height) / 2.;
-                onoff.frame = CGRectMake(point.x, point.y, 0, 0);
-                [cell.contentView addSubview:onoff];
             }
-            cell.textLabel.text = self.titleArray[indexPath.row];
+            NSString *key = self.titleArray[indexPath.row];
+            BOOL on = [self.inputDataDict[key] boolValue];
+            [cell setLeftLabelText:key switchOn:on];
+            [cell.aSwitch addTarget:self action:@selector(creditCardSwitch:) forControlEvents:UIControlEventValueChanged];
             return cell;
         } else {
             static NSString *cellIdentifier = @"cellIdentifier";
@@ -371,6 +363,10 @@ UITextViewDelegate>
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.pickerSelectedIndex = row;
+    NSString *key = self.titleArray[0];
+    [self.inputDataDict setObject:@(self.pickerSelectedIndex) forKey:key];
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

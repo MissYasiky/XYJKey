@@ -15,6 +15,9 @@
 		21E425BB21A595820072D134 /* XYJTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425BA21A595820072D134 /* XYJTextViewCell.m */; };
 		21E425C321A59D060072D134 /* XYJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425C021A59D060072D134 /* XYJViewController.m */; };
 		21E425C421A59D060072D134 /* XYJAddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */; };
+		21E425C821A838A80072D134 /* XYJPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425C721A838A80072D134 /* XYJPickerCell.m */; };
+		21E425CB21A847AB0072D134 /* XYJSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425CA21A847AB0072D134 /* XYJSwitchCell.m */; };
+		21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425CD21AA78470072D134 /* LYLUnicode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,12 @@
 		21E425C021A59D060072D134 /* XYJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYJViewController.m; path = key/Controller/XYJViewController.m; sourceTree = SOURCE_ROOT; };
 		21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYJAddBankCardViewController.m; path = key/Controller/XYJAddBankCardViewController.m; sourceTree = SOURCE_ROOT; };
 		21E425C221A59D060072D134 /* XYJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYJViewController.h; path = key/Controller/XYJViewController.h; sourceTree = SOURCE_ROOT; };
+		21E425C621A838A80072D134 /* XYJPickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJPickerCell.h; sourceTree = "<group>"; };
+		21E425C721A838A80072D134 /* XYJPickerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJPickerCell.m; sourceTree = "<group>"; };
+		21E425C921A847AB0072D134 /* XYJSwitchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJSwitchCell.h; sourceTree = "<group>"; };
+		21E425CA21A847AB0072D134 /* XYJSwitchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJSwitchCell.m; sourceTree = "<group>"; };
+		21E425CC21AA78470072D134 /* LYLUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYLUnicode.h; sourceTree = "<group>"; };
+		21E425CD21AA78470072D134 /* LYLUnicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYLUnicode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +102,8 @@
 			children = (
 				21E425A2219D72E30072D134 /* XYJDailyTools.h */,
 				21E425A9219D779B0072D134 /* XYJDailyTools.m */,
+				21E425CC21AA78470072D134 /* LYLUnicode.h */,
+				21E425CD21AA78470072D134 /* LYLUnicode.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -104,6 +115,10 @@
 				21E425B521A589250072D134 /* XYJTextFieldCell.m */,
 				21E425B921A595820072D134 /* XYJTextViewCell.h */,
 				21E425BA21A595820072D134 /* XYJTextViewCell.m */,
+				21E425C621A838A80072D134 /* XYJPickerCell.h */,
+				21E425C721A838A80072D134 /* XYJPickerCell.m */,
+				21E425C921A847AB0072D134 /* XYJSwitchCell.h */,
+				21E425CA21A847AB0072D134 /* XYJSwitchCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -187,13 +202,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21E425CB21A847AB0072D134 /* XYJSwitchCell.m in Sources */,
 				21E425BB21A595820072D134 /* XYJTextViewCell.m in Sources */,
 				21E425C421A59D060072D134 /* XYJAddBankCardViewController.m in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
+				21E425C821A838A80072D134 /* XYJPickerCell.m in Sources */,
 				21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */,
 				21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */,
 				21E425B621A589250072D134 /* XYJTextFieldCell.m in Sources */,
 				21E425C321A59D060072D134 /* XYJViewController.m in Sources */,
+				21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
