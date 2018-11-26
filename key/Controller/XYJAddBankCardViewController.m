@@ -11,6 +11,7 @@
 #import "XYJSwitchCell.h"
 #import "XYJTextFieldCell.h"
 #import "XYJTextViewCell.h"
+#import "XYJCacheUtils.h"
 
 static CGFloat pickerHeight = 200.0;
 static CGFloat pickerToolbarHeight = 34.0;
@@ -160,12 +161,14 @@ UITextViewDelegate>
 #pragma mark - Action
 
 - (void)dismiss {
+    [self.view endEditing:YES];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)save {
-    NSLog(@"data = %@", self.inputDataDict);
-//    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.view endEditing:YES];
+    [XYJCacheUtils writeBankCardToCache:self.inputDataDict];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)hiddenKeyboard {

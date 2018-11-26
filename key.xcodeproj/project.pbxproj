@@ -18,6 +18,7 @@
 		21E425C821A838A80072D134 /* XYJPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425C721A838A80072D134 /* XYJPickerCell.m */; };
 		21E425CB21A847AB0072D134 /* XYJSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425CA21A847AB0072D134 /* XYJSwitchCell.m */; };
 		21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425CD21AA78470072D134 /* LYLUnicode.m */; };
+		21E425D121AA7B150072D134 /* XYJCacheUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425D021AA7B150072D134 /* XYJCacheUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		21E425CA21A847AB0072D134 /* XYJSwitchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJSwitchCell.m; sourceTree = "<group>"; };
 		21E425CC21AA78470072D134 /* LYLUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYLUnicode.h; sourceTree = "<group>"; };
 		21E425CD21AA78470072D134 /* LYLUnicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYLUnicode.m; sourceTree = "<group>"; };
+		21E425CF21AA7B150072D134 /* XYJCacheUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJCacheUtils.h; sourceTree = "<group>"; };
+		21E425D021AA7B150072D134 /* XYJCacheUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJCacheUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,8 @@
 				21E425A9219D779B0072D134 /* XYJDailyTools.m */,
 				21E425CC21AA78470072D134 /* LYLUnicode.h */,
 				21E425CD21AA78470072D134 /* LYLUnicode.m */,
+				21E425CF21AA7B150072D134 /* XYJCacheUtils.h */,
+				21E425D021AA7B150072D134 /* XYJCacheUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 			files = (
 				21E425CB21A847AB0072D134 /* XYJSwitchCell.m in Sources */,
 				21E425BB21A595820072D134 /* XYJTextViewCell.m in Sources */,
+				21E425D121AA7B150072D134 /* XYJCacheUtils.m in Sources */,
 				21E425C421A59D060072D134 /* XYJAddBankCardViewController.m in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
 				21E425C821A838A80072D134 /* XYJPickerCell.m in Sources */,
