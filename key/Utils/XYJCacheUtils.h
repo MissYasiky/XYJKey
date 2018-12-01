@@ -8,7 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const XYJBankNameKey;
+extern NSString * const XYJBankAccountKey;
+extern NSString * const XYJBankCreditCardKey;
+extern NSString * const XYJEBankPasswordKey;
+extern NSString * const XYJBankQueryPasswordKey;
+extern NSString * const XYJBankWithdrawalPasswordKey;
+extern NSString * const XYJBankRemarkKey;
+
 @interface XYJCacheUtils : NSObject
+
++ (NSArray *)bankNameArray;
 
 + (BOOL)writeBankCardToCache:(NSDictionary *)dict;
 

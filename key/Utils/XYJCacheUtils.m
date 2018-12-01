@@ -10,7 +10,22 @@
 
 static NSString *kBandCardFile = @"BCCache";
 
+NSString * const XYJBankNameKey = @"银行";
+NSString * const XYJBankAccountKey = @"账号";
+NSString * const XYJBankCreditCardKey = @"信用卡";
+NSString * const XYJEBankPasswordKey = @"网银密码";
+NSString * const XYJBankQueryPasswordKey = @"查询密码";
+NSString * const XYJBankWithdrawalPasswordKey = @"取款密码";
+NSString * const XYJBankRemarkKey = @"备注";
+
 @implementation XYJCacheUtils
+
++ (NSArray *)bankNameArray {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"XYJDataConstant" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSArray *array = dict[@"bankName"];
+    return array;
+}
 
 + (NSString *)bankCardPath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -38,9 +53,13 @@ static NSString *kBandCardFile = @"BCCache";
 + (NSArray *)bankCardFromCache {
     NSString *path = [XYJCacheUtils bankCardPath];
     NSData *cacheData = [[NSData alloc] initWithContentsOfFile:path];
+    if (cacheData == nil) {
+        return @[];
+    }
     NSArray *array = [NSJSONSerialization JSONObjectWithData:cacheData
                                                      options:NSJSONReadingAllowFragments
                                                        error:nil];
     return array;
 }
+
 @end

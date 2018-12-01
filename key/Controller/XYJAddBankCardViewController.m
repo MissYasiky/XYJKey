@@ -19,8 +19,6 @@ static CGFloat pickerRowHeight = 34.0;
 
 static NSInteger kTextFieldTagPlus = 100;
 
-static NSString *kRemark = @"备注";
-
 @interface XYJAddBankCardViewController ()<
 UITableViewDelegate,
 UITableViewDataSource,
@@ -87,16 +85,16 @@ UITextViewDelegate>
 
 - (void)initData {
     self.pickerSelectedIndex = 0;
-    self.pickerDataArray = @[@"招商银行", @"中国银行", @"广发银行", @"华夏银行", @"浦发银行"];
+    self.pickerDataArray = [XYJCacheUtils bankNameArray];
     
-    self.titleArray = @[@"银行",@"账号",@"信用卡",@"网银密码",@"查询密码",@"取款密码"];
+    self.titleArray = @[XYJBankNameKey, XYJBankAccountKey, XYJBankCreditCardKey, XYJEBankPasswordKey, XYJBankQueryPasswordKey, XYJBankWithdrawalPasswordKey];
     
     self.placeholderDict = @{self.titleArray[1]:@"请输入银行账号", self.titleArray[3]:@"请输入网银密码",  self.titleArray[4]:@"请输入查询密码",  self.titleArray[5]:@"请输入取款密码"};
     
     self.keyboardTypeDict = @{self.titleArray[1]:@(UIKeyboardTypeNumberPad), self.titleArray[3]:@(UIKeyboardTypeDefault),  self.titleArray[4]:@(UIKeyboardTypeNumberPad),  self.titleArray[5]:@(UIKeyboardTypeNumberPad)};
     
     self.inputDataDict = [NSMutableDictionary new];
-    NSDictionary *dict = @{self.titleArray[0]:@(self.pickerSelectedIndex), self.titleArray[1]:@"",  self.titleArray[2]:@(0),  self.titleArray[3]:@"",  self.titleArray[4]:@"",  self.titleArray[5]:@"",  kRemark:@""};
+    NSDictionary *dict = @{self.titleArray[0]:@(self.pickerSelectedIndex), self.titleArray[1]:@"",  self.titleArray[2]:@(0),  self.titleArray[3]:@"",  self.titleArray[4]:@"",  self.titleArray[5]:@"",  XYJBankRemarkKey:@""};
     self.inputDataDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
 }
 
@@ -225,7 +223,7 @@ UITextViewDelegate>
 #pragma mark - UITextView Delegate
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    [self.inputDataDict setObject:textView.text forKey:kRemark];
+    [self.inputDataDict setObject:textView.text forKey:XYJBankRemarkKey];
     NSLog(@"%@", self.inputDataDict);
 }
 
@@ -291,7 +289,7 @@ UITextViewDelegate>
             cell = [[XYJTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:cellIdentifier2];
         }
-        [cell setTextViewContent:self.inputDataDict[kRemark] delegate:self];
+        [cell setTextViewContent:self.inputDataDict[XYJBankRemarkKey] delegate:self];
         return cell;
     }
 }
@@ -314,7 +312,7 @@ UITextViewDelegate>
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];
         label.font = [UIFont systemFontOfSize:14];
         label.textColor = XYJColor(0x696969, 1.0);
-        label.text = kRemark;
+        label.text = XYJBankRemarkKey;
         [view addSubview:label];
         return view;
     }
