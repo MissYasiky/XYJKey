@@ -24,4 +24,6 @@ extern NSString * const XYJBankRemarkKey;
 
 + (NSArray *)bankCardFromCache;
 
++ (BOOL)deleteBankCardAtIndex:(NSInteger)index;
+
 @end

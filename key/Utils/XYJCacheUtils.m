@@ -62,4 +62,15 @@ NSString * const XYJBankRemarkKey = @"备注";
     return array;
 }
 
++ (BOOL)deleteBankCardAtIndex:(NSInteger)index {
+    NSMutableArray *muArray = [[NSMutableArray alloc] initWithArray:[self bankCardFromCache]];
+    [muArray removeObjectAtIndex:index];
+    
+    NSString *path = [XYJCacheUtils bankCardPath];
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:muArray options:kNilOptions error:&error];
+    BOOL success = [data writeToFile:path atomically:YES];
+    return success;
+}
+
 @end
