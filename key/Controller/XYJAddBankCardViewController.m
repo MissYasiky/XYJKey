@@ -25,7 +25,8 @@ UITableViewDataSource,
 UIPickerViewDelegate,
 UIPickerViewDataSource,
 UITextFieldDelegate,
-UITextViewDelegate>
+UITextViewDelegate
+>
 
 /*
  * 列表相关属性
@@ -306,7 +307,8 @@ UITextViewDelegate>
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 10)];        return view;
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 10)];
+        return view;
     } else {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 22)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];

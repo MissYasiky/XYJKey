@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455521B2850000878C5D /* XYJDetailLabelCell.m */; };
 		21D1F11521B2608500671A89 /* XYJDataConstant.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21D1F11421B2608500671A89 /* XYJDataConstant.plist */; };
 		21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42589218C8DF20072D134 /* XYJAppDelegate.m */; };
 		21E42592218C8DF50072D134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E42591218C8DF50072D134 /* Assets.xcassets */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2171455421B2850000878C5D /* XYJDetailLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJDetailLabelCell.h; sourceTree = "<group>"; };
+		2171455521B2850000878C5D /* XYJDetailLabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJDetailLabelCell.m; sourceTree = "<group>"; };
 		21D1F11421B2608500671A89 /* XYJDataConstant.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = XYJDataConstant.plist; sourceTree = "<group>"; };
 		21E42585218C8DF20072D134 /* key.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = key.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E42588218C8DF20072D134 /* XYJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAppDelegate.h; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 				21E425C721A838A80072D134 /* XYJPickerCell.m */,
 				21E425C921A847AB0072D134 /* XYJSwitchCell.h */,
 				21E425CA21A847AB0072D134 /* XYJSwitchCell.m */,
+				2171455421B2850000878C5D /* XYJDetailLabelCell.h */,
+				2171455521B2850000878C5D /* XYJDetailLabelCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 				21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */,
 				21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */,
 				21E425B621A589250072D134 /* XYJTextFieldCell.m in Sources */,
+				2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */,
 				21E425C321A59D060072D134 /* XYJViewController.m in Sources */,
 				21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */,
 			);

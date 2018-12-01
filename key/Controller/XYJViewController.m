@@ -8,6 +8,7 @@
 
 #import "XYJViewController.h"
 #import "XYJAddBankCardViewController.h"
+#import "XYJDetailLabelCell.h"
 #import "XYJCacheUtils.h"
 
 @interface XYJViewController ()<
@@ -35,6 +36,10 @@ UITableViewDataSource
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+}
+
+- (void)dealloc {
+    _tableView.delegate = nil;
 }
 
 #pragma mark - Getter & Setter
@@ -68,33 +73,27 @@ UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"cellIdentifier";
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    XYJDetailLabelCell *cell = (XYJDetailLabelCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                      reuseIdentifier:cellIdentifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:18];
-        cell.textLabel.textColor = XYJColor(0x696969, 1.0);
-        
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:16];
-        cell.detailTextLabel.textColor = XYJColor(0xa4a4a4, 1.0);
-        
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell = [[XYJDetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                         reuseIdentifier:cellIdentifier];
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator selectionStyle:UITableViewCellSelectionStyleDefault];
     }
     NSArray *dataArray = [XYJCacheUtils bankCardFromCache];
     NSDictionary *info = dataArray[indexPath.row];
     NSInteger bankIndex = [info[XYJBankNameKey] integerValue];
-    cell.textLabel.text = [XYJCacheUtils bankNameArray][bankIndex];
+    NSString *leftContent = [XYJCacheUtils bankNameArray][bankIndex];
     
     NSString *account = info[XYJBankAccountKey];
-    NSString *detailText = [NSString stringWithFormat:@"尾号%@", account.length >= 4 ? [account substringFromIndex:account.length - 4] : account];
-    cell.detailTextLabel.text = detailText;
+    NSString *rightContent = [NSString stringWithFormat:@"尾号%@", account.length >= 4 ? [account substringFromIndex:account.length - 4] : account];
+    [cell setLeftLabelText:leftContent rightLabelText:rightContent];
     return cell;
 }
 
 #pragma mark - UITableView Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 42.0;
+    return [XYJDetailLabelCell height];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
