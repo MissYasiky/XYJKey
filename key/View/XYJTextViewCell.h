@@ -10,7 +10,9 @@
 
 @interface XYJTextViewCell : UITableViewCell
 
-- (void)setTextViewContent:(NSString *)content delegate:(id<UITextViewDelegate>)delegate ;
+@property (nonatomic, strong) UITextView *textView;
+
+- (void)setTextViewContent:(NSString *)content;
 
 + (CGFloat)height;
 

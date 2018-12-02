@@ -11,12 +11,6 @@
 static CGFloat kCellHeight = 100.0;
 static CGFloat kPad = 15.0;
 
-@interface XYJTextViewCell ()
-
-@property (nonatomic, strong) UITextView *textView;
-
-@end
-
 @implementation XYJTextViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -46,9 +40,8 @@ static CGFloat kPad = 15.0;
 
 #pragma mark - Public
 
-- (void)setTextViewContent:(NSString *)content delegate:(id<UITextViewDelegate>)delegate {
+- (void)setTextViewContent:(NSString *)content{
     self.textView.text = content;
-    self.textView.delegate = delegate;
 }
 
 + (CGFloat)height {

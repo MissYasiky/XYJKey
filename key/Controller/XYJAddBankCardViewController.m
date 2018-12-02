@@ -290,7 +290,8 @@ UITextViewDelegate
             cell = [[XYJTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:cellIdentifier2];
         }
-        [cell setTextViewContent:self.inputDataDict[XYJBankRemarkKey] delegate:self];
+        [cell setTextViewContent:self.inputDataDict[XYJBankRemarkKey]];
+        cell.textView.delegate = self;
         return cell;
     }
 }
