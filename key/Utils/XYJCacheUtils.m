@@ -19,6 +19,7 @@ NSString * const XYJBankWithdrawalPasswordKey = @"取款密码";
 NSString * const XYJBankRemarkKey = @"备注";
 
 NSString * const XYJAddNewBankCardNotification = @"XYJAddNewBankCardNotification";
+NSString * const XYJEditBankCardNotification = @"XYJEditBankCardNotification";
 
 @implementation XYJCacheUtils
 
@@ -67,6 +68,12 @@ NSString * const XYJAddNewBankCardNotification = @"XYJAddNewBankCardNotification
     return array;
 }
 
++ (NSDictionary *)bankCardAtIndex:(NSInteger)index {
+    NSArray *array = [self bankCardFromCache];
+    NSDictionary *dict = array[index];
+    return dict;
+}
+
 + (BOOL)deleteBankCardAtIndex:(NSInteger)index {
     NSMutableArray *muArray = [[NSMutableArray alloc] initWithArray:[self bankCardFromCache]];
     [muArray removeObjectAtIndex:index];
@@ -75,6 +82,20 @@ NSString * const XYJAddNewBankCardNotification = @"XYJAddNewBankCardNotification
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:muArray options:kNilOptions error:&error];
     BOOL success = [data writeToFile:path atomically:YES];
+    return success;
+}
+
++ (BOOL)replaceBandCard:(NSDictionary *)info atIndex:(NSInteger)index {
+    NSMutableArray *muArray = [[NSMutableArray alloc] initWithArray:[self bankCardFromCache]];
+    [muArray replaceObjectAtIndex:index withObject:info];
+    
+    NSString *path = [XYJCacheUtils bankCardPath];
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:muArray options:kNilOptions error:&error];
+    BOOL success = [data writeToFile:path atomically:YES];
+    if (success) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:XYJEditBankCardNotification object:@(index)];
+    }
     return success;
 }
 
