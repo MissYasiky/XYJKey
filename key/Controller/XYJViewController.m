@@ -7,6 +7,7 @@
 //
 
 #import "XYJViewController.h"
+#import "XYJBankCardDetailViewController.h"
 #import "XYJAddBankCardViewController.h"
 #import "XYJDetailLabelCell.h"
 #import "XYJCacheUtils.h"
@@ -109,6 +110,8 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    XYJBankCardDetailViewController *vctrl = [[XYJBankCardDetailViewController alloc] initWithData:self.dataArray[indexPath.row]];
+    [self.navigationController pushViewController:vctrl animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
