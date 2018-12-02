@@ -17,6 +17,7 @@ UITableViewDataSource
 >
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
@@ -25,6 +26,9 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = XYJColor(0xf4f4f4, 1.0);
+    
+    self.dataArray = [[NSMutableArray alloc] initWithArray:[XYJCacheUtils bankCardFromCache]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newBankCardAdded:) name:XYJAddNewBankCardNotification object:nil];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBankCard)];
     [item setTintColor:XYJColor(0x4c4c4c, 1.0)];
@@ -39,6 +43,7 @@ UITableViewDataSource
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     _tableView.delegate = nil;
 }
 
@@ -65,10 +70,17 @@ UITableViewDataSource
     [self.navigationController presentViewController:navi animated:YES completion:nil];
 }
 
+#pragma mark - NSNotification
+
+- (void)newBankCardAdded:(NSNotification *)notif {
+    id dict = notif.object;
+    [self.dataArray addObject:dict];
+}
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[XYJCacheUtils bankCardFromCache] count];
+    return [self.dataArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -79,8 +91,7 @@ UITableViewDataSource
                                          reuseIdentifier:cellIdentifier];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator selectionStyle:UITableViewCellSelectionStyleDefault];
     }
-    NSArray *dataArray = [XYJCacheUtils bankCardFromCache];
-    NSDictionary *info = dataArray[indexPath.row];
+    NSDictionary *info = self.dataArray[indexPath.row];
     NSInteger bankIndex = [info[XYJBankNameKey] integerValue];
     NSString *leftContent = [XYJCacheUtils bankNameArray][bankIndex];
     
@@ -116,6 +127,7 @@ UITableViewDataSource
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"确认删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         BOOL success = [XYJCacheUtils deleteBankCardAtIndex:indexPath.row];
         if (success) {
+            [self.dataArray removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         }
     }];

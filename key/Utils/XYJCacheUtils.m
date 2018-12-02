@@ -18,6 +18,8 @@ NSString * const XYJBankQueryPasswordKey = @"查询密码";
 NSString * const XYJBankWithdrawalPasswordKey = @"取款密码";
 NSString * const XYJBankRemarkKey = @"备注";
 
+NSString * const XYJAddNewBankCardNotification = @"XYJAddNewBankCardNotification";
+
 @implementation XYJCacheUtils
 
 + (NSArray *)bankNameArray {
@@ -47,6 +49,9 @@ NSString * const XYJBankRemarkKey = @"备注";
     [muArray addObject:dict];
     NSData *data = [NSJSONSerialization dataWithJSONObject:muArray options:kNilOptions error:&error];
     BOOL success = [data writeToFile:path atomically:YES];
+    if (success) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:XYJAddNewBankCardNotification object:dict];
+    }
     return success;
 }
 

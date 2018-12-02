@@ -16,6 +16,8 @@ extern NSString * const XYJBankQueryPasswordKey;
 extern NSString * const XYJBankWithdrawalPasswordKey;
 extern NSString * const XYJBankRemarkKey;
 
+extern NSString * const XYJAddNewBankCardNotification;
+
 @interface XYJCacheUtils : NSObject
 
 + (NSArray *)bankNameArray;
