@@ -49,9 +49,25 @@ UITextViewDelegate
 
 @property (nonatomic, strong) UITapGestureRecognizer *hiddenKeyboardTap;
 
+/*
+ * editMode 默认是 NO，为新增数据模式，YES 时是编辑模式
+ */
+@property (nonatomic, assign) BOOL editMode;
+@property (nonatomic, assign) NSInteger dataCacheIndex;
+
 @end
 
 @implementation XYJAddBankCardViewController
+
+- (instancetype)initWithData:(NSDictionary *)dict index:(NSInteger)index {
+    self = [super init];
+    if (self) {
+        self.editMode = YES;
+        self.dataCacheIndex = index;
+        self.inputDataDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -85,7 +101,6 @@ UITextViewDelegate
 #pragma mark initialize
 
 - (void)initData {
-    self.pickerSelectedIndex = 0;
     self.pickerDataArray = [XYJCacheUtils bankNameArray];
     
     self.titleArray = @[XYJBankNameKey, XYJBankAccountKey, XYJBankCreditCardKey, XYJEBankPasswordKey, XYJBankQueryPasswordKey, XYJBankWithdrawalPasswordKey];
@@ -94,9 +109,15 @@ UITextViewDelegate
     
     self.keyboardTypeDict = @{self.titleArray[1]:@(UIKeyboardTypeNumberPad), self.titleArray[3]:@(UIKeyboardTypeDefault),  self.titleArray[4]:@(UIKeyboardTypeNumberPad),  self.titleArray[5]:@(UIKeyboardTypeNumberPad)};
     
-    self.inputDataDict = [NSMutableDictionary new];
-    NSDictionary *dict = @{self.titleArray[0]:@(self.pickerSelectedIndex), self.titleArray[1]:@"",  self.titleArray[2]:@(0),  self.titleArray[3]:@"",  self.titleArray[4]:@"",  self.titleArray[5]:@"",  XYJBankRemarkKey:@""};
-    self.inputDataDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+    if (self.editMode) {
+        NSString *key = self.titleArray[0];
+        self.pickerSelectedIndex = [self.inputDataDict[key] integerValue];
+        [self.inputDataDict setObject:@(self.pickerSelectedIndex) forKey:key];
+    } else {
+        self.pickerSelectedIndex = 0;
+        NSDictionary *dict = @{self.titleArray[0]:@(self.pickerSelectedIndex), self.titleArray[1]:@"",  self.titleArray[2]:@(0),  self.titleArray[3]:@"",  self.titleArray[4]:@"",  self.titleArray[5]:@"",  XYJBankRemarkKey:@""};
+        self.inputDataDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+    }
 }
 
 #pragma mark - Getter & Setter
@@ -166,8 +187,15 @@ UITextViewDelegate
 
 - (void)save {
     [self.view endEditing:YES];
-    [XYJCacheUtils writeBankCardToCache:self.inputDataDict];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    BOOL success = NO;
+    if (self.editMode) {
+        success = [XYJCacheUtils replaceBandCard:self.inputDataDict atIndex:self.dataCacheIndex];
+    } else {
+        success = [XYJCacheUtils writeBankCardToCache:self.inputDataDict];
+    }
+    if (success) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)hiddenKeyboard {

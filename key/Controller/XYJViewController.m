@@ -30,6 +30,7 @@ UITableViewDataSource
     
     self.dataArray = [[NSMutableArray alloc] initWithArray:[XYJCacheUtils bankCardFromCache]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newBankCardAdded:) name:XYJAddNewBankCardNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bankCardEdited:) name:XYJEditBankCardNotification object:nil];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBankCard)];
     [item setTintColor:XYJColor(0x4c4c4c, 1.0)];
@@ -78,6 +79,14 @@ UITableViewDataSource
     [self.dataArray addObject:dict];
 }
 
+- (void)bankCardEdited:(NSNotification *)notif {
+    id object = notif.object;
+    NSNumber *indexNumber = (NSNumber *)object;
+    NSInteger index = [indexNumber integerValue];
+    NSDictionary *metaDict = [XYJCacheUtils bankCardAtIndex:index];
+    [self.dataArray replaceObjectAtIndex:index withObject:metaDict];
+}
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -110,7 +119,7 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    XYJBankCardDetailViewController *vctrl = [[XYJBankCardDetailViewController alloc] initWithData:self.dataArray[indexPath.row]];
+    XYJBankCardDetailViewController *vctrl = [[XYJBankCardDetailViewController alloc] initWithData:self.dataArray[indexPath.row] index:indexPath.row];
     [self.navigationController pushViewController:vctrl animated:YES];
 }
 

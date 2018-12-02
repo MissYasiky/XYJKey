@@ -7,6 +7,7 @@
 //
 
 #import "XYJBankCardDetailViewController.h"
+#import "XYJAddBankCardViewController.h"
 #import "XYJDetailLabelCell.h"
 #import "XYJSwitchCell.h"
 #import "XYJTextViewCell.h"
@@ -23,15 +24,17 @@ UITableViewDataSource
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSDictionary *dataDict;
+@property (nonatomic, assign) NSInteger dataIndex;
 
 @end
 
 @implementation XYJBankCardDetailViewController
 
-- (instancetype)initWithData:(NSDictionary *)dict {
+- (instancetype)initWithData:(NSDictionary *)dict index:(NSInteger)index {
     self = [super init];
     if (self) {
         self.dataDict = dict;
+        self.dataIndex = index;
         self.titleArray = @[XYJBankNameKey, XYJBankAccountKey, XYJBankCreditCardKey, XYJEBankPasswordKey, XYJBankQueryPasswordKey, XYJBankWithdrawalPasswordKey];
     }
     return self;
@@ -52,6 +55,7 @@ UITableViewDataSource
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     _tableView.delegate = nil;
 }
 
@@ -74,6 +78,21 @@ UITableViewDataSource
 }
 
 - (void)edit {
+    XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] initWithData:self.dataDict index:self.dataIndex];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
+    [self.navigationController presentViewController:navi animated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bankCardEdited:) name:XYJEditBankCardNotification object:nil];
+    }];
+}
+
+#pragma mark - NSNotification
+
+- (void)bankCardEdited:(NSNotification *)notif {
+    id object = notif.object;
+    NSNumber *indexNumber = (NSNumber *)object;
+    NSInteger index = [indexNumber integerValue];
+    self.dataDict = [XYJCacheUtils bankCardAtIndex:index];
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableView DataSource

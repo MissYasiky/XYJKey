@@ -10,4 +10,6 @@
 
 @interface XYJAddBankCardViewController : UIViewController
 
+- (instancetype)initWithData:(NSDictionary *)dict index:(NSInteger)index;
+
 @end
