@@ -7,15 +7,14 @@
 //
 
 #import "XYJAppDelegate.h"
-#import "XYJViewController.h"
+#import "XYJPasswordViewController.h"
 
 @implementation XYJAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    XYJViewController *vctrl = [[XYJViewController alloc] init];
-    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
-    self.window.rootViewController = navi;
+    XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
+    self.window.rootViewController = vctrl;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -28,8 +27,8 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
+    self.window.rootViewController = vctrl;
 }
 
 
