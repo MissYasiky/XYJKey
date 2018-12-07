@@ -23,6 +23,7 @@
 		21E425CB21A847AB0072D134 /* XYJSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425CA21A847AB0072D134 /* XYJSwitchCell.m */; };
 		21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425CD21AA78470072D134 /* LYLUnicode.m */; };
 		21E425D121AA7B150072D134 /* XYJCacheUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425D021AA7B150072D134 /* XYJCacheUtils.m */; };
+		8E2746835B231D36EB2015F7 /* libPods-key.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB4183B23D97C082962A9B5 /* libPods-key.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,9 @@
 		21E425CD21AA78470072D134 /* LYLUnicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYLUnicode.m; sourceTree = "<group>"; };
 		21E425CF21AA7B150072D134 /* XYJCacheUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJCacheUtils.h; sourceTree = "<group>"; };
 		21E425D021AA7B150072D134 /* XYJCacheUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJCacheUtils.m; sourceTree = "<group>"; };
+		7EB4183B23D97C082962A9B5 /* libPods-key.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-key.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FA61AA0FCC3EADB0071FBF6 /* Pods-key.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-key.release.xcconfig"; path = "Pods/Target Support Files/Pods-key/Pods-key.release.xcconfig"; sourceTree = "<group>"; };
+		AA923611CADB915CAC9753B7 /* Pods-key.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-key.debug.xcconfig"; path = "Pods/Target Support Files/Pods-key/Pods-key.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E2746835B231D36EB2015F7 /* libPods-key.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +81,8 @@
 			children = (
 				21E42587218C8DF20072D134 /* key */,
 				21E42586218C8DF20072D134 /* Products */,
+				D9A1F2834C75D72B2ADFB4B8 /* Pods */,
+				2459CFD5A269DBE648726083 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,6 +164,23 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		2459CFD5A269DBE648726083 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7EB4183B23D97C082962A9B5 /* libPods-key.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D9A1F2834C75D72B2ADFB4B8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AA923611CADB915CAC9753B7 /* Pods-key.debug.xcconfig */,
+				9FA61AA0FCC3EADB0071FBF6 /* Pods-key.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -164,9 +188,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21E4259B218C8DF50072D134 /* Build configuration list for PBXNativeTarget "key" */;
 			buildPhases = (
+				B8D3FFB0EB619A6DE03455A6 /* [CP] Check Pods Manifest.lock */,
 				21E42581218C8DF20072D134 /* Sources */,
 				21E42582218C8DF20072D134 /* Frameworks */,
 				21E42583218C8DF20072D134 /* Resources */,
+				1A20EE9D8743314F0E29375F /* [CP] Embed Pods Frameworks */,
+				003C538D38C79F163A7CE220 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -220,6 +247,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		003C538D38C79F163A7CE220 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-key/Pods-key-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1A20EE9D8743314F0E29375F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-key/Pods-key-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8D3FFB0EB619A6DE03455A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-key-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		21E42581218C8DF20072D134 /* Sources */ = {
@@ -360,6 +438,7 @@
 		};
 		21E4259C218C8DF50072D134 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA923611CADB915CAC9753B7 /* Pods-key.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -369,10 +448,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -382,6 +458,7 @@
 		};
 		21E4259D218C8DF50072D134 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FA61AA0FCC3EADB0071FBF6 /* Pods-key.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -391,10 +468,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
