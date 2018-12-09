@@ -8,13 +8,20 @@
 
 #import "XYJAppDelegate.h"
 #import "XYJPasswordViewController.h"
+#import "XYJViewController.h"
 
 @implementation XYJAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+#if TARGET_IPHONE_SIMULATOR
+    XYJViewController *vctrl = [[XYJViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
+    self.window.rootViewController = navi;
+#else
     XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
     self.window.rootViewController = vctrl;
+#endif
     [self.window makeKeyAndVisible];
     return YES;
 }
