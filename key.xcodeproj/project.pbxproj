@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2158B3B021B6BD8C00399A97 /* XYJPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */; };
+		2159E07021BE9A00004590BD /* XYJBankCardDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2159E06F21BE9A00004590BD /* XYJBankCardDao.m */; };
 		2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455521B2850000878C5D /* XYJDetailLabelCell.m */; };
 		2171455921B2CDDC00878C5D /* XYJBankCardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455821B2CDDC00878C5D /* XYJBankCardDetailViewController.m */; };
 		21D1F11521B2608500671A89 /* XYJDataConstant.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21D1F11421B2608500671A89 /* XYJDataConstant.plist */; };
@@ -29,6 +30,8 @@
 /* Begin PBXFileReference section */
 		2158B3AE21B6BD8C00399A97 /* XYJPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJPasswordViewController.h; sourceTree = "<group>"; };
 		2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJPasswordViewController.m; sourceTree = "<group>"; };
+		2159E06E21BE9A00004590BD /* XYJBankCardDao.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJBankCardDao.h; sourceTree = "<group>"; };
+		2159E06F21BE9A00004590BD /* XYJBankCardDao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJBankCardDao.m; sourceTree = "<group>"; };
 		2171455421B2850000878C5D /* XYJDetailLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJDetailLabelCell.h; sourceTree = "<group>"; };
 		2171455521B2850000878C5D /* XYJDetailLabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJDetailLabelCell.m; sourceTree = "<group>"; };
 		2171455721B2CDDC00878C5D /* XYJBankCardDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJBankCardDetailViewController.h; sourceTree = "<group>"; };
@@ -76,6 +79,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2159E06D21BD21A2004590BD /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				2159E06E21BE9A00004590BD /* XYJBankCardDao.h */,
+				2159E06F21BE9A00004590BD /* XYJBankCardDao.m */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 		21E4257C218C8DF20072D134 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +112,7 @@
 				21E42588218C8DF20072D134 /* XYJAppDelegate.h */,
 				21E42589218C8DF20072D134 /* XYJAppDelegate.m */,
 				21E425B121A5887D0072D134 /* Utils */,
+				2159E06D21BD21A2004590BD /* DataBase */,
 				21E425C521A59D2F0072D134 /* Controller */,
 				21E425BD21A59CC60072D134 /* View */,
 				21E425AC219D789C0072D134 /* Supporting Files */,
@@ -310,6 +323,7 @@
 				21E425D121AA7B150072D134 /* XYJCacheUtils.m in Sources */,
 				21E425C421A59D060072D134 /* XYJAddBankCardViewController.m in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
+				2159E07021BE9A00004590BD /* XYJBankCardDao.m in Sources */,
 				21E425C821A838A80072D134 /* XYJPickerCell.m in Sources */,
 				2158B3B021B6BD8C00399A97 /* XYJPasswordViewController.m in Sources */,
 				21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */,
@@ -448,7 +462,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -468,7 +485,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.netease.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
