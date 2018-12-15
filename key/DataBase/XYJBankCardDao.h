@@ -15,11 +15,22 @@ extern NSString *const XYJBankECardPassword;
 extern NSString *const XYJBankQueryPassword;
 extern NSString *const XYJBankWithdrawalPassword;
 extern NSString *const XYJBankRemark;
+extern NSString *const XYJBankCreateTime;
 
 @interface XYJBankCardDao : NSObject
 
 + (instancetype)sharedDao;
 
 - (void)closeDataBase;
+
+- (void)insertData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block;
+
+- (void)getDataWithCompletionBlock:(void (^)(NSArray <NSDictionary *> *datas))block;
+
+- (void)getDataWithLimit:(NSUInteger)limit completionBlock:(void (^)(NSArray <NSDictionary *> *datas))block;
+
+- (void)deleteDataWithId:(NSString *)dataId completionBlock:(void(^)(BOOL success))block;
+
+- (void)updateData:(NSDictionary *)aDict;
 
 @end

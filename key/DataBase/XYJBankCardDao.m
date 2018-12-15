@@ -16,6 +16,7 @@ NSString *const XYJBankECardPassword = @"eCardPassword";
 NSString *const XYJBankQueryPassword = @"queryPassword";
 NSString *const XYJBankWithdrawalPassword = @"withdrawalPassword";
 NSString *const XYJBankRemark = @"remark";
+NSString *const XYJBankCreateTime = @"createTime";
 
 typedef NS_ENUM(NSUInteger, XYJBankCardColumn) {
     XYJBankCardColumnID = 0,
@@ -25,6 +26,7 @@ typedef NS_ENUM(NSUInteger, XYJBankCardColumn) {
     XYJBankCardColumnQueryPassword,
     XYJBankCardColumnWithdrawalPassword,
     XYJBankCardColumnRemark,
+    XYJBankCardColumnCreateTime,
     XYJBankCardColumnTotalCount
 };
 
@@ -35,6 +37,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 
 #define kSQLInteger   @"integer"
 #define kSQLText      @"text"
+#define kSQLDouble    @"real"
 
 @interface XYJBankCardDao ()
 
@@ -53,7 +56,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
         kBankCardColumnType[XYJBankCardColumnID] = kSQLText;
         
         kBankCardColumnName[XYJBankCardColumnBankName] = XYJBankName;
-        kBankCardColumnType[XYJBankCardColumnBankName] = kSQLText;
+        kBankCardColumnType[XYJBankCardColumnBankName] = kSQLInteger;
         
         kBankCardColumnName[XYJBankCardColumnCreditCard] = XYJBankCreditCard;
         kBankCardColumnType[XYJBankCardColumnCreditCard] = kSQLInteger;
@@ -69,6 +72,9 @@ static NSString * const kBankCardTable = @"bcCacheTable";
         
         kBankCardColumnName[XYJBankCardColumnRemark] = XYJBankRemark;
         kBankCardColumnType[XYJBankCardColumnRemark] = kSQLText;
+        
+        kBankCardColumnName[XYJBankCardColumnCreateTime] = XYJBankCreateTime;
+        kBankCardColumnType[XYJBankCardColumnCreateTime] = kSQLDouble;
         
         [self createTable];
     }
@@ -89,6 +95,120 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 - (void)closeDataBase {
     [self.queue close];
     [self setQueue:nil];
+}
+
+- (void)insertData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.queue inDatabase:^(FMDatabase *db) {
+            
+            NSMutableString *params = [[NSMutableString alloc] init];
+            NSMutableString *values = [[NSMutableString alloc] init];
+            NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:0];
+            
+            NSArray *keys = [aDict allKeys];
+            for (int i=0; i<keys.count; i++) {
+                NSString *key = keys[i];
+                id object = [aDict objectForKey:key];
+                if (i > 0) {
+                    [params appendFormat:@","];
+                    [values appendFormat:@","];
+                }
+                [params appendFormat:@"%@", key];
+                [values appendFormat:@"?"];
+                [arguments addObject:object];
+            }
+            NSString *executeString = [NSString stringWithFormat:@"INSERT INTO %@(%@) VALUES (%@)", kBankCardTable, params, values];
+            
+            BOOL success = [db executeUpdate:executeString withArgumentsInArray:arguments];
+            if (success == NO) {
+                NSLog(@"插入数据失败");
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (block) {
+                    block(success);
+                }
+            });
+        }];
+    });
+}
+
+- (void)getDataWithCompletionBlock:(void (^)(NSArray <NSDictionary *> *messages))block {
+    [self getDataWithLimit:0 completionBlock:block];
+}
+
+- (void)getDataWithLimit:(NSUInteger)limit completionBlock:(void (^)(NSArray <NSDictionary *> *messages))block {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.queue inDatabase:^(FMDatabase *db) {
+            
+            NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+            NSString *executeString = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY %@", kBankCardTable, kBankCardColumnName[XYJBankCardColumnCreateTime]];
+            if (limit <= 0) {
+                executeString = [executeString stringByAppendingFormat:@" LIMIT %d", MAXINTERP];
+            }
+            executeString = [executeString stringByAppendingString:@" OFFSET 0"];
+            
+            NSInteger index = 0;
+            FMResultSet *result = [db executeQuery:executeString];
+            while ([result next]) {
+                NSDictionary *data = [self convertDBResult:result];
+                [dataArray addObject:data];
+                index ++;
+            }
+            [result close];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (block) {
+                    block(dataArray);
+                }
+            });
+        }];
+    });
+}
+
+- (void)deleteDataWithId:(NSString *)dataId completionBlock:(void(^)(BOOL success))block {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.queue inDatabase:^(FMDatabase *db) {
+            NSString *executeString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = %@", kBankCardTable, kBankCardColumnName[XYJBankCardColumnID], dataId];
+            BOOL success = [db executeUpdate:executeString];
+            if (success == NO) {
+                NSLog(@"删除数据失败");
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (block) {
+                    block(success);
+                }
+            });
+        }];
+    });
+}
+
+- (void)updateData:(NSDictionary *)aDict {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.queue inDatabase:^(FMDatabase *db) {
+            
+            NSMutableString *params = [[NSMutableString alloc] init];
+            NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:0];
+            
+            NSArray *keys = [aDict allKeys];
+            for (int i=0; i<keys.count; i++) {
+                NSString *key = keys[i];
+                id object = [aDict objectForKey:key];
+                if (i > 0) {
+                    [params appendFormat:@", "];
+                }
+                [params appendFormat:@"%@ = ?", key];
+                [arguments addObject:object];
+            }
+            NSString *executeString = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = %@", kBankCardTable, params, kBankCardColumnName[XYJBankCardColumnID], aDict[XYJBankCardID]];
+            
+            BOOL success = [db executeUpdate:executeString withArgumentsInArray:arguments];
+            if (success == NO) {
+                NSLog(@"更新数据失败");
+            }
+        }];
+    });
 }
 
 #pragma mark - Private
