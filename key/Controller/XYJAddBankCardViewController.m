@@ -11,7 +11,7 @@
 #import "XYJSwitchCell.h"
 #import "XYJTextFieldCell.h"
 #import "XYJTextViewCell.h"
-#import "XYJCacheUtils.h"
+#import "XYJBankCardViewModel.h"
 
 static CGFloat pickerHeight = 200.0;
 static CGFloat pickerToolbarHeight = 34.0;
@@ -28,14 +28,8 @@ UITextFieldDelegate,
 UITextViewDelegate
 >
 
-/*
- * 列表相关属性
- */
+@property (nonatomic, strong) XYJBankCardViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *titleArray;
-@property (nonatomic, strong) NSDictionary *placeholderDict;
-@property (nonatomic, strong) NSDictionary *keyboardTypeDict;
-@property (nonatomic, strong) NSMutableDictionary *inputDataDict;
 
 /*
  * 选择器相关属性
@@ -44,30 +38,40 @@ UITextViewDelegate
 @property (nonatomic, strong) UITapGestureRecognizer *pickerViewTap;
 @property (nonatomic, strong) UIToolbar *pickerToolBar;
 @property (nonatomic, strong) UIPickerView *pickerView;
-@property (nonatomic, assign) NSInteger pickerSelectedIndex;
-@property (nonatomic, strong) NSArray *pickerDataArray;
 
 @property (nonatomic, strong) UITapGestureRecognizer *hiddenKeyboardTap;
-
-/*
- * editMode 默认是 NO，为新增数据模式，YES 时是编辑模式
- */
-@property (nonatomic, assign) BOOL editMode;
-@property (nonatomic, assign) NSInteger dataCacheIndex;
 
 @end
 
 @implementation XYJAddBankCardViewController
 
-- (instancetype)initWithData:(NSDictionary *)dict index:(NSInteger)index {
+#pragma mark - initialize
+
+- (instancetype)initWithData:(NSDictionary *)dict {
     self = [super init];
     if (self) {
-        self.editMode = YES;
-        self.dataCacheIndex = index;
-        self.inputDataDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+        if (dict) {
+            _viewModel = [[XYJBankCardViewModel alloc] initWithData:dict type:XYJBankCardViewModelTypeEdit];
+        } else {
+            _viewModel = [[XYJBankCardViewModel alloc] initWithData:nil type:XYJBankCardViewModelTypeAddNew];
+        }
+        
+        __weak __typeof(self)weakSelf = self;
+        [_viewModel setCompleteHandler:^(BOOL success) {
+            if (success) {
+                [weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
     }
     return self;
 }
+
+- (instancetype)init {
+    self = [self initWithData:nil];
+    return self;
+}
+
+#pragma mark - Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -79,8 +83,6 @@ UITextViewDelegate
     [saveItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
     self.navigationItem.leftBarButtonItem = cancelItem;
     self.navigationItem.rightBarButtonItem = saveItem;
-    
-    [self initData];
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.pickerBackgroundView];
@@ -96,28 +98,6 @@ UITextViewDelegate
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _tableView.delegate = nil;
     _pickerView.delegate = nil;
-}
-
-#pragma mark initialize
-
-- (void)initData {
-    self.pickerDataArray = [XYJCacheUtils bankNameArray];
-    
-    self.titleArray = @[XYJBankNameKey, XYJBankAccountKey, XYJBankCreditCardKey, XYJEBankPasswordKey, XYJBankQueryPasswordKey, XYJBankWithdrawalPasswordKey];
-    
-    self.placeholderDict = @{self.titleArray[1]:@"请输入银行账号", self.titleArray[3]:@"请输入网银密码",  self.titleArray[4]:@"请输入查询密码",  self.titleArray[5]:@"请输入取款密码"};
-    
-    self.keyboardTypeDict = @{self.titleArray[1]:@(UIKeyboardTypeNumberPad), self.titleArray[3]:@(UIKeyboardTypeDefault),  self.titleArray[4]:@(UIKeyboardTypeNumberPad),  self.titleArray[5]:@(UIKeyboardTypeNumberPad)};
-    
-    if (self.editMode) {
-        NSString *key = self.titleArray[0];
-        self.pickerSelectedIndex = [self.inputDataDict[key] integerValue];
-        [self.inputDataDict setObject:@(self.pickerSelectedIndex) forKey:key];
-    } else {
-        self.pickerSelectedIndex = 0;
-        NSDictionary *dict = @{self.titleArray[0]:@(self.pickerSelectedIndex), self.titleArray[1]:@"",  self.titleArray[2]:@(0),  self.titleArray[3]:@"",  self.titleArray[4]:@"",  self.titleArray[5]:@"",  XYJBankRemarkKey:@""};
-        self.inputDataDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
-    }
 }
 
 #pragma mark - Getter & Setter
@@ -147,7 +127,9 @@ UITextViewDelegate
         _pickerToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, XYJScreenHeight(), XYJScreenWidth(), pickerToolbarHeight)];
         UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"完成"
-                                                                 style:UIBarButtonItemStylePlain target:self action:@selector(hiddenPicker:)];
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(hiddenPicker:)];
         _pickerToolBar.items = @[space, item];
     }
     return _pickerToolBar;
@@ -187,15 +169,7 @@ UITextViewDelegate
 
 - (void)save {
     [self.view endEditing:YES];
-    BOOL success = NO;
-    if (self.editMode) {
-        success = [XYJCacheUtils replaceBandCard:self.inputDataDict atIndex:self.dataCacheIndex];
-    } else {
-        success = [XYJCacheUtils writeBankCardToCache:self.inputDataDict];
-    }
-    if (success) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    }
+    [self.viewModel save];
 }
 
 - (void)hiddenKeyboard {
@@ -211,11 +185,6 @@ UITextViewDelegate
 }
 
 - (void)hiddenPicker:(id)sender {
-    if (sender != self.pickerViewTap) {
-        if (self.pickerSelectedIndex >= 0 && self.pickerSelectedIndex < self.pickerDataArray.count) {
-            NSLog(@"%@", self.pickerDataArray[self.pickerSelectedIndex]);
-        }
-    }
     [UIView animateWithDuration:0.3 animations:^{
         self.pickerToolBar.frame = CGRectMake(0, XYJScreenHeight(), XYJScreenWidth(), pickerToolbarHeight);
         self.pickerView.frame = CGRectMake(0, XYJScreenHeight(), XYJScreenWidth(), pickerHeight);
@@ -226,8 +195,7 @@ UITextViewDelegate
 
 - (void)creditCardSwitch:(id)sender {
     UISwitch *aSwitch = (UISwitch *)sender;
-    NSString *key = self.titleArray[2];
-    [self.inputDataDict setObject:@(aSwitch.on) forKey:key];
+    [self.viewModel creditCard:aSwitch.isOn];
 }
 
 #pragma mark - NSNotification
@@ -244,33 +212,32 @@ UITextViewDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSInteger row = textField.tag - kTextFieldTagPlus;
-    NSString *key = self.titleArray[row];
-    [self.inputDataDict setObject:textField.text forKey:key];
-    NSLog(@"%@", self.inputDataDict);
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    [self.viewModel inputData:textField.text atIndexPath:indexPath];
 }
 
 #pragma mark - UITextView Delegate
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    [self.inputDataDict setObject:textView.text forKey:XYJBankRemarkKey];
-    NSLog(@"%@", self.inputDataDict);
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+    [self.viewModel inputData:textView.text atIndexPath:indexPath];
 }
 
 #pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return [self.viewModel sectionForTable];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 6;
-    } else {
-        return 1;
-    }
+    return [self.viewModel rowForTableAtSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *title = [self.viewModel titleAtIndexPath:indexPath];
+    NSString *key = [self.viewModel keyAtIndexPath:indexPath];
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             static NSString *cellRow0Identifier = @"cellRow0Identifier";
@@ -279,8 +246,8 @@ UITextViewDelegate
                 cell = [[XYJPickerCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:cellRow0Identifier];
             }
-            [cell setLeftLabelText:self.titleArray[indexPath.row]
-                    rightLabelText:self.pickerDataArray[self.pickerSelectedIndex]];
+            [cell setLeftLabelText:title
+                    rightLabelText:[self.viewModel selectedBankName]];
             return cell;
         } else if (indexPath.row == 2) {
             static NSString *cellRow2Identifier = @"cellRow2Identifier";
@@ -288,11 +255,10 @@ UITextViewDelegate
             if (cell == nil) {
                 cell = [[XYJSwitchCell alloc] initWithStyle:UITableViewCellStyleDefault
                                               reuseIdentifier:cellRow2Identifier];
+                [cell.aSwitch addTarget:self action:@selector(creditCardSwitch:) forControlEvents:UIControlEventValueChanged];
             }
-            NSString *key = self.titleArray[indexPath.row];
-            BOOL on = [self.inputDataDict[key] boolValue];
-            [cell setLeftLabelText:key switchOn:on];
-            [cell.aSwitch addTarget:self action:@selector(creditCardSwitch:) forControlEvents:UIControlEventValueChanged];
+            [cell setLeftLabelText:title
+                          switchOn:[self.viewModel isCreditCard]];
             return cell;
         } else {
             static NSString *cellIdentifier = @"cellIdentifier";
@@ -300,14 +266,14 @@ UITextViewDelegate
             if (cell == nil) {
                 cell = [[XYJTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault
                                               reuseIdentifier:cellIdentifier];
+                [cell setTextFieldDelegate:self];
             }
-            NSString *key = self.titleArray[indexPath.row];
-            UIKeyboardType type = [self.keyboardTypeDict[key] integerValue];
+            UIKeyboardType type = [self.viewModel.keyboardTypeDict[key] integerValue];
             [cell setTextFieldTag:(indexPath.row + kTextFieldTagPlus)
-                      placeholder:self.placeholderDict[key]
-                         delegate:self
+                      placeholder:self.viewModel.placeholderDict[key]
                      keyboardTyep:type];
-            [cell setLeftLabelText:key textFieldContent:self.inputDataDict[key]];
+            [cell setLeftLabelText:title
+                  textFieldContent:[self.viewModel inputDataAtIndexPath:indexPath]];
             return cell;
         }
         
@@ -317,9 +283,9 @@ UITextViewDelegate
         if (cell == nil) {
             cell = [[XYJTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:cellIdentifier2];
+            cell.textView.delegate = self;
         }
-        [cell setTextViewContent:self.inputDataDict[XYJBankRemarkKey]];
-        cell.textView.delegate = self;
+        [cell setTextViewContent:[self.viewModel inputDataAtIndexPath:indexPath]];
         return cell;
     }
 }
@@ -343,7 +309,7 @@ UITextViewDelegate
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];
         label.font = [UIFont systemFontOfSize:14];
         label.textColor = XYJColor(0x696969, 1.0);
-        label.text = XYJBankRemarkKey;
+        label.text = @"备注";
         [view addSubview:label];
         return view;
     }
@@ -379,14 +345,14 @@ UITextViewDelegate
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.pickerDataArray.count;
+    return self.viewModel.pickerDataArray.count;
 }
 
 #pragma mark - UIPickerViewDelegate
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return self.pickerDataArray[row];
+    return self.viewModel.pickerDataArray[row];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
@@ -394,9 +360,9 @@ UITextViewDelegate
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.pickerSelectedIndex = row;
-    NSString *key = self.titleArray[0];
-    [self.inputDataDict setObject:@(self.pickerSelectedIndex) forKey:key];
+
+    [self.viewModel selectBankAtIndex:row];
+    
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
 }

@@ -18,6 +18,9 @@ NSString *const XYJBankWithdrawalPassword = @"withdrawalPassword";
 NSString *const XYJBankRemark = @"remark";
 NSString *const XYJBankCreateTime = @"createTime";
 
+NSString *const XYJAddNewBankCardNotification = @"XYJAddNewBankCardNotification";
+NSString *const XYJEditBankCardNotification = @"XYJEditBankCardNotification";
+
 typedef NS_ENUM(NSUInteger, XYJBankCardColumn) {
     XYJBankCardColumnID = 0,
     XYJBankCardColumnBankName,
@@ -65,10 +68,10 @@ static NSString * const kBankCardTable = @"bcCacheTable";
         kBankCardColumnType[XYJBankCardColumnECardPassword] = kSQLText;
         
         kBankCardColumnName[XYJBankCardColumnQueryPassword] = XYJBankQueryPassword;
-        kBankCardColumnType[XYJBankCardColumnQueryPassword] = kSQLInteger;
+        kBankCardColumnType[XYJBankCardColumnQueryPassword] = kSQLText;
         
         kBankCardColumnName[XYJBankCardColumnWithdrawalPassword] = XYJBankWithdrawalPassword;
-        kBankCardColumnType[XYJBankCardColumnWithdrawalPassword] = kSQLInteger;
+        kBankCardColumnType[XYJBankCardColumnWithdrawalPassword] = kSQLText;
         
         kBankCardColumnName[XYJBankCardColumnRemark] = XYJBankRemark;
         kBankCardColumnType[XYJBankCardColumnRemark] = kSQLText;
@@ -120,7 +123,9 @@ static NSString * const kBankCardTable = @"bcCacheTable";
             NSString *executeString = [NSString stringWithFormat:@"INSERT INTO %@(%@) VALUES (%@)", kBankCardTable, params, values];
             
             BOOL success = [db executeUpdate:executeString withArgumentsInArray:arguments];
-            if (success == NO) {
+            if (success) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:XYJAddNewBankCardNotification object:aDict];
+            } else {
                 NSLog(@"插入数据失败");
             }
             
@@ -184,7 +189,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
     });
 }
 
-- (void)updateData:(NSDictionary *)aDict {
+- (void)updateData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
             
@@ -204,9 +209,17 @@ static NSString * const kBankCardTable = @"bcCacheTable";
             NSString *executeString = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = %@", kBankCardTable, params, kBankCardColumnName[XYJBankCardColumnID], aDict[XYJBankCardID]];
             
             BOOL success = [db executeUpdate:executeString withArgumentsInArray:arguments];
-            if (success == NO) {
+            if (success) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:XYJEditBankCardNotification object:aDict];
+            } else {
                 NSLog(@"更新数据失败");
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (block) {
+                    block(success);
+                }
+            });
         }];
     });
 }

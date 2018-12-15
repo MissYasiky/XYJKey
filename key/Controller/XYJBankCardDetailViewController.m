@@ -78,10 +78,10 @@ UITableViewDataSource
 }
 
 - (void)edit {
-    XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] initWithData:self.dataDict index:self.dataIndex];
+    XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] initWithData:self.dataDict];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
     [self.navigationController presentViewController:navi animated:YES completion:^{
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bankCardEdited:) name:XYJEditBankCardNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bankCardEdited:) name:XYJEditBankCardNotification object:nil];
     }];
 }
 

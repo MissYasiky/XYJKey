@@ -51,15 +51,17 @@ static CGFloat kRightPad = 15.0;
                            
 #pragma mark - Public
 
+- (void)setTextFieldDelegate:(id<UITextFieldDelegate>)delegate {
+    self.textField.delegate = delegate;
+}
+
 - (void)setTextFieldTag:(NSInteger)tag
             placeholder:(NSString *)text
-               delegate:(id<UITextFieldDelegate>)delegate
            keyboardTyep:(UIKeyboardType)type {
     self.textField.tag = tag;
     if (text != nil && text.length != 0) {
         self.textField.placeholder = text;
     }
-    self.textField.delegate = delegate;
     self.textField.keyboardType = type;
 }
 

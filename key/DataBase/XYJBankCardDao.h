@@ -17,6 +17,9 @@ extern NSString *const XYJBankWithdrawalPassword;
 extern NSString *const XYJBankRemark;
 extern NSString *const XYJBankCreateTime;
 
+extern NSString *const XYJAddNewBankCardNotification;
+extern NSString * const XYJEditBankCardNotification;
+
 @interface XYJBankCardDao : NSObject
 
 + (instancetype)sharedDao;
@@ -31,6 +34,6 @@ extern NSString *const XYJBankCreateTime;
 
 - (void)deleteDataWithId:(NSString *)dataId completionBlock:(void(^)(BOOL success))block;
 
-- (void)updateData:(NSDictionary *)aDict;
+- (void)updateData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block;
 
 @end

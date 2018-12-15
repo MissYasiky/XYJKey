@@ -10,9 +10,10 @@
 
 @interface XYJTextFieldCell : UITableViewCell
 
+- (void)setTextFieldDelegate:(id<UITextFieldDelegate>)delegate;
+
 - (void)setTextFieldTag:(NSInteger)tag
             placeholder:(NSString *)text
-               delegate:(id<UITextFieldDelegate>)delegate
            keyboardTyep:(UIKeyboardType)type;
 
 - (void)setLeftLabelText:(NSString *)leftContent textFieldContent:(NSString *)rightContent;

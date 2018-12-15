@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2126558521C4A5EE00A74BAF /* XYJBankCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126558421C4A5EE00A74BAF /* XYJBankCardViewModel.m */; };
 		2158B3B021B6BD8C00399A97 /* XYJPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */; };
 		2159E07021BE9A00004590BD /* XYJBankCardDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2159E06F21BE9A00004590BD /* XYJBankCardDao.m */; };
 		2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455521B2850000878C5D /* XYJDetailLabelCell.m */; };
@@ -28,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2126558321C4A5EE00A74BAF /* XYJBankCardViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJBankCardViewModel.h; sourceTree = "<group>"; };
+		2126558421C4A5EE00A74BAF /* XYJBankCardViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJBankCardViewModel.m; sourceTree = "<group>"; };
 		2158B3AE21B6BD8C00399A97 /* XYJPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJPasswordViewController.h; sourceTree = "<group>"; };
 		2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJPasswordViewController.m; sourceTree = "<group>"; };
 		2159E06E21BE9A00004590BD /* XYJBankCardDao.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJBankCardDao.h; sourceTree = "<group>"; };
@@ -79,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2126558221C4A5B300A74BAF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2126558321C4A5EE00A74BAF /* XYJBankCardViewModel.h */,
+				2126558421C4A5EE00A74BAF /* XYJBankCardViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		2159E06D21BD21A2004590BD /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +125,7 @@
 				21E42589218C8DF20072D134 /* XYJAppDelegate.m */,
 				21E425B121A5887D0072D134 /* Utils */,
 				2159E06D21BD21A2004590BD /* DataBase */,
+				2126558221C4A5B300A74BAF /* ViewModel */,
 				21E425C521A59D2F0072D134 /* Controller */,
 				21E425BD21A59CC60072D134 /* View */,
 				21E425AC219D789C0072D134 /* Supporting Files */,
@@ -331,6 +344,7 @@
 				21E425B621A589250072D134 /* XYJTextFieldCell.m in Sources */,
 				2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */,
 				21E425C321A59D060072D134 /* XYJViewController.m in Sources */,
+				2126558521C4A5EE00A74BAF /* XYJBankCardViewModel.m in Sources */,
 				21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
