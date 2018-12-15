@@ -11,6 +11,7 @@
 #import "XYJAddBankCardViewController.h"
 #import "XYJDetailLabelCell.h"
 #import "XYJCacheUtils.h"
+#import "XYJBankCardDao.h"
 
 @interface XYJViewController ()<
 UITableViewDelegate,
@@ -28,7 +29,15 @@ UITableViewDataSource
     [super viewDidLoad];
     self.view.backgroundColor = XYJColor(0xf4f4f4, 1.0);
     
-    self.dataArray = [[NSMutableArray alloc] initWithArray:[XYJCacheUtils bankCardFromCache]];
+    self.dataArray = [[NSMutableArray alloc] init];
+    
+    __weak __typeof(self)weakSelf = self;
+    [[XYJBankCardDao sharedDao] getDataWithCompletionBlock:^(NSArray<NSDictionary *> *datas) {
+        [weakSelf.dataArray addObjectsFromArray:datas];
+        [weakSelf.tableView reloadData];
+        weakSelf.tableView.dataSource = self;
+    }];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newBankCardAdded:) name:XYJAddNewBankCardNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bankCardEdited:) name:XYJEditBankCardNotification object:nil];
     
@@ -56,7 +65,6 @@ UITableViewDataSource
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), XYJScreenHeight()) style:UITableViewStylePlain];
         _tableView.backgroundColor = XYJColor(0xf4f4f4, 1.0);
         _tableView.delegate = self;
-        _tableView.dataSource = self;
         
         UIView *view = [[UIView alloc] init];
         _tableView.tableFooterView = view;
@@ -102,10 +110,10 @@ UITableViewDataSource
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator selectionStyle:UITableViewCellSelectionStyleDefault];
     }
     NSDictionary *info = self.dataArray[indexPath.row];
-    NSInteger bankIndex = [info[XYJBankNameKey] integerValue];
+    NSInteger bankIndex = [info[XYJBankName] integerValue];
     NSString *leftContent = [XYJCacheUtils bankNameArray][bankIndex];
     
-    NSString *account = info[XYJBankAccountKey];
+    NSString *account = info[XYJBankCardID];
     NSString *rightContent = [NSString stringWithFormat:@"尾号%@", account.length >= 4 ? [account substringFromIndex:account.length - 4] : account];
     [cell setLeftLabelText:leftContent rightLabelText:rightContent];
     return cell;
@@ -135,14 +143,19 @@ UITableViewDataSource
     if (editingStyle != UITableViewCellEditingStyleDelete) {
         return;
     }
+    __weak __typeof(self)weakSelf = self;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"删除后数据不可恢复" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"确认删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        BOOL success = [XYJCacheUtils deleteBankCardAtIndex:indexPath.row];
-        if (success) {
-            [self.dataArray removeObjectAtIndex:indexPath.row];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        }
-    }];
+        NSDictionary *info = weakSelf.dataArray[indexPath.row];
+        NSString *dataId = info[XYJBankCardID];
+        [[XYJBankCardDao sharedDao] deleteDataWithId:dataId
+                                     completionBlock:^(BOOL success) {
+                                         if (success) {
+                                             [self.dataArray removeObjectAtIndex:indexPath.row];
+                                             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                                         }
+                                     }];
+            }];
     UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:deleteAction];
     [alert addAction:cancleAction];
