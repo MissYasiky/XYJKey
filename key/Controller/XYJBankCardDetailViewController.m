@@ -11,31 +11,25 @@
 #import "XYJDetailLabelCell.h"
 #import "XYJSwitchCell.h"
 #import "XYJTextViewCell.h"
-#import "XYJCacheUtils.h"
+#import "XYJBankCardDao.h"
+#import "XYJBankCardViewModel.h"
 
 @interface XYJBankCardDetailViewController ()<
 UITableViewDelegate,
 UITableViewDataSource
 >
 
-/*
- * 列表相关属性
- */
+@property (nonatomic, strong) XYJBankCardViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *titleArray;
-@property (nonatomic, strong) NSDictionary *dataDict;
-@property (nonatomic, assign) NSInteger dataIndex;
 
 @end
 
 @implementation XYJBankCardDetailViewController
 
-- (instancetype)initWithData:(NSDictionary *)dict index:(NSInteger)index {
+- (instancetype)initWithData:(NSDictionary *)dict {
     self = [super init];
     if (self) {
-        self.dataDict = dict;
-        self.dataIndex = index;
-        self.titleArray = @[XYJBankNameKey, XYJBankAccountKey, XYJBankCreditCardKey, XYJEBankPasswordKey, XYJBankQueryPasswordKey, XYJBankWithdrawalPasswordKey];
+        _viewModel = [[XYJBankCardViewModel alloc] initWithData:dict type:XYJBankCardViewModelTypeDetail];
     }
     return self;
 }
@@ -78,7 +72,7 @@ UITableViewDataSource
 }
 
 - (void)edit {
-    XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] initWithData:self.dataDict];
+    XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] initWithData:self.viewModel.inputDataDict];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
     [self.navigationController presentViewController:navi animated:YES completion:^{
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bankCardEdited:) name:XYJEditBankCardNotification object:nil];
@@ -88,28 +82,25 @@ UITableViewDataSource
 #pragma mark - NSNotification
 
 - (void)bankCardEdited:(NSNotification *)notif {
-    id object = notif.object;
-    NSNumber *indexNumber = (NSNumber *)object;
-    NSInteger index = [indexNumber integerValue];
-    self.dataDict = [XYJCacheUtils bankCardAtIndex:index];
+    id dict = notif.object;
+    [self.viewModel updateData:dict];
     [self.tableView reloadData];
 }
 
 #pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return [self.viewModel sectionForTable];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 6;
-    } else {
-        return 1;
-    }
+    return [self.viewModel rowForTableAtSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *title = [self.viewModel titleAtIndexPath:indexPath];
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 2) {
             static NSString *cellRow2Identifier = @"cellRow2Identifier";
@@ -117,11 +108,10 @@ UITableViewDataSource
             if (cell == nil) {
                 cell = [[XYJSwitchCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:cellRow2Identifier];
+                cell.aSwitch.enabled = NO;
             }
-            NSString *key = self.titleArray[indexPath.row];
-            BOOL on = [self.dataDict[key] boolValue];
-            [cell setLeftLabelText:key switchOn:on];
-            cell.aSwitch.enabled = NO;
+            [cell setLeftLabelText:title
+                          switchOn:[self.viewModel isCreditCard]];
             return cell;
         } else {
             static NSString *cellRow0Identifier = @"cellRow0Identifier";
@@ -130,12 +120,12 @@ UITableViewDataSource
                 cell = [[XYJDetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                  reuseIdentifier:cellRow0Identifier];
             }
-            NSString *key = self.titleArray[indexPath.row];
             if (indexPath.row == 0) {
-                NSInteger index = [self.dataDict[key] integerValue];
-                [cell setLeftLabelText:key rightLabelText:[XYJCacheUtils bankNameArray][index]];
+                [cell setLeftLabelText:title
+                        rightLabelText:[self.viewModel selectedBankName]];
             } else {
-                [cell setLeftLabelText:key rightLabelText:self.dataDict[key]];
+                [cell setLeftLabelText:title
+                        rightLabelText:[self.viewModel inputDataAtIndexPath:indexPath]];
             }
             return cell;
             
@@ -146,9 +136,9 @@ UITableViewDataSource
         if (cell == nil) {
             cell = [[XYJTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:cellIdentifier2];
+            cell.textView.editable = NO;
         }
-        [cell setTextViewContent:self.dataDict[XYJBankRemarkKey]];
-        cell.textView.editable = NO;
+        [cell setTextViewContent:[self.viewModel inputDataAtIndexPath:indexPath]];
         return cell;
     }
 }
@@ -172,7 +162,7 @@ UITableViewDataSource
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];
         label.font = [UIFont systemFontOfSize:14];
         label.textColor = XYJColor(0x696969, 1.0);
-        label.text = XYJBankRemarkKey;
+        label.text = @"备注";
         [view addSubview:label];
         return view;
     }

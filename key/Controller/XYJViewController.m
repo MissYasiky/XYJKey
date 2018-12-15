@@ -88,11 +88,14 @@ UITableViewDataSource
 }
 
 - (void)bankCardEdited:(NSNotification *)notif {
-    id object = notif.object;
-    NSNumber *indexNumber = (NSNumber *)object;
-    NSInteger index = [indexNumber integerValue];
-    NSDictionary *metaDict = [XYJCacheUtils bankCardAtIndex:index];
-    [self.dataArray replaceObjectAtIndex:index withObject:metaDict];
+    id data = notif.object;
+    NSString *dataId = data[XYJBankCardID];
+    for (int i = 0; i < [self.dataArray count]; i++) {
+        NSDictionary *dict = self.dataArray[i];
+        if ([dataId isEqualToString:dict[XYJBankCardID]]) {
+            [self.dataArray replaceObjectAtIndex:i withObject:data];
+        }
+    }
 }
 
 #pragma mark - UITableView DataSource
@@ -127,7 +130,7 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    XYJBankCardDetailViewController *vctrl = [[XYJBankCardDetailViewController alloc] initWithData:self.dataArray[indexPath.row] index:indexPath.row];
+    XYJBankCardDetailViewController *vctrl = [[XYJBankCardDetailViewController alloc] initWithData:self.dataArray[indexPath.row]];
     [self.navigationController pushViewController:vctrl animated:YES];
 }
 
