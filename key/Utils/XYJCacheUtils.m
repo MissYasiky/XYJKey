@@ -7,6 +7,7 @@
 //
 
 #import "XYJCacheUtils.h"
+#import "NSString+XYJMess.h"
 
 @implementation XYJCacheUtils
 
@@ -15,6 +16,36 @@
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
     NSArray *array = dict[@"bankName"];
     return array;
+}
+
++ (NSDictionary *)messDataBeforeCache:(NSDictionary *)originDict {
+    NSMutableDictionary *muDict = [NSMutableDictionary new];
+    for (NSString *key in [originDict allKeys]) {
+        id value = originDict[key];
+        if ([value isKindOfClass:[NSString class]]) {
+            [muDict setObject:[value xyjmess] forKey:key];
+        } else {
+            [muDict setObject:value forKey:key];
+        }
+    }
+    return [muDict mutableCopy];
+}
+
++ (NSDictionary *)revertMessedData:(NSDictionary *)originDict {
+    NSMutableDictionary *muDict = [NSMutableDictionary new];
+    for (NSString *key in [originDict allKeys]) {
+        id value = originDict[key];
+        if ([value isKindOfClass:[NSString class]]) {
+            [muDict setObject:[value xyjrevert] forKey:key];
+        } else {
+            [muDict setObject:value forKey:key];
+        }
+    }
+    return [muDict mutableCopy];
+}
+
++ (NSString *)realCacheString:(NSString *)userString {
+    return [userString xyjmess];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "XYJBankCardDao.h"
+#import "XYJCacheUtils.h"
 #import <FMDB/FMDB.h>
 
 NSString *const XYJBankCardID = @"cardID";
@@ -101,6 +102,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 }
 
 - (void)insertData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block {
+    NSDictionary *dict = [XYJCacheUtils messDataBeforeCache:aDict];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
             
@@ -108,10 +110,10 @@ static NSString * const kBankCardTable = @"bcCacheTable";
             NSMutableString *values = [[NSMutableString alloc] init];
             NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:0];
             
-            NSArray *keys = [aDict allKeys];
+            NSArray *keys = [dict allKeys];
             for (int i=0; i<keys.count; i++) {
                 NSString *key = keys[i];
-                id object = [aDict objectForKey:key];
+                id object = [dict objectForKey:key];
                 if (i > 0) {
                     [params appendFormat:@","];
                     [values appendFormat:@","];
@@ -172,9 +174,10 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 }
 
 - (void)deleteDataWithId:(NSString *)dataId completionBlock:(void(^)(BOOL success))block {
+    NSString *realID = [XYJCacheUtils realCacheString:dataId];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
-            NSString *executeString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = %@", kBankCardTable, kBankCardColumnName[XYJBankCardColumnID], dataId];
+            NSString *executeString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = %@", kBankCardTable, kBankCardColumnName[XYJBankCardColumnID], realID];
             BOOL success = [db executeUpdate:executeString];
             if (success == NO) {
                 NSLog(@"删除数据失败");
@@ -190,23 +193,24 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 }
 
 - (void)updateData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block {
+    NSDictionary *dict = [XYJCacheUtils messDataBeforeCache:aDict];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
             
             NSMutableString *params = [[NSMutableString alloc] init];
             NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:0];
             
-            NSArray *keys = [aDict allKeys];
+            NSArray *keys = [dict allKeys];
             for (int i=0; i<keys.count; i++) {
                 NSString *key = keys[i];
-                id object = [aDict objectForKey:key];
+                id object = [dict objectForKey:key];
                 if (i > 0) {
                     [params appendFormat:@", "];
                 }
                 [params appendFormat:@"%@ = ?", key];
                 [arguments addObject:object];
             }
-            NSString *executeString = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = %@", kBankCardTable, params, kBankCardColumnName[XYJBankCardColumnID], aDict[XYJBankCardID]];
+            NSString *executeString = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = %@", kBankCardTable, params, kBankCardColumnName[XYJBankCardColumnID], dict[XYJBankCardID]];
             
             BOOL success = [db executeUpdate:executeString withArgumentsInArray:arguments];
             if (success) {
@@ -291,7 +295,8 @@ static NSString * const kBankCardTable = @"bcCacheTable";
             [muDict setValue:object forKey:key];
         }
     }
-    return [muDict mutableCopy];
+    NSDictionary *resultDict = [XYJCacheUtils revertMessedData:[muDict mutableCopy]];
+    return resultDict;
 }
 
 @end
