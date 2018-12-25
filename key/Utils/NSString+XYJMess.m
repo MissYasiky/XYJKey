@@ -48,9 +48,21 @@ static NSDictionary *numberRevertMap() {
     return dict;
 }
 
+static int const upperCaseAASCII = 65;
+static int const upperCaseZASCII = 90;
+static int const lowerCaseAASCII = 97;
+static int const lowerCaseZASCII = 122;
+static int const messASCIIGap = -4;
+
+static int const messedUpperCaseAASCII = upperCaseAASCII + messASCIIGap;
+static int const messedUpperCaseZASCII = upperCaseZASCII + messASCIIGap;
+static int const messedLowerCaseAASCII = lowerCaseAASCII + messASCIIGap;
+static int const messedLowerCaseZASCII = lowerCaseZASCII + messASCIIGap;
+static int const revertASCIIGap = -messASCIIGap;
+
 @implementation NSString (XYJMess)
 
-- (NSString *)xyjmess {
+- (NSString *)xyj_mess {
     if (self.length == 0) {
         return self;
     }
@@ -60,6 +72,10 @@ static NSDictionary *numberRevertMap() {
         BOOL isNumber = [character isSingleCharacterIsNumber];
         if (isNumber) {
             [muString appendString:numberMessMap()[character]];
+        } else if ([character isSingleCharacter]) {
+            int asciiCode = [character characterAtIndex:0];
+            NSString *newCharacter =[NSString stringWithFormat:@"%c",asciiCode + messASCIIGap];
+            [muString appendString:newCharacter];
         } else {
             [muString appendString:character];
         }
@@ -67,7 +83,7 @@ static NSDictionary *numberRevertMap() {
     return [muString mutableCopy];
 }
 
-- (NSString *)xyjrevert {
+- (NSString *)xyj_revert {
     if (self.length == 0) {
         return self;
     }
@@ -77,6 +93,10 @@ static NSDictionary *numberRevertMap() {
         BOOL isNumber = [character isSingleCharacterIsNumber];
         if (isNumber) {
             [muString appendString:numberRevertMap()[character]];
+        } else if ([character isSingleRevertCharacter]) {
+            int asciiCode = [character characterAtIndex:0];
+            NSString *newCharacter =[NSString stringWithFormat:@"%c",asciiCode + revertASCIIGap];
+            [muString appendString:newCharacter];
         } else {
             [muString appendString:character];
         }
@@ -96,6 +116,22 @@ static NSDictionary *numberRevertMap() {
         return YES;
     }
     return NO;
+}
+
+- (BOOL)isSingleCharacter {
+    if (self.length != 1) {
+        return NO;
+    }
+    int asciiCode = [self characterAtIndex:0];
+    return ((asciiCode >= upperCaseAASCII && asciiCode <= upperCaseZASCII) || (asciiCode >= lowerCaseAASCII && asciiCode <= lowerCaseZASCII));
+}
+
+- (BOOL)isSingleRevertCharacter {
+    if (self.length != 1) {
+        return NO;
+    }
+    int asciiCode = [self characterAtIndex:0];
+    return ((asciiCode >= messedUpperCaseAASCII && asciiCode <= messedUpperCaseZASCII) || (asciiCode >= messedLowerCaseAASCII && asciiCode <= messedLowerCaseZASCII));
 }
 
 @end

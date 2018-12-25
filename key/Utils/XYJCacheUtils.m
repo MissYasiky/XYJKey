@@ -23,7 +23,7 @@
     for (NSString *key in [originDict allKeys]) {
         id value = originDict[key];
         if ([value isKindOfClass:[NSString class]]) {
-            [muDict setObject:[value xyjmess] forKey:key];
+            [muDict setObject:[value xyj_mess] forKey:key];
         } else {
             [muDict setObject:value forKey:key];
         }
@@ -36,7 +36,7 @@
     for (NSString *key in [originDict allKeys]) {
         id value = originDict[key];
         if ([value isKindOfClass:[NSString class]]) {
-            [muDict setObject:[value xyjrevert] forKey:key];
+            [muDict setObject:[value xyj_revert] forKey:key];
         } else {
             [muDict setObject:value forKey:key];
         }
@@ -45,7 +45,7 @@
 }
 
 + (NSString *)realCacheString:(NSString *)userString {
-    return [userString xyjmess];
+    return [userString xyj_mess];
 }
 
 @end

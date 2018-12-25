@@ -10,8 +10,8 @@
 
 @interface NSString (XYJMess)
 
-- (NSString *)xyjmess;
+- (NSString *)xyj_mess;
 
-- (NSString *)xyjrevert;
+- (NSString *)xyj_revert;
 
 @end
