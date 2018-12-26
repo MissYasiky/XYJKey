@@ -74,17 +74,10 @@ UITableViewDataSource
 - (void)edit {
     XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] initWithData:self.viewModel.inputDataDict];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
-    [self.navigationController presentViewController:navi animated:YES completion:^{
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bankCardEdited:) name:XYJEditBankCardNotification object:nil];
+    __weak __typeof(self)weakSelf = self;
+    [self.navigationController presentViewController:navi animated:NO completion:^{
+        [weakSelf.navigationController popViewControllerAnimated:NO];
     }];
-}
-
-#pragma mark - NSNotification
-
-- (void)bankCardEdited:(NSNotification *)notif {
-    id dict = notif.object;
-    [self.viewModel updateData:dict];
-    [self.tableView reloadData];
 }
 
 #pragma mark - UITableView DataSource

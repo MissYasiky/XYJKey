@@ -18,7 +18,7 @@ extern NSString *const XYJBankRemark;
 extern NSString *const XYJBankCreateTime;
 
 extern NSString *const XYJAddNewBankCardNotification;
-extern NSString * const XYJEditBankCardNotification;
+extern NSString *const XYJEditBankCardNotification;
 
 @interface XYJBankCardDao : NSObject
 

@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, XYJBankCardViewModelType) {
 
 @interface XYJBankCardViewModel : NSObject
 
+@property (nonatomic, assign, readonly) XYJBankCardViewModelType type;
 @property (nonatomic, strong, readonly) NSMutableDictionary *inputDataDict;
 
 @property (nonatomic, strong, readonly) NSArray *tableDataSourceArray;

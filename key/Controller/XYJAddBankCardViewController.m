@@ -62,6 +62,11 @@ UITextViewDelegate
                 [weakSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
             }
         }];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(willEnterBackground:)
+                                                     name:UIApplicationWillResignActiveNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -208,7 +213,19 @@ UITextViewDelegate
     [self.view removeGestureRecognizer:self.hiddenKeyboardTap];
 }
 
+- (void)willEnterBackground:(NSNotification *)notification {
+    [self save];
+}
+
 #pragma mark - UITextField Delegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    NSInteger row = textField.tag - kTextFieldTagPlus;
+    if (self.viewModel.type == XYJBankCardViewModelTypeEdit && row == 1) {
+        return NO;
+    }
+    return YES;
+}
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSInteger row = textField.tag - kTextFieldTagPlus;
@@ -218,9 +235,20 @@ UITextViewDelegate
 
 #pragma mark - UITextView Delegate
 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGFloat originOffset = self.tableView.contentOffset.y;
+        [self.tableView setContentOffset:CGPointMake(0, originOffset+42+10)];
+    });
+}
+
 - (void)textViewDidEndEditing:(UITextView *)textView {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     [self.viewModel inputData:textView.text atIndexPath:indexPath];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView setContentOffset:CGPointMake(0, -64)];
+    });
 }
 
 #pragma mark - UITableView DataSource
