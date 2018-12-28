@@ -172,6 +172,10 @@
 }
 
 - (void)save {
+    NSString *cardId = self.inputDataDict[XYJBankCardID];
+    if (cardId == nil || cardId.length == 0) {
+        return;
+    }
     if (self.type == XYJBankCardViewModelTypeAddNew) {
         double createTime = [[NSDate date] timeIntervalSince1970];
         [self.inputDataDict setObject:@(createTime) forKey:XYJBankCreateTime];

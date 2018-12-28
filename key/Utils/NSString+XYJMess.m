@@ -49,15 +49,8 @@ static NSDictionary *numberRevertMap() {
 }
 
 static int const upperCaseAASCII = 65;
-static int const upperCaseZASCII = 90;
-static int const lowerCaseAASCII = 97;
 static int const lowerCaseZASCII = 122;
 static int const messASCIIGap = -4;
-
-static int const messedUpperCaseAASCII = upperCaseAASCII + messASCIIGap;
-static int const messedUpperCaseZASCII = upperCaseZASCII + messASCIIGap;
-static int const messedLowerCaseAASCII = lowerCaseAASCII + messASCIIGap;
-static int const messedLowerCaseZASCII = lowerCaseZASCII + messASCIIGap;
 static int const revertASCIIGap = -messASCIIGap;
 
 @implementation NSString (XYJMess)
@@ -69,12 +62,11 @@ static int const revertASCIIGap = -messASCIIGap;
     NSMutableString *muString = [[NSMutableString alloc] initWithString:@""];
     for (int i = 0; i < self.length; i++) {
         NSString *character = [self substringWithRange:NSMakeRange(i, 1)];
-        BOOL isNumber = [character isSingleCharacterIsNumber];
+        BOOL isNumber = [character isSingleNumber];
         if (isNumber) {
             [muString appendString:numberMessMap()[character]];
         } else if ([character isSingleCharacter]) {
-            int asciiCode = [character characterAtIndex:0];
-            NSString *newCharacter =[NSString stringWithFormat:@"%c",asciiCode + messASCIIGap];
+            NSString *newCharacter = [character messCharacter:messASCIIGap];
             [muString appendString:newCharacter];
         } else {
             [muString appendString:character];
@@ -90,12 +82,11 @@ static int const revertASCIIGap = -messASCIIGap;
     NSMutableString *muString = [[NSMutableString alloc] initWithString:@""];
     for (int i = 0; i < self.length; i++) {
         NSString *character = [self substringWithRange:NSMakeRange(i, 1)];
-        BOOL isNumber = [character isSingleCharacterIsNumber];
+        BOOL isNumber = [character isSingleNumber];
         if (isNumber) {
             [muString appendString:numberRevertMap()[character]];
-        } else if ([character isSingleRevertCharacter]) {
-            int asciiCode = [character characterAtIndex:0];
-            NSString *newCharacter =[NSString stringWithFormat:@"%c",asciiCode + revertASCIIGap];
+        } else if ([character isSingleCharacter]) {
+            NSString *newCharacter = [character messCharacter:revertASCIIGap];
             [muString appendString:newCharacter];
         } else {
             [muString appendString:character];
@@ -104,7 +95,8 @@ static int const revertASCIIGap = -messASCIIGap;
     return [muString mutableCopy];
 }
 
-- (BOOL)isSingleCharacterIsNumber {
+// 是否为一位数的数字字符串
+- (BOOL)isSingleNumber {
     if (self.length != 1) {
         return NO;
     }
@@ -118,20 +110,31 @@ static int const revertASCIIGap = -messASCIIGap;
     return NO;
 }
 
+// 还包括 ASCII 码处于大小写字母中间的几个符号 [ \ ] ^ _ '
 - (BOOL)isSingleCharacter {
     if (self.length != 1) {
         return NO;
     }
     int asciiCode = [self characterAtIndex:0];
-    return ((asciiCode >= upperCaseAASCII && asciiCode <= upperCaseZASCII) || (asciiCode >= lowerCaseAASCII && asciiCode <= lowerCaseZASCII));
+    return (asciiCode >= upperCaseAASCII && asciiCode <= lowerCaseZASCII);
 }
 
-- (BOOL)isSingleRevertCharacter {
+- (NSString *)messCharacter:(int)messPad {
     if (self.length != 1) {
-        return NO;
+        return self;
+    }
+    if ([self isSingleCharacter] == NO) {
+        return self;
     }
     int asciiCode = [self characterAtIndex:0];
-    return ((asciiCode >= messedUpperCaseAASCII && asciiCode <= messedUpperCaseZASCII) || (asciiCode >= messedLowerCaseAASCII && asciiCode <= messedLowerCaseZASCII));
+    int newAsciiCode = asciiCode + messPad;
+    if (asciiCode + messPad < upperCaseAASCII) {
+        newAsciiCode = lowerCaseZASCII - upperCaseAASCII + (asciiCode + messPad) + 1;
+    } else if (asciiCode + messPad > lowerCaseZASCII) {
+        newAsciiCode = upperCaseAASCII + (asciiCode + messPad) - lowerCaseZASCII - 1;
+    }
+    NSString *newCharacter =[NSString stringWithFormat:@"%c",newAsciiCode];
+    return newCharacter;
 }
 
 @end
