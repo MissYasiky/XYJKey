@@ -62,7 +62,7 @@ static int const revertASCIIGap = -messASCIIGap;
     NSMutableString *muString = [[NSMutableString alloc] initWithString:@""];
     for (int i = 0; i < self.length; i++) {
         NSString *character = [self substringWithRange:NSMakeRange(i, 1)];
-        BOOL isNumber = [character isSingleNumber];
+        BOOL isNumber = [character xyj_isSingleNumber];
         if (isNumber) {
             [muString appendString:numberMessMap()[character]];
         } else if ([character isSingleCharacter]) {
@@ -82,7 +82,7 @@ static int const revertASCIIGap = -messASCIIGap;
     NSMutableString *muString = [[NSMutableString alloc] initWithString:@""];
     for (int i = 0; i < self.length; i++) {
         NSString *character = [self substringWithRange:NSMakeRange(i, 1)];
-        BOOL isNumber = [character isSingleNumber];
+        BOOL isNumber = [character xyj_isSingleNumber];
         if (isNumber) {
             [muString appendString:numberRevertMap()[character]];
         } else if ([character isSingleCharacter]) {
@@ -96,7 +96,7 @@ static int const revertASCIIGap = -messASCIIGap;
 }
 
 // 是否为一位数的数字字符串
-- (BOOL)isSingleNumber {
+- (BOOL)xyj_isSingleNumber {
     if (self.length != 1) {
         return NO;
     }

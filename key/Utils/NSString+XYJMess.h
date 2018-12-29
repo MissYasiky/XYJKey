@@ -10,6 +10,8 @@
 
 @interface NSString (XYJMess)
 
+- (BOOL)xyj_isSingleNumber;
+
 - (NSString *)xyj_mess;
 
 - (NSString *)xyj_revert;

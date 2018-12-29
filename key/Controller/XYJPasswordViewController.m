@@ -8,6 +8,7 @@
 
 #import "XYJPasswordViewController.h"
 #import "XYJViewController.h"
+#import "NSString+XYJMess.h"
 
 @interface XYJPasswordViewController ()<
 UITextViewDelegate
@@ -21,6 +22,8 @@ UITextViewDelegate
 
 @implementation XYJPasswordViewController
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -30,10 +33,36 @@ UITextViewDelegate
     [self addLabels];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self.textView becomeFirstResponder];
 }
+
+- (void)dealloc {
+    _textView.delegate = nil;
+}
+
+#pragma mark - Getter & Setter
+
+- (UITextView *)textView {
+    if (_textView == nil) {
+        _textView = [[UITextView alloc] init];
+        _textView.frame = CGRectMake(90, 260, XYJScreenWidth() - 90 * 2, 37);
+        _textView.delegate = self;
+        _textView.hidden = YES;
+    }
+    return _textView;
+}
+
+- (NSDateFormatter *)dateFormatter {
+    if (_dateFormatter == nil) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateFormat = @"HHmm";
+    }
+    return _dateFormatter;
+}
+
+#pragma mark - Private
 
 - (void)addLabels {
     NSMutableArray *muArray = [[NSMutableArray alloc] initWithCapacity:4];
@@ -56,29 +85,6 @@ UITextViewDelegate
     self.labelArray = [muArray mutableCopy];
 }
 
-#pragma mark - Getter & Setter
-
-- (UITextView *)textView {
-    if (_textView == nil) {
-        _textView = [[UITextView alloc] init];
-        _textView.frame = CGRectMake(90, 260, XYJScreenWidth() - 90 * 2, 37);
-        _textView.delegate = self;
-        _textView.hidden = YES;
-        _textView.keyboardType = UIKeyboardTypeNumberPad;
-    }
-    return _textView;
-}
-
-- (NSDateFormatter *)dateFormatter {
-    if (_dateFormatter == nil) {
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateFormat = @"HHmm";
-    }
-    return _dateFormatter;
-}
-
-#pragma mark - Private
-
 - (BOOL)isPasswordCorrect:(NSString *)password {
     if (password.length != 4) {
         return NO;
@@ -96,6 +102,10 @@ UITextViewDelegate
 
 #pragma mark - UITextView delegate
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    return (text.length == 0 || [text xyj_isSingleNumber]);
+}
+
 - (void)textViewDidChange:(UITextView *)textView {
     NSString *content = textView.text;
     if (content.length > 4) {
@@ -112,6 +122,7 @@ UITextViewDelegate
     }
     
     if ((textView.text.length == 4) && [self isPasswordCorrect:textView.text]) {
+        [self.textView resignFirstResponder];
         XYJViewController *vctrl = [[XYJViewController alloc] init];
         UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
         [UIApplication sharedApplication].keyWindow.rootViewController = navi;
