@@ -14,13 +14,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-#if TARGET_IPHONE_SIMULATOR
+#if XYJ_PassWord_Necessary
+    XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
+    self.window.rootViewController = vctrl;
+#else
     XYJViewController *vctrl = [[XYJViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
     self.window.rootViewController = navi;
-#else
-    XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
-    self.window.rootViewController = vctrl;
 #endif
     [self.window makeKeyAndVisible];
     return YES;
@@ -34,8 +34,13 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+#if XYJ_PassWord_Necessary
+    if ([self.window.rootViewController isKindOfClass:[XYJPasswordViewController class]]) {
+        return;
+    }
     XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
     self.window.rootViewController = vctrl;
+#endif
 }
 
 

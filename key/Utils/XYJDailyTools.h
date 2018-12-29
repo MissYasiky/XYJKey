@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define XYJ_PassWord_Necessary 1
+
 extern UIColor *XYJColor(NSInteger hexValue, CGFloat alpha);
 
 extern CGFloat XYJScreenWidth (void);
