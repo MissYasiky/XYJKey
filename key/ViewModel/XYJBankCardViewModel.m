@@ -160,7 +160,12 @@
         return nil;
     }
     NSString *key = [self keyAtIndexPath:indexPath];
-    return self.inputDataDict[key];
+    NSString *result = self.inputDataDict[key];
+    if (indexPath.section == 0 && indexPath.row == 1 && self.type != XYJBankCardViewModelTypeAddNew) {
+        return [result xyj_seperateEveryFourNumber];
+    } else {
+        return result;
+    }
 }
 
 - (void)inputData:(NSString *)content atIndexPath:(NSIndexPath *)indexPath {

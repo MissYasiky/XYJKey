@@ -8,7 +8,6 @@
 
 #import "XYJPasswordViewController.h"
 #import "XYJViewController.h"
-#import "NSString+XYJMess.h"
 
 @interface XYJPasswordViewController ()<
 UITextViewDelegate

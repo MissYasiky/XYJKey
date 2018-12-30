@@ -8,7 +8,6 @@
 
 #import "XYJBankCardDao.h"
 #import "XYJCacheUtils.h"
-#import "NSString+XYJMess.h"
 #import <FMDB/FMDB.h>
 
 NSString *const XYJBankCardID = @"cardID";

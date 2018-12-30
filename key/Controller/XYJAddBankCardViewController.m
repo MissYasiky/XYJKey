@@ -12,7 +12,6 @@
 #import "XYJTextFieldCell.h"
 #import "XYJTextViewCell.h"
 #import "XYJBankCardViewModel.h"
-#import "NSString+XYJMess.h"
 
 static CGFloat pickerHeight = 200.0;
 static CGFloat pickerToolbarHeight = 34.0;
@@ -237,7 +236,7 @@ UITextViewDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSInteger row = textField.tag - kTextFieldTagPlus;
     if (self.viewModel.type == XYJBankCardViewModelTypeAddNew && row == 1) {
-        return [string xyj_isPureNumberWithoutSymbol];
+        return [string xyj_isPureNumber];
     }
     return YES;
 }

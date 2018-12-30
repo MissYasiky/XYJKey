@@ -1,12 +1,12 @@
 //
-//  NSString+XYJMess.m
+//  NSString+Util.m
 //  key
 //
 //  Created by MissYasiky on 2018/12/17.
 //  Copyright © 2018 netease. All rights reserved.
 //
 
-#import "NSString+XYJMess.h"
+#import "NSString+Util.h"
 
 static NSDictionary *numberMessMap() {
     static NSDictionary *dict = nil;
@@ -53,7 +53,41 @@ static int const lowerCaseZASCII = 122;
 static int const messASCIIGap = -4;
 static int const revertASCIIGap = -messASCIIGap;
 
-@implementation NSString (XYJMess)
+@implementation NSString (Util)
+
+- (BOOL)xyj_isSingleNumber {
+    if (self.length != 1) {
+        return NO;
+    }
+    if ([self isEqualToString:@"0"]) {
+        return YES;
+    }
+    NSInteger integ = [self integerValue];
+    if (integ > 0 && integ <= 9) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)xyj_isPureNumber {
+    NSString *string = [self stringByTrimmingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]];
+    return string.length == 0;
+}
+
+- (NSString *)xyj_seperateEveryFourNumber {
+    if ([self xyj_isPureNumber] == NO || self.length == 0) {
+        return self;
+    }
+    NSMutableString *muString = [NSMutableString new];
+    for (int i = 0; i < self.length; i++) {
+        NSString *character = [self substringWithRange:NSMakeRange(i, 1)];
+        if (i > 0 && i%4 == 0) {
+            [muString appendString:@" "];
+        }
+        [muString appendString:character];
+    }
+    return [muString mutableCopy];
+}
 
 - (NSString *)xyj_mess {
     if (self.length == 0) {
@@ -108,25 +142,7 @@ static int const revertASCIIGap = -messASCIIGap;
     return codeStr ?: @"";
 }
 
-// 是否为一位数的数字字符串
-- (BOOL)xyj_isSingleNumber {
-    if (self.length != 1) {
-        return NO;
-    }
-    if ([self isEqualToString:@"0"]) {
-        return YES;
-    }
-    NSInteger integ = [self integerValue];
-    if (integ > 0 && integ <= 9) {
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)xyj_isPureNumberWithoutSymbol {
-    NSString *string = [self stringByTrimmingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]];
-    return string.length == 0;
-}
+#pragma mark -  Private
 
 // 还包括 ASCII 码处于大小写字母中间的几个符号 [ \ ] ^ _ '
 - (BOOL)isSingleCharacter {

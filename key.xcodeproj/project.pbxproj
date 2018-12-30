@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2126558521C4A5EE00A74BAF /* XYJBankCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126558421C4A5EE00A74BAF /* XYJBankCardViewModel.m */; };
-		2126558821C7EFB300A74BAF /* NSString+XYJMess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126558721C7EFB300A74BAF /* NSString+XYJMess.m */; };
+		2126558821C7EFB300A74BAF /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126558721C7EFB300A74BAF /* NSString+Util.m */; };
 		2158B3B021B6BD8C00399A97 /* XYJPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */; };
 		2159E07021BE9A00004590BD /* XYJBankCardDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2159E06F21BE9A00004590BD /* XYJBankCardDao.m */; };
 		2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455521B2850000878C5D /* XYJDetailLabelCell.m */; };
@@ -32,8 +32,8 @@
 /* Begin PBXFileReference section */
 		2126558321C4A5EE00A74BAF /* XYJBankCardViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJBankCardViewModel.h; sourceTree = "<group>"; };
 		2126558421C4A5EE00A74BAF /* XYJBankCardViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJBankCardViewModel.m; sourceTree = "<group>"; };
-		2126558621C7EFB300A74BAF /* NSString+XYJMess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+XYJMess.h"; sourceTree = "<group>"; };
-		2126558721C7EFB300A74BAF /* NSString+XYJMess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+XYJMess.m"; sourceTree = "<group>"; };
+		2126558621C7EFB300A74BAF /* NSString+Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
+		2126558721C7EFB300A74BAF /* NSString+Util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		2158B3AE21B6BD8C00399A97 /* XYJPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJPasswordViewController.h; sourceTree = "<group>"; };
 		2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJPasswordViewController.m; sourceTree = "<group>"; };
 		2159E06E21BE9A00004590BD /* XYJBankCardDao.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJBankCardDao.h; sourceTree = "<group>"; };
@@ -157,8 +157,8 @@
 				21E425CD21AA78470072D134 /* LYLUnicode.m */,
 				21E425CF21AA7B150072D134 /* XYJCacheUtils.h */,
 				21E425D021AA7B150072D134 /* XYJCacheUtils.m */,
-				2126558621C7EFB300A74BAF /* NSString+XYJMess.h */,
-				2126558721C7EFB300A74BAF /* NSString+XYJMess.m */,
+				2126558621C7EFB300A74BAF /* NSString+Util.h */,
+				2126558721C7EFB300A74BAF /* NSString+Util.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -339,7 +339,7 @@
 				21E425CB21A847AB0072D134 /* XYJSwitchCell.m in Sources */,
 				21E425BB21A595820072D134 /* XYJTextViewCell.m in Sources */,
 				21E425D121AA7B150072D134 /* XYJCacheUtils.m in Sources */,
-				2126558821C7EFB300A74BAF /* NSString+XYJMess.m in Sources */,
+				2126558821C7EFB300A74BAF /* NSString+Util.m in Sources */,
 				21E425C421A59D060072D134 /* XYJAddBankCardViewController.m in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
 				2159E07021BE9A00004590BD /* XYJBankCardDao.m in Sources */,

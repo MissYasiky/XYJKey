@@ -7,7 +7,6 @@
 //
 
 #import "XYJCacheUtils.h"
-#import "NSString+XYJMess.h"
 
 extern NSString *const XYJBankCardID;
 
