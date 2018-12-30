@@ -12,6 +12,8 @@
 
 - (BOOL)xyj_isSingleNumber;
 
+- (BOOL)xyj_isPureNumberWithoutSymbol;
+
 - (NSString *)xyj_mess;
 
 - (NSString *)xyj_revert;

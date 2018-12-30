@@ -123,6 +123,11 @@ static int const revertASCIIGap = -messASCIIGap;
     return NO;
 }
 
+- (BOOL)xyj_isPureNumberWithoutSymbol {
+    NSString *string = [self stringByTrimmingCharactersInSet:[NSCharacterSet decimalDigitCharacterSet]];
+    return string.length == 0;
+}
+
 // 还包括 ASCII 码处于大小写字母中间的几个符号 [ \ ] ^ _ '
 - (BOOL)isSingleCharacter {
     if (self.length != 1) {
