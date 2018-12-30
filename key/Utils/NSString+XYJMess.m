@@ -95,6 +95,19 @@ static int const revertASCIIGap = -messASCIIGap;
     return [muString mutableCopy];
 }
 
+- (NSString *)xyj_encode {
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *codeStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    return codeStr ?: @"";
+}
+
+- (NSString *)xyj_decode {
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:self
+                                                       options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSString *codeStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return codeStr ?: @"";
+}
+
 // 是否为一位数的数字字符串
 - (BOOL)xyj_isSingleNumber {
     if (self.length != 1) {

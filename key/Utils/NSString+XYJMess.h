@@ -16,4 +16,8 @@
 
 - (NSString *)xyj_revert;
 
+- (NSString *)xyj_encode;
+
+- (NSString *)xyj_decode;
+
 @end
