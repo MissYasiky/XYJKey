@@ -12,10 +12,11 @@
 
 + (NSArray *)bankNameArray;
 
-+ (NSDictionary *)messDataBeforeCache:(NSDictionary *)originDict;
++ (NSDictionary *)cacheOldReadPreprocess:(NSDictionary *)originDict;
 
-+ (NSDictionary *)revertMessedData:(NSDictionary *)originDict;
++ (NSDictionary *)cacheWritePreprocess:(NSDictionary *)originDict;
 
-+ (NSString *)realCacheString:(NSString *)userString;
++ (NSDictionary *)cacheReadPreprocess:(NSDictionary *)originDict;
+
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *const XYJBankCardID;
+extern NSString *const XYJBankCardVersion;
 extern NSString *const XYJBankName;
 extern NSString *const XYJBankCreditCard;
 extern NSString *const XYJBankECardPassword;

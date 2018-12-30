@@ -8,9 +8,11 @@
 
 #import "XYJBankCardDao.h"
 #import "XYJCacheUtils.h"
+#import "NSString+XYJMess.h"
 #import <FMDB/FMDB.h>
 
 NSString *const XYJBankCardID = @"cardID";
+NSString *const XYJBankCardVersion = @"version";
 NSString *const XYJBankName = @"bankName";
 NSString *const XYJBankCreditCard = @"isCreditCard";
 NSString *const XYJBankECardPassword = @"eCardPassword";
@@ -24,6 +26,7 @@ NSString *const XYJEditBankCardNotification = @"XYJEditBankCardNotification";
 
 typedef NS_ENUM(NSUInteger, XYJBankCardColumn) {
     XYJBankCardColumnID = 0,
+    XYJBankCardColumnVersion,
     XYJBankCardColumnBankName,
     XYJBankCardColumnCreditCard,
     XYJBankCardColumnECardPassword,
@@ -58,6 +61,9 @@ static NSString * const kBankCardTable = @"bcCacheTable";
     if (self) {
         kBankCardColumnName[XYJBankCardColumnID] = XYJBankCardID;
         kBankCardColumnType[XYJBankCardColumnID] = kSQLText;
+        
+        kBankCardColumnName[XYJBankCardColumnVersion] = XYJBankCardVersion;
+        kBankCardColumnType[XYJBankCardColumnVersion] = kSQLInteger;
         
         kBankCardColumnName[XYJBankCardColumnBankName] = XYJBankName;
         kBankCardColumnType[XYJBankCardColumnBankName] = kSQLInteger;
@@ -102,7 +108,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 }
 
 - (void)insertData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block {
-    NSDictionary *dict = [XYJCacheUtils messDataBeforeCache:aDict];
+    NSDictionary *dict = [self addVersion:[XYJCacheUtils cacheWritePreprocess:aDict]];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
             
@@ -126,6 +132,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
             
             BOOL success = [db executeUpdate:executeString withArgumentsInArray:arguments];
             if (success) {
+                NSLog(@"插入数据成功");
                 [[NSNotificationCenter defaultCenter] postNotificationName:XYJAddNewBankCardNotification object:aDict];
             } else {
                 NSLog(@"插入数据失败");
@@ -145,6 +152,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 }
 
 - (void)getDataWithLimit:(NSUInteger)limit completionBlock:(void (^)(NSArray <NSDictionary *> *messages))block {
+    __weak __typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
             
@@ -158,7 +166,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
             NSInteger index = 0;
             FMResultSet *result = [db executeQuery:executeString];
             while ([result next]) {
-                NSDictionary *data = [self convertDBResult:result];
+                NSDictionary *data = [weakSelf convertDBResult:result];
                 [dataArray addObject:data];
                 index ++;
             }
@@ -169,17 +177,22 @@ static NSString * const kBankCardTable = @"bcCacheTable";
                     block(dataArray);
                 }
             });
+            
+            if ([self needMigration:dataArray]) { // 数据迁移
+                [weakSelf dataMigration:dataArray];
+            }
         }];
     });
 }
 
 - (void)deleteDataWithId:(NSString *)dataId completionBlock:(void(^)(BOOL success))block {
-    NSString *realID = [XYJCacheUtils realCacheString:dataId];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
-            NSString *executeString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = %@", kBankCardTable, kBankCardColumnName[XYJBankCardColumnID], realID];
+            NSString *executeString = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = %@", kBankCardTable, kBankCardColumnName[XYJBankCardColumnID], dataId];
             BOOL success = [db executeUpdate:executeString];
-            if (success == NO) {
+            if (success) {
+                NSLog(@"删除数据成功");
+            } else {
                 NSLog(@"删除数据失败");
             }
             
@@ -192,8 +205,52 @@ static NSString * const kBankCardTable = @"bcCacheTable";
     });
 }
 
-- (void)updateData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block {
-    NSDictionary *dict = [XYJCacheUtils messDataBeforeCache:aDict];
+/**
+ 清空数据表，重新批量插入数据
+ @param newData 新数据
+ */
+- (void)dataMigration:(NSArray *)newData {
+    // 写入数据库之前的处理：加版本号、加密、编码
+    NSMutableArray *muArray = [NSMutableArray new];
+    for (NSDictionary *aDict in newData) {
+        NSDictionary *dict = [self addVersion:[XYJCacheUtils cacheWritePreprocess:aDict]];
+        [muArray addObject:dict];
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.queue inDatabase:^(FMDatabase *db) {
+           
+            NSString *executeString = [NSString stringWithFormat:@"DELETE FROM %@", kBankCardTable];
+            BOOL success = [db executeUpdate:executeString];
+            
+            if (success) {
+                for (NSDictionary *dict in muArray) {
+                    NSMutableString *params = [[NSMutableString alloc] init];
+                    NSMutableString *values = [[NSMutableString alloc] init];
+                    NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:0];
+                    
+                    NSArray *keys = [dict allKeys];
+                    for (int i=0; i<keys.count; i++) {
+                        NSString *key = keys[i];
+                        id object = [dict objectForKey:key];
+                        if (i > 0) {
+                            [params appendFormat:@","];
+                            [values appendFormat:@","];
+                        }
+                        [params appendFormat:@"%@", key];
+                        [values appendFormat:@"?"];
+                        [arguments addObject:object];
+                    }
+                    NSString *executeString = [NSString stringWithFormat:@"INSERT INTO %@(%@) VALUES (%@)", kBankCardTable, params, values];
+                    [db executeUpdate:executeString withArgumentsInArray:arguments];
+                }
+            }
+        }];
+    });
+}
+
+- (void)updateData:(NSDictionary *)aDict completionBlock:(void (^)(BOOL success))block {
+    NSDictionary *dict = [XYJCacheUtils cacheWritePreprocess:aDict];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
             
@@ -214,6 +271,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
             
             BOOL success = [db executeUpdate:executeString withArgumentsInArray:arguments];
             if (success) {
+                NSLog(@"更新数据成功");
                 [[NSNotificationCenter defaultCenter] postNotificationName:XYJEditBankCardNotification object:aDict];
             } else {
                 NSLog(@"更新数据失败");
@@ -233,6 +291,8 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 - (void)createTable {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dbPath = [paths[0] stringByAppendingFormat:@"/bcCache.sqlite"];
+    NSLog(@"dbPath: %@", dbPath);
+    
     self.queue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
     
     __weak __typeof(self)weakSelf = self;
@@ -267,8 +327,9 @@ static NSString * const kBankCardTable = @"bcCacheTable";
         }
     }];
 }
-
-//为数据库添加一列数据
+/**
+ 为数据库添加一列数据
+ */
 - (void)addColumnToDB:(FMDatabase *)aDB column:(NSString *)aColumn type:(NSString *)aType {
     NSString *executeString = [NSString stringWithFormat:@"alter table %@ add %@ %@", kBankCardTable, aColumn, aType];
     if ([aType isEqualToString:kSQLInteger]) {
@@ -277,10 +338,26 @@ static NSString * const kBankCardTable = @"bcCacheTable";
     BOOL success = [aDB executeUpdate:executeString];
     if(success) {
         NSLog(@"Table %@ 新增 column %@ type %@ 成功", kBankCardTable, aColumn, aType);
+    } else {
+        NSLog(@"Table %@ 新增 column %@ type %@ 失败", kBankCardTable, aColumn, aType);
     }
 }
 
-// 将查询结果转换为 NSDictionary
+/**
+ 是否需要数据迁移，第一版数据没有version字段，默认值为0
+ */
+- (BOOL)needMigration:(NSArray *)dataArray {
+    BOOL needMigration = NO;
+    if ([dataArray count] > 0) {
+        NSDictionary *dict = dataArray[0];
+        needMigration = ([dict[XYJBankCardVersion] integerValue] == 0);
+    }
+    return needMigration;
+}
+
+/**
+ 将查询结果转换为 NSDictionary
+ */
 - (NSDictionary *)convertDBResult:(FMResultSet *)result {
     NSMutableDictionary *muDict = [NSMutableDictionary new];
     for (int i = 0; i< XYJBankCardColumnTotalCount; i++) {
@@ -290,13 +367,30 @@ static NSString * const kBankCardTable = @"bcCacheTable";
         if ([type isEqualToString:kSQLInteger]) {
             long long object = [result longLongIntForColumn:key];
             [muDict setValue:@(object) forKey:key];
+        } else if ([type isEqualToString:kSQLDouble]) {
+            double object = [result doubleForColumn:key];
+            [muDict setValue:@(object) forKey:key];
         } else {
             NSString *object = [result stringForColumn:key];
             [muDict setValue:object forKey:key];
         }
     }
-    NSDictionary *resultDict = [XYJCacheUtils revertMessedData:[muDict mutableCopy]];
-    return resultDict;
+    if ([muDict[XYJBankCardVersion] integerValue] == 0) { // 兼容旧版本
+        NSDictionary *resultDict = [XYJCacheUtils cacheOldReadPreprocess:[muDict mutableCopy]];
+        return resultDict;
+    } else {
+        NSDictionary *resultDict = [XYJCacheUtils cacheReadPreprocess:[muDict mutableCopy]];
+        return resultDict;
+    }
+}
+
+/**
+ 新增数据版本号
+ */
+- (NSDictionary *)addVersion:(NSDictionary *)aDict {
+    NSMutableDictionary *muDict = [[NSMutableDictionary alloc] initWithDictionary:aDict];
+    [muDict setObject:@(1) forKey:XYJBankCardVersion];
+    return [muDict mutableCopy];
 }
 
 @end

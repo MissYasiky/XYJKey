@@ -9,6 +9,8 @@
 #import "XYJCacheUtils.h"
 #import "NSString+XYJMess.h"
 
+extern NSString *const XYJBankCardID;
+
 @implementation XYJCacheUtils
 
 + (NSArray *)bankNameArray {
@@ -18,34 +20,48 @@
     return array;
 }
 
-+ (NSDictionary *)messDataBeforeCache:(NSDictionary *)originDict {
-    NSMutableDictionary *muDict = [NSMutableDictionary new];
++ (NSDictionary *)cacheOldReadPreprocess:(NSDictionary *)originDict {
+    NSMutableDictionary *muDict = [[NSMutableDictionary alloc] initWithDictionary:originDict];
     for (NSString *key in [originDict allKeys]) {
         id value = originDict[key];
         if ([value isKindOfClass:[NSString class]]) {
-            [muDict setObject:[value xyj_mess] forKey:key];
-        } else {
-            [muDict setObject:value forKey:key];
+            NSString *revertString = [value xyj_revert];
+            [muDict setObject:revertString forKey:key];
         }
     }
     return [muDict mutableCopy];
 }
 
-+ (NSDictionary *)revertMessedData:(NSDictionary *)originDict {
-    NSMutableDictionary *muDict = [NSMutableDictionary new];
++ (NSDictionary *)cacheWritePreprocess:(NSDictionary *)originDict {
+    NSMutableDictionary *muDict = [[NSMutableDictionary alloc] initWithDictionary:originDict];
     for (NSString *key in [originDict allKeys]) {
+        if ([key isEqualToString:XYJBankCardID]) {
+            continue;
+        }
         id value = originDict[key];
         if ([value isKindOfClass:[NSString class]]) {
-            [muDict setObject:[value xyj_revert] forKey:key];
-        } else {
-            [muDict setObject:value forKey:key];
+            NSString *messString = [value xyj_mess];
+            NSString *encodeString = [messString xyj_encode];
+            [muDict setObject:encodeString forKey:key];
         }
     }
     return [muDict mutableCopy];
 }
 
-+ (NSString *)realCacheString:(NSString *)userString {
-    return [userString xyj_mess];
++ (NSDictionary *)cacheReadPreprocess:(NSDictionary *)originDict {
+    NSMutableDictionary *muDict = [[NSMutableDictionary alloc] initWithDictionary:originDict];
+    for (NSString *key in [originDict allKeys]) {
+        if ([key isEqualToString:XYJBankCardID]) {
+            continue;
+        }
+        id value = originDict[key];
+        if ([value isKindOfClass:[NSString class]]) {
+            NSString *decodeString = [value xyj_decode];
+            NSString *revertString = [decodeString xyj_revert];
+            [muDict setObject:revertString forKey:key];
+        }
+    }
+    return [muDict mutableCopy];
 }
 
 @end
