@@ -218,8 +218,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.queue inDatabase:^(FMDatabase *db) {
-           
+        [self.queue inTransaction:^(FMDatabase * _Nonnull db, BOOL * _Nonnull rollback) {
             NSString *executeString = [NSString stringWithFormat:@"DELETE FROM %@", kBankCardTable];
             BOOL success = [db executeUpdate:executeString];
             
@@ -338,8 +337,6 @@ static NSString * const kBankCardTable = @"bcCacheTable";
     BOOL success = [aDB executeUpdate:executeString];
     if(success) {
         NSLog(@"Table %@ 新增 column %@ type %@ 成功", kBankCardTable, aColumn, aType);
-    } else {
-        NSLog(@"Table %@ 新增 column %@ type %@ 失败", kBankCardTable, aColumn, aType);
     }
 }
 
