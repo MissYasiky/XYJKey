@@ -9,8 +9,12 @@
 #import "XYJAppDelegate.h"
 #import "XYJPasswordViewController.h"
 #import "XYJViewController.h"
+#import "RetainCycleLoggerPlugin.h"
+#import <FBMemoryProfiler/FBMemoryProfiler.h>
 
-@implementation XYJAppDelegate
+@implementation XYJAppDelegate {
+    FBMemoryProfiler *_memoryProfiler;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -23,6 +27,12 @@
     self.window.rootViewController = navi;
 #endif
     [self.window makeKeyAndVisible];
+    
+    FBObjectGraphConfiguration *configuration = [[FBObjectGraphConfiguration alloc] initWithFilterBlocks:@[] shouldInspectTimers:NO];
+    _memoryProfiler = [[FBMemoryProfiler alloc] initWithPlugins:@[[RetainCycleLoggerPlugin new]]
+                               retainCycleDetectorConfiguration:configuration];
+    [_memoryProfiler enable];
+    
     return YES;
 }
 

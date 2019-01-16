@@ -14,6 +14,7 @@
 		2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455521B2850000878C5D /* XYJDetailLabelCell.m */; };
 		2171455921B2CDDC00878C5D /* XYJBankCardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455821B2CDDC00878C5D /* XYJBankCardDetailViewController.m */; };
 		21D1F11521B2608500671A89 /* XYJDataConstant.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21D1F11421B2608500671A89 /* XYJDataConstant.plist */; };
+		21DE4FD021EF24AA003F7F59 /* RetainCycleLoggerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DE4FCE21EF24AA003F7F59 /* RetainCycleLoggerPlugin.m */; };
 		21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42589218C8DF20072D134 /* XYJAppDelegate.m */; };
 		21E42592218C8DF50072D134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E42591218C8DF50072D134 /* Assets.xcassets */; };
 		21E42598218C8DF50072D134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42597218C8DF50072D134 /* main.m */; };
@@ -43,6 +44,8 @@
 		2171455721B2CDDC00878C5D /* XYJBankCardDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJBankCardDetailViewController.h; sourceTree = "<group>"; };
 		2171455821B2CDDC00878C5D /* XYJBankCardDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJBankCardDetailViewController.m; sourceTree = "<group>"; };
 		21D1F11421B2608500671A89 /* XYJDataConstant.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = XYJDataConstant.plist; sourceTree = "<group>"; };
+		21DE4FCE21EF24AA003F7F59 /* RetainCycleLoggerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetainCycleLoggerPlugin.m; sourceTree = "<group>"; };
+		21DE4FCF21EF24AA003F7F59 /* RetainCycleLoggerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetainCycleLoggerPlugin.h; sourceTree = "<group>"; };
 		21E42585218C8DF20072D134 /* key.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = key.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E42588218C8DF20072D134 /* XYJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAppDelegate.h; sourceTree = "<group>"; };
 		21E42589218C8DF20072D134 /* XYJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAppDelegate.m; sourceTree = "<group>"; };
@@ -159,6 +162,8 @@
 				21E425D021AA7B150072D134 /* XYJCacheUtils.m */,
 				2126558621C7EFB300A74BAF /* NSString+Util.h */,
 				2126558721C7EFB300A74BAF /* NSString+Util.m */,
+				21DE4FCF21EF24AA003F7F59 /* RetainCycleLoggerPlugin.h */,
+				21DE4FCE21EF24AA003F7F59 /* RetainCycleLoggerPlugin.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				2159E07021BE9A00004590BD /* XYJBankCardDao.m in Sources */,
 				21E425C821A838A80072D134 /* XYJPickerCell.m in Sources */,
 				2158B3B021B6BD8C00399A97 /* XYJPasswordViewController.m in Sources */,
+				21DE4FD021EF24AA003F7F59 /* RetainCycleLoggerPlugin.m in Sources */,
 				21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */,
 				21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */,
 				21E425B621A589250072D134 /* XYJTextFieldCell.m in Sources */,
@@ -446,6 +452,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 7TFBM68LA7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
