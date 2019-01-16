@@ -72,7 +72,7 @@ UITextViewDelegate
     
     for(int i = 0; i < 4; i++) {
         UILabel *label= [[UILabel alloc] init];
-        label.frame = CGRectMake(originX + i * (width + span), 200, width, 35);
+        label.frame = CGRectMake(originX + i * (width + span), 260, width, 35);
         label.text = @"-";
         label.font = [UIFont systemFontOfSize:45];
         label.textAlignment = NSTextAlignmentCenter;
