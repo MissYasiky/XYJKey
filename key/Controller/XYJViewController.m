@@ -41,9 +41,7 @@ UITableViewDataSource
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newBankCardAdded:) name:XYJAddNewBankCardNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bankCardEdited:) name:XYJEditBankCardNotification object:nil];
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBankCard)];
-    [item setTintColor:XYJColor(0x4c4c4c, 1.0)];
-    self.navigationItem.rightBarButtonItem = item;
+    [self initNavigationBar];
     
     [self.view addSubview:self.tableView];
 }
@@ -56,6 +54,20 @@ UITableViewDataSource
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _tableView.delegate = nil;
+}
+
+#pragma mark - Initialization
+
+- (void)initNavigationBar {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBankCard)];
+    [item setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    self.navigationItem.rightBarButtonItem = item;
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:nil action:nil];
+    [backItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    self.navigationItem.backBarButtonItem = backItem;
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 #pragma mark - Getter & Setter

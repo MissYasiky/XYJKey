@@ -38,11 +38,8 @@ UITableViewDataSource
     [super viewDidLoad];
     self.view.backgroundColor = XYJColor(0xf4f4f4, 1.0);
     
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_back"] style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
-    [backItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
     [editItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
-    self.navigationItem.leftBarButtonItem = backItem;
     self.navigationItem.rightBarButtonItem = editItem;
     
     [self.view addSubview:self.tableView];
