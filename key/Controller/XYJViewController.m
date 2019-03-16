@@ -7,6 +7,7 @@
 //
 
 #import "XYJViewController.h"
+#import "XYJMenuViewController.h"
 #import "XYJBankCardDetailViewController.h"
 #import "XYJAddBankCardViewController.h"
 #import "XYJDetailLabelCell.h"
@@ -59,6 +60,11 @@ UITableViewDataSource
 #pragma mark - Initialization
 
 - (void)initNavigationBar {
+    UIImage *image = [UIImage imageNamed:@"navigation_btn_menu"];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonAction)];
+    [leftItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBankCard)];
     [item setTintColor:XYJColor(0x4c4c4c, 1.0)];
     self.navigationItem.rightBarButtonItem = item;
@@ -85,6 +91,11 @@ UITableViewDataSource
 }
 
 #pragma mark - Action
+
+- (void)menuButtonAction {
+    XYJMenuViewController *vctrl = [[XYJMenuViewController alloc] init];
+    [self.navigationController pushViewController:vctrl animated:YES];
+}
 
 - (void)addBankCard {
     XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] init];
