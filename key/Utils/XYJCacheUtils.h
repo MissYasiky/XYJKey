@@ -12,8 +12,6 @@
 
 + (NSArray *)bankNameArray;
 
-+ (NSDictionary *)cacheOldReadPreprocess:(NSDictionary *)originDict;
-
 + (NSDictionary *)cacheWritePreprocess:(NSDictionary *)originDict;
 
 + (NSDictionary *)cacheReadPreprocess:(NSDictionary *)originDict;

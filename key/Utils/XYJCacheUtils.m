@@ -19,18 +19,6 @@ extern NSString *const XYJBankCardID;
     return array;
 }
 
-+ (NSDictionary *)cacheOldReadPreprocess:(NSDictionary *)originDict {
-    NSMutableDictionary *muDict = [[NSMutableDictionary alloc] initWithDictionary:originDict];
-    for (NSString *key in [originDict allKeys]) {
-        id value = originDict[key];
-        if ([value isKindOfClass:[NSString class]]) {
-            NSString *revertString = [value xyj_revert];
-            [muDict setObject:revertString forKey:key];
-        }
-    }
-    return [muDict mutableCopy];
-}
-
 + (NSDictionary *)cacheWritePreprocess:(NSDictionary *)originDict {
     NSMutableDictionary *muDict = [[NSMutableDictionary alloc] initWithDictionary:originDict];
     for (NSString *key in [originDict allKeys]) {

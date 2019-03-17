@@ -116,7 +116,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 }
 
 - (void)insertData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block {
-    NSDictionary *dict = [self addVersion:[XYJCacheUtils cacheWritePreprocess:aDict]];
+    NSDictionary *dict = [self addVersion:aDict];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
             
@@ -185,10 +185,11 @@ static NSString * const kBankCardTable = @"bcCacheTable";
                     block(dataArray);
                 }
             });
-            
+            /*
             if ([self needMigration:dataArray]) { // 数据迁移
                 [weakSelf dataMigration:dataArray];
             }
+             */
         }];
     });
 }
@@ -257,24 +258,23 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 }
 
 - (void)updateData:(NSDictionary *)aDict completionBlock:(void (^)(BOOL success))block {
-    NSDictionary *dict = [XYJCacheUtils cacheWritePreprocess:aDict];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.queue inDatabase:^(FMDatabase *db) {
             
             NSMutableString *params = [[NSMutableString alloc] init];
             NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:0];
             
-            NSArray *keys = [dict allKeys];
+            NSArray *keys = [aDict allKeys];
             for (int i=0; i<keys.count; i++) {
                 NSString *key = keys[i];
-                id object = [dict objectForKey:key];
+                id object = [aDict objectForKey:key];
                 if (i > 0) {
                     [params appendFormat:@", "];
                 }
                 [params appendFormat:@"%@ = ?", key];
                 [arguments addObject:object];
             }
-            NSString *executeString = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = %@", kBankCardTable, params, kBankCardColumnName[XYJBankCardColumnID], dict[XYJBankCardID]];
+            NSString *executeString = [NSString stringWithFormat:@"UPDATE %@ SET %@ WHERE %@ = %@", kBankCardTable, params, kBankCardColumnName[XYJBankCardColumnID], aDict[XYJBankCardID]];
             
             BOOL success = [db executeUpdate:executeString withArgumentsInArray:arguments];
             if (success) {
@@ -383,6 +383,7 @@ static NSString * const kBankCardTable = @"bcCacheTable";
             [muDict setValue:object forKey:key];
         }
     }
+    /*
     if ([muDict[XYJBankCardVersion] integerValue] == 0) { // 兼容旧版本
         NSDictionary *resultDict = [XYJCacheUtils cacheOldReadPreprocess:[muDict mutableCopy]];
         return resultDict;
@@ -390,6 +391,8 @@ static NSString * const kBankCardTable = @"bcCacheTable";
         NSDictionary *resultDict = [XYJCacheUtils cacheReadPreprocess:[muDict mutableCopy]];
         return resultDict;
     }
+     */
+    return muDict;
 }
 
 /**
