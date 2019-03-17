@@ -25,6 +25,8 @@ extern NSString *const XYJEditBankCardNotification;
 
 + (instancetype)sharedDao;
 
+- (NSData *)dataFromSqlite;
+
 - (void)closeDataBase;
 
 - (void)insertData:(NSDictionary *)aDict completionBlock:(void(^)(BOOL success))block;

@@ -64,10 +64,6 @@ UITableViewDataSource
 
 #pragma mark - Action
 
-- (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)edit {
     XYJAddBankCardViewController *vctrl = [[XYJAddBankCardViewController alloc] initWithData:self.viewModel.inputDataDict];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];

@@ -101,6 +101,15 @@ static NSString * const kBankCardTable = @"bcCacheTable";
     return instance;
 }
 
+- (NSData *)dataFromSqlite {
+    NSString *path = [self sqliteFilePath];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        return nil;
+    }
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    return data;
+}
+
 - (void)closeDataBase {
     [self.queue close];
     [self setQueue:nil];
@@ -286,12 +295,15 @@ static NSString * const kBankCardTable = @"bcCacheTable";
 
 #pragma mark - Private
 
-- (void)createTable {
+- (NSString *)sqliteFilePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dbPath = [paths[0] stringByAppendingFormat:@"/bcCache.sqlite"];
     NSLog(@"dbPath: %@", dbPath);
-    
-    self.queue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
+    return dbPath;
+}
+
+- (void)createTable {
+    self.queue = [FMDatabaseQueue databaseQueueWithPath:[self sqliteFilePath]];
     
     __weak __typeof(self)weakSelf = self;
     [self.queue inDatabase:^(FMDatabase *db) {

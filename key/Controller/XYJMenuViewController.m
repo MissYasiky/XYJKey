@@ -8,6 +8,7 @@
 
 #import "XYJMenuViewController.h"
 #import "XYJDetailLabelCell.h"
+#import "XYJBankCardDao.h"
 
 @interface XYJMenuViewController ()<
 UITableViewDelegate,
@@ -52,7 +53,9 @@ UITableViewDataSource
 #pragma mark - Action
 
 - (void)longPressAction {
-    NSLog(@"long press");
+    NSData *data = [[XYJBankCardDao sharedDao] dataFromSqlite];
+    UIActivityViewController *vctrl = [[UIActivityViewController alloc] initWithActivityItems:@[data] applicationActivities:nil];
+    [self presentViewController:vctrl animated:YES completion:nil];
 }
 
 #pragma mark - UITableView DataSource
