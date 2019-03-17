@@ -77,7 +77,7 @@ UITableViewDataSource
         [cell addGestureRecognizer:self.longPress];
     }
     [cell setLeftLabelText:@"版本号"
-            rightLabelText:@"version 1.0 build 4"];
+            rightLabelText:@"version 1.2 build 6"];
     return cell;
 }
 
