@@ -15,7 +15,7 @@ DEPENDENCIES:
   - Masonry (~> 1.1.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - FBAllocationTracker
     - FBMemoryProfiler
     - FBRetainCycleDetector
@@ -31,4 +31,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 515b3c88072e08ba77e791d18bd35e503d2b1bc8
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4
