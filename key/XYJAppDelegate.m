@@ -13,6 +13,12 @@
 #import "RetainCycleLoggerPlugin.h"
 #import <FBMemoryProfiler/FBMemoryProfiler.h>
 
+@interface XYJAppDelegate ()
+
+@property (nonatomic, strong) UIImageView *shieldView;
+
+@end
+
 @implementation XYJAppDelegate {
     FBMemoryProfiler *_memoryProfiler;
 }
@@ -45,10 +51,12 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    [self shield];
     [self lockApp];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [self unshield];
     [self lockApp];
 }
 
@@ -63,14 +71,30 @@
 #pragma mark - Private
 
 - (void)lockApp {
-    #if XYJ_PassWord_Necessary
-        if ([self.window.rootViewController isKindOfClass:[XYJPasswordViewController class]] ||
-            [XYJSecrecyManager sharedManager].unlock) {
-            return;
-        }
+#if XYJ_PassWord_Necessary
+    if ([self.window.rootViewController isKindOfClass:[XYJPasswordViewController class]]) { // 已加密
+        return;
+    } else if ([XYJSecrecyManager sharedManager].unlock) { // 在 1min 解密期限内
+        return;
+    } else { // 恢复加密状态
         XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
         self.window.rootViewController = vctrl;
-    #endif
+    }
+#endif
+}
+
+- (void)shield {
+    if (self.shieldView == nil) {
+        self.shieldView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        [self.shieldView setImage:[UIImage imageNamed:@"xyj_shield_bg"]];
+    }
+    
+    self.shieldView.backgroundColor = [UIColor brownColor];
+    [self.window addSubview:self.shieldView];
+}
+
+- (void)unshield {
+    [self.shieldView removeFromSuperview];
 }
 
 @end
