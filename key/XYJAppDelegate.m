@@ -7,6 +7,7 @@
 //
 
 #import "XYJAppDelegate.h"
+#import "XYJSecrecyManager.h"
 #import "XYJPasswordViewController.h"
 #import "XYJViewController.h"
 #import "RetainCycleLoggerPlugin.h"
@@ -45,7 +46,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
 #if XYJ_PassWord_Necessary
-    if ([self.window.rootViewController isKindOfClass:[XYJPasswordViewController class]]) {
+    if ([self.window.rootViewController isKindOfClass:[XYJPasswordViewController class]] ||
+        [XYJSecrecyManager sharedManager].unlock) {
         return;
     }
     XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];

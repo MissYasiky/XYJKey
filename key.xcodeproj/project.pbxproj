@@ -13,6 +13,7 @@
 		2159E07021BE9A00004590BD /* XYJBankCardDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 2159E06F21BE9A00004590BD /* XYJBankCardDao.m */; };
 		2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455521B2850000878C5D /* XYJDetailLabelCell.m */; };
 		2171455921B2CDDC00878C5D /* XYJBankCardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455821B2CDDC00878C5D /* XYJBankCardDetailViewController.m */; };
+		21C902A723E02BC900FE636C /* XYJSecrecyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C902A623E02BC900FE636C /* XYJSecrecyManager.m */; };
 		21D1F11521B2608500671A89 /* XYJDataConstant.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21D1F11421B2608500671A89 /* XYJDataConstant.plist */; };
 		21DDA3F8223CDE130099ED73 /* XYJMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DDA3F7223CDE130099ED73 /* XYJMenuViewController.m */; };
 		21DE4FD021EF24AA003F7F59 /* RetainCycleLoggerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DE4FCE21EF24AA003F7F59 /* RetainCycleLoggerPlugin.m */; };
@@ -44,6 +45,8 @@
 		2171455521B2850000878C5D /* XYJDetailLabelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJDetailLabelCell.m; sourceTree = "<group>"; };
 		2171455721B2CDDC00878C5D /* XYJBankCardDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJBankCardDetailViewController.h; sourceTree = "<group>"; };
 		2171455821B2CDDC00878C5D /* XYJBankCardDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJBankCardDetailViewController.m; sourceTree = "<group>"; };
+		21C902A523E02BC900FE636C /* XYJSecrecyManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJSecrecyManager.h; sourceTree = "<group>"; };
+		21C902A623E02BC900FE636C /* XYJSecrecyManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJSecrecyManager.m; sourceTree = "<group>"; };
 		21D1F11421B2608500671A89 /* XYJDataConstant.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = XYJDataConstant.plist; sourceTree = "<group>"; };
 		21DDA3F6223CDE130099ED73 /* XYJMenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJMenuViewController.h; sourceTree = "<group>"; };
 		21DDA3F7223CDE130099ED73 /* XYJMenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJMenuViewController.m; sourceTree = "<group>"; };
@@ -109,6 +112,15 @@
 			path = DataBase;
 			sourceTree = "<group>";
 		};
+		21C902A423E02B7700FE636C /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				21C902A523E02BC900FE636C /* XYJSecrecyManager.h */,
+				21C902A623E02BC900FE636C /* XYJSecrecyManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		21E4257C218C8DF20072D134 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +144,7 @@
 			children = (
 				21E42588218C8DF20072D134 /* XYJAppDelegate.h */,
 				21E42589218C8DF20072D134 /* XYJAppDelegate.m */,
+				21C902A423E02B7700FE636C /* Manager */,
 				21E425B121A5887D0072D134 /* Utils */,
 				2159E06D21BD21A2004590BD /* DataBase */,
 				2126558221C4A5B300A74BAF /* ViewModel */,
@@ -323,6 +336,7 @@
 				21E42598218C8DF50072D134 /* main.m in Sources */,
 				2159E07021BE9A00004590BD /* XYJBankCardDao.m in Sources */,
 				21E425C821A838A80072D134 /* XYJPickerCell.m in Sources */,
+				21C902A723E02BC900FE636C /* XYJSecrecyManager.m in Sources */,
 				2158B3B021B6BD8C00399A97 /* XYJPasswordViewController.m in Sources */,
 				21DE4FD021EF24AA003F7F59 /* RetainCycleLoggerPlugin.m in Sources */,
 				21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */,

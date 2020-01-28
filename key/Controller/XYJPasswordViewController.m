@@ -8,6 +8,7 @@
 
 #import "XYJPasswordViewController.h"
 #import "XYJViewController.h"
+#import "XYJSecrecyManager.h"
 
 @interface XYJPasswordViewController ()<
 UITextViewDelegate
@@ -99,6 +100,14 @@ UITextViewDelegate
     return NO;
 }
 
+- (void)jumpToHomeView {
+    [[XYJSecrecyManager sharedManager] unlockForSeconds];
+    
+    XYJViewController *vctrl = [[XYJViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
+    [UIApplication sharedApplication].keyWindow.rootViewController = navi;
+}
+
 #pragma mark - UITextView delegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -122,9 +131,7 @@ UITextViewDelegate
     
     if ((textView.text.length == 4) && [self isPasswordCorrect:textView.text]) {
         [self.textView resignFirstResponder];
-        XYJViewController *vctrl = [[XYJViewController alloc] init];
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
-        [UIApplication sharedApplication].keyWindow.rootViewController = navi;
+        [self jumpToHomeView];
     }
 }
 
