@@ -12,7 +12,7 @@
 
 @property (nonatomic, assign) BOOL unlock;
 
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSTimeInterval unlockTimeInterval;
 
 @end
 
@@ -31,15 +31,25 @@
 
 - (void)unlockForSeconds {
     self.unlock = YES;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(lockAgain) userInfo:nil repeats:NO];
+    self.unlockTimeInterval = [NSDate date].timeIntervalSince1970;
+}
+
+#pragma mark - Getter & Setter
+
+- (BOOL)unlock {
+    NSTimeInterval timeInterval = [NSDate date].timeIntervalSince1970;
+    if (timeInterval - self.unlockTimeInterval >= 60) {
+        [self lockAgain];
+        return NO;
+    } else {
+        return _unlock;
+    }
 }
 
 #pragma mark - Private
 
 - (void)lockAgain {
     self.unlock = NO;
-    [self.timer invalidate];
-    self.timer = nil;
 }
 
 @end
