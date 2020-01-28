@@ -16,7 +16,6 @@ UITextViewDelegate
 
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) NSArray<UILabel *> *labelArray;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -54,14 +53,6 @@ UITextViewDelegate
     return _textView;
 }
 
-- (NSDateFormatter *)dateFormatter {
-    if (_dateFormatter == nil) {
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateFormat = @"HHmm";
-    }
-    return _dateFormatter;
-}
-
 #pragma mark - Private
 
 - (void)addLabels {
@@ -83,21 +74,6 @@ UITextViewDelegate
     }
     
     self.labelArray = [muArray mutableCopy];
-}
-
-- (BOOL)isPasswordCorrect:(NSString *)password {
-    if (password.length != 4) {
-        return NO;
-    }
-    NSString *timeString = [self.dateFormatter stringFromDate:[NSDate date]];
-    NSInteger hour = [[timeString substringWithRange:NSMakeRange(0, 2)] integerValue];
-    NSInteger min = [[timeString substringWithRange:NSMakeRange(2, 2)] integerValue];
-    NSInteger passwordPartOne = [[password substringWithRange:NSMakeRange(0, 2)] integerValue];
-    NSInteger passwordPartTwo = [[password substringWithRange:NSMakeRange(2, 2)] integerValue];
-    if (hour + 12 == passwordPartOne && min + 4 == passwordPartTwo) {
-        return YES;
-    }
-    return NO;
 }
 
 - (void)jumpToHomeView {
@@ -129,7 +105,8 @@ UITextViewDelegate
         }
     }
     
-    if ((textView.text.length == 4) && [self isPasswordCorrect:textView.text]) {
+    if ((textView.text.length == 4) &&
+        [[XYJSecrecyManager sharedManager] isPasswordCorrect:textView.text]) {
         [self.textView resignFirstResponder];
         [self jumpToHomeView];
     }
