@@ -36,10 +36,10 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = XYJColor(0xf4f4f4, 1.0);
+    self.view.backgroundColor = XYJColor(0xf4f4f4);
     
     UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
-    [editItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    [editItem setTintColor:XYJColor(0x4c4c4c)];
     self.navigationItem.rightBarButtonItem = editItem;
     
     [self.view addSubview:self.tableView];
@@ -55,7 +55,7 @@ UITableViewDataSource
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), XYJScreenHeight()) style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = XYJColor(0xf4f4f4, 1.0);
+        _tableView.backgroundColor = XYJColor(0xf4f4f4);
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }
@@ -147,7 +147,7 @@ UITableViewDataSource
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 22)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];
         label.font = [UIFont systemFontOfSize:14];
-        label.textColor = XYJColor(0x696969, 1.0);
+        label.textColor = XYJColor(0x696969);
         label.text = @"备注";
         [view addSubview:label];
         return view;

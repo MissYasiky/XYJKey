@@ -33,7 +33,7 @@ static CGFloat kPad = 15.0;
     if (_textView == nil) {
         _textView = [[UITextView alloc] init];
         _textView.font = [UIFont systemFontOfSize:16];
-        _textView.textColor = XYJColor(0xa4a4a4, 1.0);
+        _textView.textColor = XYJColor(0xa4a4a4);
     }
     return _textView;
 }

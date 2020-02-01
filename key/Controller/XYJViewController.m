@@ -28,7 +28,7 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = XYJColor(0xf4f4f4, 1.0);
+    self.view.backgroundColor = XYJColor(0xf4f4f4);
     
     self.dataArray = [[NSMutableArray alloc] init];
     
@@ -62,15 +62,15 @@ UITableViewDataSource
 - (void)initNavigationBar {
     UIImage *image = [UIImage imageNamed:@"navigation_btn_menu"];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(menuButtonAction)];
-    [leftItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    [leftItem setTintColor:XYJColor(0x4c4c4c)];
     self.navigationItem.leftBarButtonItem = leftItem;
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBankCard)];
-    [item setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    [item setTintColor:XYJColor(0x4c4c4c)];
     self.navigationItem.rightBarButtonItem = item;
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:nil action:nil];
-    [backItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    [backItem setTintColor:XYJColor(0x4c4c4c)];
     self.navigationItem.backBarButtonItem = backItem;
     
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
@@ -81,7 +81,7 @@ UITableViewDataSource
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), XYJScreenHeight()) style:UITableViewStylePlain];
-        _tableView.backgroundColor = XYJColor(0xf4f4f4, 1.0);
+        _tableView.backgroundColor = XYJColor(0xf4f4f4);
         _tableView.delegate = self;
         
         UIView *view = [[UIView alloc] init];

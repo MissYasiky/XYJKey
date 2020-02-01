@@ -80,12 +80,12 @@ UITextViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = XYJColor(0xf4f4f4, 1.0);
+    self.view.backgroundColor = XYJColor(0xf4f4f4);
     
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(save)];
-    [cancelItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
-    [saveItem setTintColor:XYJColor(0x4c4c4c, 1.0)];
+    [cancelItem setTintColor:XYJColor(0x4c4c4c)];
+    [saveItem setTintColor:XYJColor(0x4c4c4c)];
     self.navigationItem.leftBarButtonItem = cancelItem;
     self.navigationItem.rightBarButtonItem = saveItem;
     
@@ -110,7 +110,7 @@ UITextViewDelegate
 - (UITableView *)tableView {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), XYJScreenHeight()) style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = XYJColor(0xf4f4f4, 1.0);
+        _tableView.backgroundColor = XYJColor(0xf4f4f4);
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }
@@ -344,7 +344,7 @@ UITextViewDelegate
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 22)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];
         label.font = [UIFont systemFontOfSize:14];
-        label.textColor = XYJColor(0x696969, 1.0);
+        label.textColor = XYJColor(0x696969);
         label.text = @"备注";
         [view addSubview:label];
         return view;

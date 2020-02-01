@@ -68,7 +68,7 @@ UITextViewDelegate
         label.text = @"-";
         label.font = [UIFont systemFontOfSize:45];
         label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = XYJColor(0x696969, 1.0);
+        label.textColor = XYJColor(0x696969);
         [muArray addObject:label];
         [self.view addSubview:label];
     }

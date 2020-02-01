@@ -25,7 +25,7 @@ static CGFloat kRightPad = 15.0;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.textLabel.font = [UIFont systemFontOfSize:18];
-        self.textLabel.textColor = XYJColor(0x696969, 1.0);
+        self.textLabel.textColor = XYJColor(0x696969);
         
         [self.contentView addSubview:self.textField];
     }
@@ -43,7 +43,7 @@ static CGFloat kRightPad = 15.0;
     if (_textField == nil) {
         _textField = [[UITextField alloc] init];
         _textField.font = [UIFont systemFontOfSize:16];
-        _textField.textColor = XYJColor(0xa4a4a4, 1.0);
+        _textField.textColor = XYJColor(0xa4a4a4);
         _textField.textAlignment = NSTextAlignmentRight;
     }
     return _textField;

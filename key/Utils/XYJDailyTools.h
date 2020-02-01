@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
-extern UIColor *XYJColor(NSInteger hexValue, CGFloat alpha);
 
 extern CGFloat XYJScreenWidth (void);
 

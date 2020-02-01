@@ -24,7 +24,7 @@ static CGFloat kCellHeight = 42.0;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.textLabel.font = [UIFont systemFontOfSize:18];
-        self.textLabel.textColor = XYJColor(0x696969, 1.0);
+        self.textLabel.textColor = XYJColor(0x696969);
         
         [self.contentView addSubview:self.rightLabel];
     }
@@ -43,7 +43,7 @@ static CGFloat kCellHeight = 42.0;
     if (_rightLabel == nil) {
         _rightLabel = [[UILabel alloc] init];
         _rightLabel.font = [UIFont systemFontOfSize:16];
-        _rightLabel.textColor = XYJColor(0xa4a4a4, 1.0);
+        _rightLabel.textColor = XYJColor(0xa4a4a4);
         _rightLabel.textAlignment = NSTextAlignmentRight;
     }
     return _rightLabel;
