@@ -25,6 +25,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self customNavigationBar];
+    
 #if XYJ_PassWord_Necessary
     XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
     self.window.rootViewController = vctrl;
@@ -97,6 +99,18 @@
 
 - (void)unshield {
     [self.shieldView removeFromSuperview];
+}
+
+- (void)customNavigationBar {
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    [[UINavigationBar appearance] setTintColor:XYJColor(XYJ_Text_Color)];
+    
+    NSDictionary *titleAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"PingFangSC-Semibold" size:13],
+                                      NSForegroundColorAttributeName:XYJColor(XYJ_Text_Color),
+                                      NSKernAttributeName:@(3)
+    };
+    [[UINavigationBar appearance] setTitleTextAttributes:titleAttributes];
 }
 
 @end
