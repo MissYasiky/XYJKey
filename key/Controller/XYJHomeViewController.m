@@ -8,6 +8,7 @@
 
 #import "XYJHomeViewController.h"
 #import "XYJMenuViewController.h"
+#import "XYJCardListViewController.h"
 #import "XYJHomeTabBar.h"
 
 @interface XYJHomeViewController () <
@@ -69,8 +70,7 @@ XYJHomeTabBarDelegate
 - (void)initViewControllers {
     self.vctrlArray = [[NSMutableArray alloc] initWithCapacity:2];
     
-    UIViewController *vctrl1 = [[UIViewController alloc] init];
-    vctrl1.view.backgroundColor = [UIColor purpleColor];
+    XYJCardListViewController *vctrl1 = [[XYJCardListViewController alloc] init];
     [self.vctrlArray addObject:vctrl1];
     
     UIViewController *vctrl2 = [[UIViewController alloc] init];

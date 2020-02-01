@@ -12,6 +12,8 @@
 
 #define XYJ_Bold_Font @"PingFangSC-Semibold"
 
+#define XYJ_Regular_Font @"PingFangSC-Regular"
+
 extern CGFloat XYJScreenWidth (void);
 
 extern CGFloat XYJScreenHeight (void);
