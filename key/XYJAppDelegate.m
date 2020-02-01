@@ -35,10 +35,12 @@
 #endif
     [self.window makeKeyAndVisible];
     
+#if XYJ_Memory_Monitor
     FBObjectGraphConfiguration *configuration = [[FBObjectGraphConfiguration alloc] initWithFilterBlocks:@[] shouldInspectTimers:NO];
     _memoryProfiler = [[FBMemoryProfiler alloc] initWithPlugins:@[[RetainCycleLoggerPlugin new]]
                                retainCycleDetectorConfiguration:configuration];
     [_memoryProfiler enable];
+#endif
     
     return YES;
 }

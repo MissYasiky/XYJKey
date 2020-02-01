@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#define XYJ_Memory_Monitor 0
 
 extern CGFloat XYJScreenWidth (void);
 

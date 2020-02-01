@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define XYJ_PassWord_Necessary 1
+#define XYJ_PassWord_Necessary 0
 
 NS_ASSUME_NONNULL_BEGIN
 
