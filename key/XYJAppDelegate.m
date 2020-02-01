@@ -9,7 +9,7 @@
 #import "XYJAppDelegate.h"
 #import "XYJSecrecyManager.h"
 #import "XYJPasswordViewController.h"
-#import "XYJViewController.h"
+#import "XYJHomeViewController.h"
 #import "RetainCycleLoggerPlugin.h"
 #import <FBMemoryProfiler/FBMemoryProfiler.h>
 
@@ -31,7 +31,7 @@
     XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
     self.window.rootViewController = vctrl;
 #else
-    XYJViewController *vctrl = [[XYJViewController alloc] init];
+    XYJHomeViewController *vctrl = [[XYJHomeViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
     self.window.rootViewController = navi;
 #endif
