@@ -10,6 +10,8 @@
 
 #define XYJ_Memory_Monitor 0
 
+#define XYJ_Bold_Font @"PingFangSC-Semibold"
+
 extern CGFloat XYJScreenWidth (void);
 
 extern CGFloat XYJScreenHeight (void);

@@ -106,7 +106,7 @@
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     [[UINavigationBar appearance] setTintColor:XYJColor(XYJ_Text_Color)];
     
-    NSDictionary *titleAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"PingFangSC-Semibold" size:13],
+    NSDictionary *titleAttributes = @{NSFontAttributeName:[UIFont fontWithName:XYJ_Bold_Font size:13],
                                       NSForegroundColorAttributeName:XYJColor(XYJ_Text_Color),
                                       NSKernAttributeName:@(3)
     };

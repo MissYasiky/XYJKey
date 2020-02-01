@@ -8,8 +8,13 @@
 
 #import "XYJHomeViewController.h"
 #import "XYJMenuViewController.h"
+#import "XYJHomeTabBar.h"
 
-@interface XYJHomeViewController ()
+@interface XYJHomeViewController () <
+XYJHomeTabBarDelegate
+>
+
+@property (nonatomic, strong) XYJHomeTabBar *tabBar;
 
 @end
 
@@ -20,6 +25,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self initNavigationBar];
+    [self.view addSubview:self.tabBar];
 }
 
 #pragma mark - Initialization
@@ -47,11 +53,28 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
+#pragma mark - Getter & Setter
+
+- (XYJHomeTabBar *)tabBar {
+    if (_tabBar == nil) {
+        CGFloat originY = self.navigationController.navigationBar.frame.origin.y +  self.navigationController.navigationBar.frame.size.height;
+        _tabBar = [[XYJHomeTabBar alloc] initWithFrame:CGRectMake(0, originY, XYJScreenWidth(), 35)];
+        _tabBar.delegate = self;
+    }
+    return _tabBar;
+}
+
 #pragma mark - Action
 
 - (void)menuButtonAction {
     XYJMenuViewController *vctrl = [[XYJMenuViewController alloc] init];
     [self.navigationController pushViewController:vctrl animated:YES];
+}
+
+#pragma mark - XYJHomeTabBar Delegate
+
+- (void)selectTabBarAtIndex:(NSInteger)index {
+    NSLog(@"select at index %zd", index);
 }
 
 @end
