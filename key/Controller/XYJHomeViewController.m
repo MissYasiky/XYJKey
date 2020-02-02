@@ -28,6 +28,8 @@ XYJHomeTabBarDelegate
 /// 选中 tab 索引
 @property (nonatomic, assign) NSInteger selectedIndex;
 
+@property (nonatomic, strong) UIButton *addButton;
+
 @end
 
 @implementation XYJHomeViewController
@@ -40,6 +42,7 @@ XYJHomeTabBarDelegate
     [self initTabBar];
     [self initViewControllers];
     [self initPageViewControllers];
+    [self initAddButton];
 }
 
 #pragma mark - Initialization
@@ -67,6 +70,13 @@ XYJHomeTabBarDelegate
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
+- (void)initTabBar {
+    CGFloat originY = self.navigationController.navigationBar.frame.origin.y +  self.navigationController.navigationBar.frame.size.height;
+    self.tabBar = [[XYJHomeTabBar alloc] initWithFrame:CGRectMake(0, originY, XYJScreenWidth(), 35)];
+    self.tabBar.delegate = self;
+    [self.view addSubview:self.tabBar];
+}
+
 - (void)initViewControllers {
     self.vctrlArray = [[NSMutableArray alloc] initWithCapacity:2];
     
@@ -74,7 +84,6 @@ XYJHomeTabBarDelegate
     [self.vctrlArray addObject:vctrl1];
     
     UIViewController *vctrl2 = [[UIViewController alloc] init];
-    vctrl2.view.backgroundColor = [UIColor brownColor];
     [self.vctrlArray addObject:vctrl2];
 }
 
@@ -104,11 +113,15 @@ XYJHomeTabBarDelegate
     }
 }
 
-- (void)initTabBar {
-    CGFloat originY = self.navigationController.navigationBar.frame.origin.y +  self.navigationController.navigationBar.frame.size.height;
-    self.tabBar = [[XYJHomeTabBar alloc] initWithFrame:CGRectMake(0, originY, XYJScreenWidth(), 35)];
-    self.tabBar.delegate = self;
-    [self.view addSubview:self.tabBar];
+- (void)initAddButton {
+    self.addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.addButton setImage:[UIImage imageNamed:@"home_btn_add"] forState:UIControlStateNormal];
+    [self.addButton addTarget:self action:@selector(addButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.addButton];
+    
+    CGFloat width = 55;
+    CGFloat delta = 25 + width;
+    self.addButton.frame = CGRectMake(XYJScreenWidth() - delta, XYJScreenHeight() - delta, width, width);
 }
 
 #pragma mark - Action
@@ -116,6 +129,10 @@ XYJHomeTabBarDelegate
 - (void)menuButtonAction {
     XYJMenuViewController *vctrl = [[XYJMenuViewController alloc] init];
     [self.navigationController pushViewController:vctrl animated:YES];
+}
+
+- (void)addButtonAction {
+    NSLog(@"add %@", self.selectedIndex == 0 ? @"card" : @"account");
 }
 
 #pragma mark - Private
