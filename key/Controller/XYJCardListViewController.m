@@ -70,7 +70,11 @@ UITableViewDataSource
         cell = [[XYJHomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
     }
-    [cell setTextForLineOne:@"招商银行" lineTwo:@"借记卡" lineThree:@"4444 4444 4444 4444"];
+    if (indexPath.row == 0) {
+        [cell setTextForLineOne:@"招商银行" lineTwo:@"借记卡" lineThree:@"4444 4444 4444 4444"];
+    } else {
+        [cell setTextForLineOne:@"招商银行" lineTwo:@"借记卡" lineThree:@"4444 4444 4444 4444" other:YES];
+    }
     return cell;
 }
 

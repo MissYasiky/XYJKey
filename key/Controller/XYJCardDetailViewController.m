@@ -45,11 +45,11 @@ UITableViewDataSource
 
 - (void)initNavigationBar {
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightButton setImage:[UIImage imageNamed:@"nav_btn_edit"] forState:UIControlStateNormal];
-    [rightButton setImage:[UIImage imageNamed:@"nav_btn_edit_highlight"] forState:UIControlStateHighlighted];
-    [rightButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *editItem =[[UIBarButtonItem alloc] initWithCustomView:rightButton];
-    self.navigationItem.rightBarButtonItem = editItem;
+    [rightButton setImage:[UIImage imageNamed:@"nav_btn_menu"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"nav_btn_menu_highlight"] forState:UIControlStateHighlighted];
+    [rightButton addTarget:self action:@selector(menuButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *menuItem =[[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = menuItem;
 }
 
 #pragma mark - Getter & Setter
@@ -80,9 +80,43 @@ UITableViewDataSource
 
 #pragma mark - Action
 
-- (void)editButtonAction {
-//    XYJSettingViewController *vctrl = [[XYJSettingViewController alloc] init];
-//    [self.navigationController pushViewController:vctrl animated:YES];
+- (void)menuButtonAction {
+    __weak __typeof(self) weakSelf = self;
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [editAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Blue_Color] forKey:@"titleTextColor"];
+
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf showDeleteAlert];
+    }];
+    [deleteAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Red_Color] forKey:@"titleTextColor"];
+    
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [cancleAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Blue_Color] forKey:@"titleTextColor"];
+    
+    [alert addAction:editAction];
+    [alert addAction:deleteAction];
+    [alert addAction:cancleAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - Private
+
+- (void)showDeleteAlert {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"确定要删除该银行卡信息？" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [deleteAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Red_Color] forKey:@"titleTextColor"];
+    
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [cancleAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Blue_Color] forKey:@"titleTextColor"];
+    
+    [alert addAction:deleteAction];
+    [alert addAction:cancleAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - UITableView DataSource

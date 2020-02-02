@@ -55,12 +55,12 @@ XYJHomeTabBarDelegate
 - (void)initNavigationBar {
     // 菜单页按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftButton setImage:[UIImage imageNamed:@"nav_btn_menu"] forState:UIControlStateNormal];
-    [leftButton setImage:[UIImage imageNamed:@"nav_btn_menu_highlight"] forState:UIControlStateHighlighted];
-    [leftButton addTarget:self action:@selector(menuButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton setImage:[UIImage imageNamed:@"nav_btn_setting"] forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"nav_btn_setting_highlight"] forState:UIControlStateHighlighted];
+    [leftButton addTarget:self action:@selector(settingButtonAction) forControlEvents:UIControlEventTouchUpInside];
 //    leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    UIBarButtonItem *menuItem =[[UIBarButtonItem alloc] initWithCustomView:leftButton];
-    self.navigationItem.leftBarButtonItem = menuItem;
+    UIBarButtonItem *settingItem =[[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = settingItem;
 
     // 返回按钮统一配置
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -133,7 +133,7 @@ XYJHomeTabBarDelegate
 
 #pragma mark - Action
 
-- (void)menuButtonAction {
+- (void)settingButtonAction {
     XYJSettingViewController *vctrl = [[XYJSettingViewController alloc] init];
     [self.navigationController pushViewController:vctrl animated:YES];
 }
