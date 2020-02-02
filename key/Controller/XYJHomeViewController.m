@@ -56,6 +56,7 @@ XYJHomeTabBarDelegate
     // 菜单页按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftButton setImage:[UIImage imageNamed:@"nav_btn_menu"] forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"nav_btn_menu_highlight"] forState:UIControlStateHighlighted];
     [leftButton addTarget:self action:@selector(menuButtonAction) forControlEvents:UIControlEventTouchUpInside];
 //    leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     UIBarButtonItem *menuItem =[[UIBarButtonItem alloc] initWithCustomView:leftButton];
@@ -119,6 +120,9 @@ XYJHomeTabBarDelegate
 - (void)initAddButton {
     self.addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.addButton setImage:[UIImage imageNamed:@"home_btn_add"] forState:UIControlStateNormal];
+    [self.addButton setImage:[UIImage imageNamed:@"home_btn_add_highlight"] forState:UIControlStateHighlighted];
+    self.addButton.layer.shadowOffset = CGSizeMake(0, 6);
+    self.addButton.layer.shadowOpacity = 0.2;
     [self.addButton addTarget:self action:@selector(addButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.addButton];
     

@@ -46,6 +46,7 @@ UITableViewDataSource
 - (void)initNavigationBar {
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightButton setImage:[UIImage imageNamed:@"nav_btn_edit"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"nav_btn_edit_highlight"] forState:UIControlStateHighlighted];
     [rightButton addTarget:self action:@selector(editButtonAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *editItem =[[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = editItem;
