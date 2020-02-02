@@ -7,7 +7,7 @@
 //
 
 #import "XYJHomeViewController.h"
-#import "XYJMenuViewController.h"
+#import "XYJSettingViewController.h"
 #import "XYJCardListViewController.h"
 #import "XYJAccountListViewController.h"
 #import "XYJHomeTabBar.h"
@@ -34,6 +34,8 @@ XYJHomeTabBarDelegate
 @end
 
 @implementation XYJHomeViewController
+
+#pragma mark - Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -128,7 +130,7 @@ XYJHomeTabBarDelegate
 #pragma mark - Action
 
 - (void)menuButtonAction {
-    XYJMenuViewController *vctrl = [[XYJMenuViewController alloc] init];
+    XYJSettingViewController *vctrl = [[XYJSettingViewController alloc] init];
     [self.navigationController pushViewController:vctrl animated:YES];
 }
 
