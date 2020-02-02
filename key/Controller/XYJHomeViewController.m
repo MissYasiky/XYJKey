@@ -39,6 +39,8 @@ XYJHomeTabBarDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"MY KEY";
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self initNavigationBar];
@@ -51,8 +53,6 @@ XYJHomeTabBarDelegate
 #pragma mark - Initialization
 
 - (void)initNavigationBar {
-    self.title = @"MY KEY";
-    
     // 菜单页按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftButton setImage:[UIImage imageNamed:@"nav_btn_menu"] forState:UIControlStateNormal];

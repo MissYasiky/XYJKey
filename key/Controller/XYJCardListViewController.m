@@ -7,6 +7,7 @@
 //
 
 #import "XYJCardListViewController.h"
+#import "XYJCardDetailViewController.h"
 #import "XYJHomeListCell.h"
 
 @interface XYJCardListViewController ()<
@@ -77,8 +78,8 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    XYJBankCardDetailViewController *vctrl = [[XYJBankCardDetailViewController alloc] initWithData:self.dataArray[indexPath.row]];
-//    [self.navigationController pushViewController:vctrl animated:YES];
+    XYJCardDetailViewController *vctrl = [[XYJCardDetailViewController alloc] init];
+    [self.navigationController pushViewController:vctrl animated:YES];
 }
 
 @end
