@@ -85,7 +85,6 @@ static CGFloat const kCellHeight = 90.0;
         _topLabel = [[UILabel alloc] init];
         _topLabel.font = [UIFont fontWithName:XYJ_Regular_Font size:15];
         _topLabel.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
-        _topLabel.text = @"招商银行";
     }
     return _topLabel;
 }
@@ -95,7 +94,6 @@ static CGFloat const kCellHeight = 90.0;
         _midLabel = [[UILabel alloc] init];
         _midLabel.font = [UIFont fontWithName:XYJ_Regular_Font size:11];
         _midLabel.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color alpha:0.5];
-        _midLabel.text = @"借记卡";
     }
     return _midLabel;
 }
@@ -105,7 +103,6 @@ static CGFloat const kCellHeight = 90.0;
         _bottomLabel = [[UILabel alloc] init];
         _bottomLabel.font = [UIFont fontWithName:XYJ_Regular_Font size:15];
         _bottomLabel.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
-        _bottomLabel.text = @"4444 1111 4444 2222 6489";
     }
     return _bottomLabel;
 }
@@ -141,6 +138,22 @@ static CGFloat const kCellHeight = 90.0;
 }
 
 #pragma mark - Public
+
+- (void)setCellStyleForAccount:(BOOL)account {
+    NSString *imageName = account ? @"home_list_icon_account" : @"home_list_icon_card";
+    [self.iconImageView setImage:[UIImage imageNamed:imageName]];
+}
+
+- (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString *)lineTwoText lineThree:(NSString *)lineThreeText {
+    [self setTextForLineOne:lineOneText lineTwo:lineTwoText lineThree:lineThreeText other:NO];
+}
+
+- (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString *)lineTwoText lineThree:(NSString *)lineThreeText other:(BOOL)other {
+    self.topLabel.text = lineOneText;
+    self.midLabel.text = lineTwoText;
+    self.bottomLabel.text = lineThreeText;
+    self.taLabel.hidden = !other;
+}
 
 + (CGFloat)height {
     return kCellHeight;

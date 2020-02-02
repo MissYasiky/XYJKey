@@ -69,6 +69,7 @@ UITableViewDataSource
         cell = [[XYJHomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
     }
+    [cell setTextForLineOne:@"招商银行" lineTwo:@"借记卡" lineThree:@"4444 4444 4444 4444"];
     return cell;
 }
 
