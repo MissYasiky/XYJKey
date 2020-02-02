@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setCellStyleForAccount:(BOOL)account;
 
-- (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString *)lineTwoText lineThree:(NSString *)lineThreeText;
+- (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString * _Nullable)lineTwoText lineThree:(NSString *)lineThreeText;
 
-- (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString *)lineTwoText lineThree:(NSString *)lineThreeText other:(BOOL)other;
+- (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString * _Nullable)lineTwoText lineThree:(NSString *)lineThreeText other:(BOOL)other;
 
 + (CGFloat)height;
 

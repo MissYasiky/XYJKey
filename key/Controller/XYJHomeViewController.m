@@ -9,6 +9,7 @@
 #import "XYJHomeViewController.h"
 #import "XYJMenuViewController.h"
 #import "XYJCardListViewController.h"
+#import "XYJAccountListViewController.h"
 #import "XYJHomeTabBar.h"
 
 @interface XYJHomeViewController () <
@@ -83,7 +84,7 @@ XYJHomeTabBarDelegate
     XYJCardListViewController *vctrl1 = [[XYJCardListViewController alloc] init];
     [self.vctrlArray addObject:vctrl1];
     
-    UIViewController *vctrl2 = [[UIViewController alloc] init];
+    XYJAccountListViewController *vctrl2 = [[XYJAccountListViewController alloc] init];
     [self.vctrlArray addObject:vctrl2];
 }
 
