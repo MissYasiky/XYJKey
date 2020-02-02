@@ -24,4 +24,21 @@ UIColor *XYJColorWithAlpha(NSInteger hexValue, CGFloat alpha) {
 
 @implementation XYJColorUtils
 
++ (UIColor *)colorWithHexString:(NSString *)hexString {
+    return [self colorWithHexString:hexString alpha:1.0];
+}
+
++ (UIColor *)colorWithHexString:(NSString *)hexString alpha:(float)alpha {
+    if (!hexString || hexString.length < 6) {
+        return [UIColor whiteColor];
+    }
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    if ([hexString rangeOfString:@"#"].location == 0) {
+        [scanner setScanLocation:1]; // bypass '#' character
+    }
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:alpha];
+}
+
 @end

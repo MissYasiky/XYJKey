@@ -102,12 +102,13 @@
 }
 
 - (void)customNavigationBar {
+    UIColor *tintColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    [[UINavigationBar appearance] setTintColor:XYJColor(XYJ_Text_Color)];
+    [[UINavigationBar appearance] setTintColor:tintColor];
     
     NSDictionary *titleAttributes = @{NSFontAttributeName:[UIFont fontWithName:XYJ_Bold_Font size:13],
-                                      NSForegroundColorAttributeName:XYJColor(XYJ_Text_Color),
+                                      NSForegroundColorAttributeName:tintColor,
                                       NSKernAttributeName:@(3)
     };
     [[UINavigationBar appearance] setTitleTextAttributes:titleAttributes];

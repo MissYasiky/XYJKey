@@ -25,7 +25,7 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = XYJColor(0xffffff);
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.dataArray = [[NSMutableArray alloc] initWithArray:@[@"aaa", @"bbb"]];
     [self.view addSubview:self.tableView];

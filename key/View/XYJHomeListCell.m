@@ -84,7 +84,7 @@ static CGFloat const kCellHeight = 90.0;
     if (_topLabel == nil) {
         _topLabel = [[UILabel alloc] init];
         _topLabel.font = [UIFont fontWithName:XYJ_Regular_Font size:15];
-        _topLabel.textColor = XYJColor(XYJ_Text_Color);
+        _topLabel.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
         _topLabel.text = @"招商银行";
     }
     return _topLabel;
@@ -94,7 +94,7 @@ static CGFloat const kCellHeight = 90.0;
     if (_midLabel == nil) {
         _midLabel = [[UILabel alloc] init];
         _midLabel.font = [UIFont fontWithName:XYJ_Regular_Font size:11];
-        _midLabel.textColor = XYJColorWithAlpha(XYJ_Text_Color, 0.5);
+        _midLabel.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color alpha:0.5];
         _midLabel.text = @"借记卡";
     }
     return _midLabel;
@@ -104,7 +104,7 @@ static CGFloat const kCellHeight = 90.0;
     if (_bottomLabel == nil) {
         _bottomLabel = [[UILabel alloc] init];
         _bottomLabel.font = [UIFont fontWithName:XYJ_Regular_Font size:15];
-        _bottomLabel.textColor = XYJColor(XYJ_Text_Color);
+        _bottomLabel.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
         _bottomLabel.text = @"4444 1111 4444 2222 6489";
     }
     return _bottomLabel;
@@ -135,7 +135,7 @@ static CGFloat const kCellHeight = 90.0;
 - (UIView *)seperatorView {
     if (_seperatorView == nil) {
         _seperatorView = [[UIView alloc] init];
-        _seperatorView.backgroundColor = XYJColor(XYJ_Line_Color);
+        _seperatorView.backgroundColor = [XYJColorUtils colorWithHexString:XYJ_Line_Color];
     }
     return _seperatorView;
 }

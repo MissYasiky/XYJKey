@@ -81,7 +81,7 @@ static NSInteger const kButtonTag = 101;
         CGFloat lineHeight = 2.5;
         _selectedLine = [[UIView alloc] init];
         _selectedLine.frame = CGRectMake(0, kHeight - lineHeight, lineWidth, lineHeight);
-        _selectedLine.backgroundColor = XYJColor(XYJ_Text_Color);
+        _selectedLine.backgroundColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
     }
     return _selectedLine;
 }
@@ -127,8 +127,8 @@ static NSInteger const kButtonTag = 101;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:title forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont fontWithName:XYJ_Bold_Font size:13];
-    [button setTitleColor:XYJColorWithAlpha(XYJ_Text_Color, 0.5) forState:UIControlStateNormal];
-    [button setTitleColor:XYJColorWithAlpha(XYJ_Text_Color, 1) forState:UIControlStateSelected];
+    [button setTitleColor:[XYJColorUtils colorWithHexString:XYJ_Text_Color alpha:0.5] forState:UIControlStateNormal];
+    [button setTitleColor:[XYJColorUtils colorWithHexString:XYJ_Text_Color] forState:UIControlStateSelected];
     button.titleEdgeInsets = UIEdgeInsetsMake(-2, 0, 2, 0);
     
     UIFont *font = [UIFont fontWithName:XYJ_Bold_Font size:13];
