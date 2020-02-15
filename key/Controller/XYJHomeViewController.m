@@ -76,7 +76,7 @@ XYJHomeTabBarDelegate
 
 - (void)initTabBar {
     CGFloat originY = self.navigationController.navigationBar.frame.origin.y +  self.navigationController.navigationBar.frame.size.height;
-    self.tabBar = [[XYJHomeTabBar alloc] initWithFrame:CGRectMake(0, originY, XYJScreenWidth(), 35)];
+    self.tabBar = [[XYJHomeTabBar alloc] initWithFrame:CGRectMake(0, originY, XYJ_ScreenWidth, 35)];
     self.tabBar.delegate = self;
     [self.view addSubview:self.tabBar];
 }
@@ -100,8 +100,8 @@ XYJHomeTabBarDelegate
     
     float originX = 0;
     float originY = self.tabBar.frame.origin.y + self.tabBar.frame.size.height;
-    float width = XYJScreenWidth();
-    float height = XYJScreenHeight() - originY;
+    float width = XYJ_ScreenWidth;
+    float height = XYJ_ScreenHeight - originY;
     self.pageViewController.view.frame = CGRectMake(originX, originY, width, height);
     
     NSArray *initControllers = @[self.vctrlArray[0]];
@@ -128,7 +128,7 @@ XYJHomeTabBarDelegate
     
     CGFloat width = 55;
     CGFloat delta = 25 + width;
-    self.addButton.frame = CGRectMake(XYJScreenWidth() - delta, XYJScreenHeight() - delta, width, width);
+    self.addButton.frame = CGRectMake(XYJ_ScreenWidth - delta, XYJ_ScreenHeight - delta, width, width);
 }
 
 #pragma mark - Action

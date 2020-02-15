@@ -8,13 +8,6 @@
 
 #import "XYJDailyTools.h"
 
-CGFloat XYJScreenWidth () {
-    return [UIScreen mainScreen].bounds.size.width;
-}
-
-CGFloat XYJScreenHeight () {
-    return [UIScreen mainScreen].bounds.size.height;
-}
 @implementation XYJDailyTools
 
 @end

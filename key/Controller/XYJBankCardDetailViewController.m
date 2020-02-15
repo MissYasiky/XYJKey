@@ -54,7 +54,7 @@ UITableViewDataSource
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), XYJScreenHeight()) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJ_ScreenWidth, XYJ_ScreenHeight) style:UITableViewStyleGrouped];
         _tableView.backgroundColor = XYJColor(0xf4f4f4);
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -141,10 +141,10 @@ UITableViewDataSource
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 10)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJ_ScreenWidth, 10)];
         return view;
     } else {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 22)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJ_ScreenWidth, 22)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];
         label.font = [UIFont systemFontOfSize:14];
         label.textColor = XYJColor(0x696969);

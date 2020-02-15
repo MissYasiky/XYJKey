@@ -14,9 +14,13 @@
 
 #define XYJ_Regular_Font @"PingFangSC-Regular"
 
-extern CGFloat XYJScreenWidth (void);
+#define XYJ_ScreenWidth ([UIScreen mainScreen].bounds.size.width)
 
-extern CGFloat XYJScreenHeight (void);
+#define XYJ_ScreenHeight ([UIScreen mainScreen].bounds.size.height)
+
+#define XYJ_StatusBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height)
+
+#define XYJ_NavigationBarHeight (self.navigationController.navigationBar.frame.size.height)
 
 @interface XYJDailyTools : NSObject
 

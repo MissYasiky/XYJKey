@@ -49,7 +49,7 @@ static NSInteger const kButtonTag = 101;
 - (void)initButton {
     NSInteger tabNumber = [self.tabArray count];
     
-    CGFloat width = XYJScreenWidth()/tabNumber;
+    CGFloat width = XYJ_ScreenWidth/tabNumber;
     CGFloat height = kHeight;
     
     NSMutableArray *buttonMuArray = [[NSMutableArray alloc] initWithCapacity:tabNumber];
@@ -112,7 +112,7 @@ static NSInteger const kButtonTag = 101;
         [button setSelected:i == index];
     }
     
-    CGFloat width = XYJScreenWidth()/tabNumber;
+    CGFloat width = XYJ_ScreenWidth/tabNumber;
     CGFloat originX = index * width + (width - 25) / 2.0;
     CGRect originRect = self.selectedLine.frame;
     originRect.origin.x = originX;

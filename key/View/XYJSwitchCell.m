@@ -36,7 +36,7 @@ static CGFloat kRightPad = 15.0;
     
     CGPoint point = CGPointZero;
     CGSize size = self.aSwitch.frame.size;
-    point.x = XYJScreenWidth() - size.width - kRightPad;
+    point.x = XYJ_ScreenWidth - size.width - kRightPad;
     point.y = (kCellHeight - size.height) / 2.;
     self.aSwitch.frame = CGRectMake(point.x, point.y, size.width, size.height);
 }

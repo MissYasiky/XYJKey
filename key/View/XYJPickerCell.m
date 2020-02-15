@@ -35,7 +35,7 @@ static CGFloat kRightPad = 30.0;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.rightLabel.frame = CGRectMake(120, (kCellHeight - 20)/2.0, XYJScreenWidth() - 120 - kRightPad, 20);
+    self.rightLabel.frame = CGRectMake(120, (kCellHeight - 20)/2.0, XYJ_ScreenWidth - 120 - kRightPad, 20);
 }
 
 #pragma mark - Getter & Setter

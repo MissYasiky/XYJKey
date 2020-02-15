@@ -49,7 +49,7 @@ UITableViewDataSource
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), XYJScreenHeight()) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJ_ScreenWidth, XYJ_ScreenHeight) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.rowHeight = [XYJSimpleLabelCell height];
         _tableView.dataSource = self;
@@ -67,7 +67,7 @@ UITableViewDataSource
 - (UILabel *)versionLabel {
     if (_versionLabel == nil) {
         _versionLabel = [[UILabel alloc] init];
-        _versionLabel.frame = CGRectMake(0, XYJScreenHeight() - 50 - 13, XYJScreenWidth(), 13);
+        _versionLabel.frame = CGRectMake(0, XYJ_ScreenHeight - 50 - 13, XYJ_ScreenWidth, 13);
         _versionLabel.font = [UIFont fontWithName:XYJ_Regular_Font size:11];
         _versionLabel.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color alpha:0.5];
         _versionLabel.textAlignment = NSTextAlignmentCenter;

@@ -109,7 +109,7 @@ UITextViewDelegate
 
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), XYJScreenHeight()) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, XYJ_ScreenWidth, XYJ_ScreenHeight) style:UITableViewStyleGrouped];
         _tableView.backgroundColor = XYJColor(0xf4f4f4);
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -129,7 +129,7 @@ UITextViewDelegate
 
 - (UIToolbar *)pickerToolBar {
     if (_pickerToolBar == nil) {
-        _pickerToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, XYJScreenHeight(), XYJScreenWidth(), pickerToolbarHeight)];
+        _pickerToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, XYJ_ScreenHeight, XYJ_ScreenWidth, pickerToolbarHeight)];
         UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"完成"
                                                                  style:UIBarButtonItemStylePlain
@@ -146,7 +146,7 @@ UITextViewDelegate
         _pickerView.backgroundColor = [UIColor whiteColor];
         _pickerView.dataSource = self;
         _pickerView.delegate = self;
-        _pickerView.frame = CGRectMake(0, XYJScreenHeight(), XYJScreenWidth(), pickerHeight);
+        _pickerView.frame = CGRectMake(0, XYJ_ScreenHeight, XYJ_ScreenWidth, pickerHeight);
     }
     return _pickerView;
 }
@@ -184,15 +184,15 @@ UITextViewDelegate
 - (void)showPicker {
     self.pickerBackgroundView.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
-        self.pickerToolBar.frame = CGRectMake(0, XYJScreenHeight() - pickerHeight - pickerToolbarHeight, XYJScreenWidth(), pickerToolbarHeight);
-        self.pickerView.frame = CGRectMake(0, XYJScreenHeight() - pickerHeight, XYJScreenWidth(), pickerHeight);
+        self.pickerToolBar.frame = CGRectMake(0, XYJ_ScreenHeight - pickerHeight - pickerToolbarHeight, XYJ_ScreenWidth, pickerToolbarHeight);
+        self.pickerView.frame = CGRectMake(0, XYJ_ScreenHeight - pickerHeight, XYJ_ScreenWidth, pickerHeight);
     } completion:nil];
 }
 
 - (void)hiddenPicker:(id)sender {
     [UIView animateWithDuration:0.3 animations:^{
-        self.pickerToolBar.frame = CGRectMake(0, XYJScreenHeight(), XYJScreenWidth(), pickerToolbarHeight);
-        self.pickerView.frame = CGRectMake(0, XYJScreenHeight(), XYJScreenWidth(), pickerHeight);
+        self.pickerToolBar.frame = CGRectMake(0, XYJ_ScreenHeight, XYJ_ScreenWidth, pickerToolbarHeight);
+        self.pickerView.frame = CGRectMake(0, XYJ_ScreenHeight, XYJ_ScreenWidth, pickerHeight);
     } completion:^(BOOL finished) {
         self.pickerBackgroundView.hidden = YES;
     }];
@@ -338,10 +338,10 @@ UITextViewDelegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 10)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJ_ScreenWidth, 10)];
         return view;
     } else {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJScreenWidth(), 22)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, XYJ_ScreenWidth, 22)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 22)];
         label.font = [UIFont systemFontOfSize:14];
         label.textColor = XYJColor(0x696969);

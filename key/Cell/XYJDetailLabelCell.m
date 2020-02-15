@@ -39,7 +39,7 @@ static CGFloat kCellHeight = 102.0;
     [super layoutSubviews];
     
     CGFloat padding = 25.0;
-    CGFloat labelWidth = XYJScreenWidth() - padding * 2;
+    CGFloat labelWidth = XYJ_ScreenWidth - padding * 2;
     self.topLabel.frame = CGRectMake(padding, padding, labelWidth, 13);
     self.bottomLabel.frame = CGRectMake(padding, kCellHeight - padding - 17, labelWidth, 17);
     self.seperatorView.frame = CGRectMake(padding, kCellHeight - 0.5, labelWidth, 0.5);

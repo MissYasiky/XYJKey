@@ -24,7 +24,7 @@ static CGFloat kPad = 15.0;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.textView.frame = CGRectMake(kPad, kPad, XYJScreenWidth() - kPad * 2, kCellHeight - kPad * 2);
+    self.textView.frame = CGRectMake(kPad, kPad, XYJ_ScreenWidth - kPad * 2, kCellHeight - kPad * 2);
 }
 
 #pragma mark - Getter & Setter

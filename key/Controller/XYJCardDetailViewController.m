@@ -71,9 +71,9 @@ UITableViewDataSource
         _cardView = [[XYJCardView alloc] init];
         
         CGFloat padding = 25;
-        CGFloat cardBgHeight = (XYJScreenWidth() - padding * 2) * 210 / 325;
+        CGFloat cardBgHeight = (XYJ_ScreenWidth - padding * 2) * 210 / 325;
         CGFloat height = cardBgHeight + padding * 2;
-        _cardView.frame = CGRectMake(0, 0, XYJScreenWidth(), height);
+        _cardView.frame = CGRectMake(0, 0, XYJ_ScreenWidth, height);
     }
     return _cardView;
 }

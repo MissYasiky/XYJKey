@@ -46,7 +46,7 @@ UITextViewDelegate
 - (UITextView *)textView {
     if (_textView == nil) {
         _textView = [[UITextView alloc] init];
-        _textView.frame = CGRectMake(90, 260, XYJScreenWidth() - 90 * 2, 37);
+        _textView.frame = CGRectMake(90, 260, XYJ_ScreenWidth - 90 * 2, 37);
         _textView.delegate = self;
         _textView.hidden = YES;
     }
@@ -60,7 +60,7 @@ UITextViewDelegate
     
     CGFloat width = 30.0;
     CGFloat span = 30.0;
-    CGFloat originX = (XYJScreenWidth() - width * 4 - span * 3)/2.0;
+    CGFloat originX = (XYJ_ScreenWidth - width * 4 - span * 3)/2.0;
     
     for(int i = 0; i < 4; i++) {
         UILabel *label= [[UILabel alloc] init];

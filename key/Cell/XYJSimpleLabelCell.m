@@ -39,7 +39,7 @@ static CGFloat const kCellHeight = 80.0;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat width = XYJScreenWidth();
+    CGFloat width = XYJ_ScreenWidth;
     CGFloat height = kCellHeight;
     CGFloat xPadding = 25.0;
     self.iconImageView.frame = CGRectMake(xPadding, (height - 23) / 2.0, 23, 23);
