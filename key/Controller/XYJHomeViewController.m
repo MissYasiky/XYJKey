@@ -122,8 +122,10 @@ XYJHomeTabBarDelegate
     self.addButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.addButton setImage:[UIImage imageNamed:@"home_btn_add"] forState:UIControlStateNormal];
     [self.addButton setImage:[UIImage imageNamed:@"home_btn_add_highlight"] forState:UIControlStateHighlighted];
+    self.addButton.layer.shadowColor = [XYJColorUtils colorWithHexString:XYJ_Theme_Blue_Color].CGColor;
     self.addButton.layer.shadowOffset = CGSizeMake(0, 6);
     self.addButton.layer.shadowOpacity = 0.2;
+    self.addButton.layer.shadowRadius = 10;
     [self.addButton addTarget:self action:@selector(addButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.addButton];
     

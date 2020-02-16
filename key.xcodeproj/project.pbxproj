@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2100C16723F97E890087CAF0 /* XYJCustomKeyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2100C16623F97E890087CAF0 /* XYJCustomKeyCell.m */; };
 		211C883C23F8238200684341 /* XYJAddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 211C883B23F8238200684341 /* XYJAddCardViewController.m */; };
 		21254FA423E08A9200C8FE03 /* xyj_shield_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 21254FA323E08A9200C8FE03 /* xyj_shield_bg.png */; };
 		2126558521C4A5EE00A74BAF /* XYJBankCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126558421C4A5EE00A74BAF /* XYJBankCardViewModel.m */; };
@@ -45,6 +46,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2100C16523F97E890087CAF0 /* XYJCustomKeyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJCustomKeyCell.h; sourceTree = "<group>"; };
+		2100C16623F97E890087CAF0 /* XYJCustomKeyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJCustomKeyCell.m; sourceTree = "<group>"; };
 		211C883A23F8238200684341 /* XYJAddCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAddCardViewController.h; sourceTree = "<group>"; };
 		211C883B23F8238200684341 /* XYJAddCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAddCardViewController.m; sourceTree = "<group>"; };
 		21254FA323E08A9200C8FE03 /* xyj_shield_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xyj_shield_bg.png; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				2178CDAE23E6B35E0039160C /* XYJSimpleLabelCell.m */,
 				2171455421B2850000878C5D /* XYJDetailLabelCell.h */,
 				2171455521B2850000878C5D /* XYJDetailLabelCell.m */,
+				2100C16523F97E890087CAF0 /* XYJCustomKeyCell.h */,
+				2100C16623F97E890087CAF0 /* XYJCustomKeyCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -393,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2100C16723F97E890087CAF0 /* XYJCustomKeyCell.m in Sources */,
 				2171455921B2CDDC00878C5D /* XYJBankCardDetailViewController.m in Sources */,
 				218405B023E530DC000BB9E2 /* XYJColorUtils.m in Sources */,
 				21DDA3F8223CDE130099ED73 /* XYJMenuViewController.m in Sources */,

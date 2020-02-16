@@ -94,7 +94,7 @@ UITableViewDataSource
     } else if (indexPath.row == 1) {
         XYJSimpleLabelCell *cell = (XYJSimpleLabelCell *)[tableView dequeueReusableCellWithIdentifier:kExportCellIdentifier forIndexPath:indexPath];
         [cell setCellIconImageName:@"setting_icon_export"];
-        [cell hiddenIndicator];
+        [cell setStyle:XYJSimpleLabelCellOnlyLabel];
         [cell setLabelText:@"Export"];
         return cell;
     } else {

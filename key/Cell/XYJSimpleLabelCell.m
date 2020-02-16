@@ -13,6 +13,7 @@ static CGFloat const kCellHeight = 80.0;
 @interface XYJSimpleLabelCell ()
 
 @property (nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong) UIImageView *checkImageView;
 @property (nonatomic, strong) UIImageView *indicatorImageView;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIView *seperatorView;
@@ -30,6 +31,7 @@ static CGFloat const kCellHeight = 80.0;
         
         [self.contentView addSubview:self.iconImageView];
         [self.contentView addSubview:self.indicatorImageView];
+        [self.contentView addSubview:self.checkImageView];
         [self.contentView addSubview:self.label];
         [self.contentView addSubview:self.seperatorView];
     }
@@ -42,8 +44,10 @@ static CGFloat const kCellHeight = 80.0;
     CGFloat width = XYJ_ScreenWidth;
     CGFloat height = kCellHeight;
     CGFloat xPadding = 25.0;
+    
     self.iconImageView.frame = CGRectMake(xPadding, (height - 23) / 2.0, 23, 23);
     self.indicatorImageView.frame = CGRectMake(width - xPadding - 20, (height - 16) / 2.0, 20, 16);
+    self.checkImageView.frame = CGRectMake(width - xPadding - 20, (height - 16) / 2.0, 20, 16);
     
     CGFloat originX = self.iconImageView.frame.origin.x + self.iconImageView.frame.size.width + 10;
     CGFloat labelWidth = self.indicatorImageView.frame.origin.x - originX;
@@ -68,6 +72,15 @@ static CGFloat const kCellHeight = 80.0;
     return _indicatorImageView;
 }
 
+- (UIImageView *)checkImageView {
+    if (!_checkImageView) {
+        _checkImageView = [[UIImageView alloc] init];
+        [_checkImageView setImage:[UIImage imageNamed:@"list_indicator_uncheck"]];
+        _checkImageView.hidden = YES;
+   }
+   return _checkImageView;
+}
+
 - (UILabel *)label {
     if (_label == nil) {
         _label = [[UILabel alloc] init];
@@ -85,20 +98,40 @@ static CGFloat const kCellHeight = 80.0;
     return _seperatorView;
 }
 
+- (void)setStyle:(XYJSimpleLabelCellStyle)style {
+    if (style == _style) {
+        return;
+    }
+    _style = style;
+    
+    switch (style) {
+        case XYJSimpleLabelCellDefault:
+        {
+            self.indicatorImageView.hidden = NO;
+            self.checkImageView.hidden = YES;
+            break;
+        }
+        case XYJSimpleLabelCellCheck:
+        {
+            self.indicatorImageView.hidden = YES;
+            self.checkImageView.hidden = NO;
+            break;
+        }
+        case XYJSimpleLabelCellOnlyLabel:
+        {
+            self.indicatorImageView.hidden = YES;
+            self.checkImageView.hidden = YES;
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 #pragma mark - Public
 
 - (void)setCellIconImageName:(NSString *)imageName {
     [self.iconImageView setImage:[UIImage imageNamed:imageName]];
-}
-
-- (void)setChecked:(BOOL)checked {
-    self.indicatorImageView.hidden = NO;
-    NSString *imageName = checked ? @"list_indicator_checked" : @"list_indicator_uncheck";
-    [self.indicatorImageView setImage:[UIImage imageNamed:imageName]];
-}
-
-- (void)hiddenIndicator {
-    self.indicatorImageView.hidden = YES;
 }
 
 - (void)setLabelText:(NSString *)text {
@@ -107,6 +140,19 @@ static CGFloat const kCellHeight = 80.0;
 
 + (CGFloat)height {
     return kCellHeight;
+}
+
+#pragma mark - Override
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    if (self.style != XYJSimpleLabelCellCheck) {
+        return;
+    }
+    
+    NSString *imageName = selected ? @"list_indicator_checked" : @"list_indicator_uncheck";
+    [self.checkImageView setImage:[UIImage imageNamed:imageName]];
 }
 
 @end
