@@ -160,6 +160,20 @@ UITableViewDelegate
     
 }
 
+#pragma mark - Private
+
+- (void)addCustomKey {
+    NSArray *keyValue = @[@"", @""];
+    [self.customKeyArray addObject:keyValue];
+    NSIndexPath *addIndexPath = [NSIndexPath indexPathForRow:[self.customKeyArray count] - 1 inSection:1];
+    [self.tableView insertRowsAtIndexPaths:@[addIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+}
+
+- (void)removeCustomKeyAtIndex:(NSInteger)row {
+    [self.customKeyArray removeObjectAtIndex:row];
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITableView DataSource & Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -224,7 +238,12 @@ UITableViewDelegate
     if (!cell) {
         cell = [[XYJCustomKeyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
+    __weak __typeof(self) weakSelf = self;
+    cell.indexIdentifier = [NSString stringWithFormat:@"%03zd", indexPath.row];
     cell.style = (indexPath.row == [self.customKeyArray count]) ? XYJCustomKeyCellStyleAddKey : XYJCustomKeyCellStyleKeyValue;
+    cell.didTapDeleteButton = ^(NSInteger row) {
+        [weakSelf removeCustomKeyAtIndex:row];
+    };
     return cell;
 }
 
@@ -242,11 +261,9 @@ UITableViewDelegate
         }
     } else {
         if (indexPath.row == [self.customKeyArray count]) {
-            NSArray *keyValue = @[@"", @""];
-            [self.customKeyArray addObject:keyValue];
-            NSIndexPath *addIndexPath = [NSIndexPath indexPathForRow:[self.customKeyArray count] - 1 inSection:1];
-            [self.tableView insertRowsAtIndexPaths:@[addIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            [self addCustomKey];
         }
     }
 }
+
 @end

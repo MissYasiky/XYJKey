@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) XYJCustomKeyCellStyle style;
 
+// 标记当前 cell 所在 indexPath：三位整数字符串，不足三位左侧补0
+@property (nonatomic, assign) NSString *indexIdentifier;
+
+@property (nonatomic, copy) void (^didTapDeleteButton)(NSInteger row);
+
 + (CGFloat)height;
 
 @end

@@ -121,7 +121,9 @@ static CGFloat kCellHeight = 67.0;
 #pragma mark - Action
 
 - (void)buttonAction {
-    
+    if (self.didTapDeleteButton) {
+        self.didTapDeleteButton(self.indexIdentifier.integerValue);
+    }
 }
 
 #pragma mark - Public
