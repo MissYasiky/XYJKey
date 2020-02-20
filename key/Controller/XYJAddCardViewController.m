@@ -22,6 +22,16 @@ UITableViewDelegate
 @property (nonatomic, strong) NSMutableArray *customKeyArray;
 @property (nonatomic, strong) NSArray *tableViewCells;
 
+/// 通过手势隐藏键盘相关属性
+// 键盘是否显示
+@property (nonatomic, assign) BOOL showKeyboard;
+// 键盘 frame 的 origin 的 y 值
+@property (nonatomic, assign) CGFloat keyboardOriginY;
+// 显示键盘时，拖动手势的拖动起始点
+@property (nonatomic, assign) CGPoint dragBeginPoint;
+// 显示键盘时，拖动手势的拖动结束点
+@property (nonatomic, assign) CGPoint dragEndPoing;
+
 @end
 
 @implementation XYJAddCardViewController
@@ -34,6 +44,11 @@ UITableViewDelegate
     
     [self initNavigationBar];
     [self initUI];
+    [self addNotification];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Initialization
@@ -51,6 +66,21 @@ UITableViewDelegate
 - (void)initUI {
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.saveButton];
+}
+
+- (void)addNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidChangeFrame:)
+                                                 name:UIKeyboardDidChangeFrameNotification
+                                               object:nil];
 }
 
 #pragma mark - Getter & Setter
@@ -175,6 +205,59 @@ UITableViewDelegate
 - (void)removeCustomKeyAtIndex:(NSInteger)row {
     [self.customKeyArray removeObjectAtIndex:row];
     [self.tableView reloadData];
+}
+
+#pragma mark - NSNotification
+
+- (void)keyboardWillShow:(NSNotification *)notif {
+    self.showKeyboard = YES;
+}
+
+- (void)keyboardWillHide:(NSNotification *)notif {
+    self.showKeyboard = NO;
+}
+
+- (void)keyboardDidChangeFrame:(NSNotification *)notif {
+    CGRect kbFrameEnd = [notif.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.keyboardOriginY = kbFrameEnd.origin.y;
+}
+
+#pragma mark - ScrollView Delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (!self.showKeyboard) {
+        return;
+    }
+    
+    CGPoint dragBeginPoint = [scrollView.panGestureRecognizer locationInView:self.view];
+    if (dragBeginPoint.y >= self.keyboardOriginY) {
+        return;
+    }
+    
+    CGPoint velocity = [scrollView.panGestureRecognizer velocityInView:self.view];
+    if (velocity.y <= 0) {
+        return;
+    }
+    
+    self.dragBeginPoint = dragBeginPoint;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (!self.showKeyboard) {
+        return;
+    }
+    
+    if (self.dragBeginPoint.y == 0) {
+        return;
+    }
+    
+    CGPoint dragEndPoint = [scrollView.panGestureRecognizer locationInView:self.view];
+    if (dragEndPoint.y < self.keyboardOriginY) {
+        self.dragBeginPoint = CGPointMake(0, 0);
+        return;
+    }
+    
+    [self.view endEditing:YES];
 }
 
 #pragma mark - UITableView DataSource & Delegate
