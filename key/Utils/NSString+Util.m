@@ -74,6 +74,17 @@ static int const revertASCIIGap = -messASCIIGap;
     return string.length == 0;
 }
 
+- (NSString *)xyj_scanForNumber {
+    NSMutableString *muString = [[NSMutableString alloc] init];
+    for (int i = 0; i < self.length; i++) {
+        NSString *single = [self substringWithRange:NSMakeRange(i, 1)];
+        if ([single xyj_isSingleNumber]) {
+            [muString appendString:single];
+        }
+    }
+    return muString.length > 0 ? [muString copy] : @"";
+}
+
 - (NSString *)xyj_seperateEveryFourNumber {
     if ([self xyj_isPureNumber] == NO || self.length == 0) {
         return self;

@@ -10,7 +10,9 @@
 
 static CGFloat kCellHeight = 102.0;
 
-@interface XYJDetailLabelCell ()
+@interface XYJDetailLabelCell ()<
+UITextFieldDelegate
+>
 
 @property (nonatomic, strong) UILabel *topLabel;
 @property (nonatomic, strong) UILabel *bottomLabel;
@@ -96,8 +98,9 @@ static CGFloat kCellHeight = 102.0;
         _textField = [[UITextField alloc] init];
         _textField.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
         _textField.font = [UIFont fontWithName:XYJ_Regular_Font size:15];
-        _textField.keyboardType = UIKeyboardTypeNumberPad;
         _textField.hidden = YES;
+        _textField.delegate = self;
+        [_textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _textField;
 }
@@ -135,6 +138,38 @@ static CGFloat kCellHeight = 102.0;
     }
 }
 
+- (void)setTextFieldStyle:(XYJDetailLabelCellTextFieldStyle)textFieldStyle {
+    if (textFieldStyle == _textFieldStyle) {
+        return;
+    }
+    _textFieldStyle = textFieldStyle;
+    
+    switch (textFieldStyle) {
+        case XYJDetailLabelCellTextFieldStyleChinese:
+        {
+            self.textField.keyboardType = UIKeyboardTypeASCIICapable;
+            break;
+        }
+        case XYJDetailLabelCellTextFieldStyleNumber:
+        {
+            self.textField.keyboardType = UIKeyboardTypeNumberPad;
+            break;
+        }
+        case XYJDetailLabelCellTextFieldStyleDate:
+        {
+            self.textField.keyboardType = UIKeyboardTypeNumberPad;
+            break;
+        }
+        case XYJDetailLabelCellTextFieldStyleCVV:
+        {
+            self.textField.keyboardType = UIKeyboardTypeNumberPad;
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 #pragma mark - Public
 
 - (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString *)lineTwoText {
@@ -164,6 +199,34 @@ static CGFloat kCellHeight = 102.0;
 
 + (CGFloat)height {
     return kCellHeight;
+}
+
+#pragma mark - UITextField Delegate
+
+- (void)textFieldDidChange:(UITextField *)textField {
+    if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleChinese) {
+        return;
+    }
+    
+    NSString *originText = textField.text;
+    NSString *scanString = [originText xyj_scanForNumber];
+    
+    if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleDate) {
+        if (scanString.length > 4) {
+            scanString = [scanString substringToIndex:4];
+        }
+        textField.text = scanString;
+    } else if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleCVV) {
+        if (scanString.length > 3) {
+            scanString = [scanString substringToIndex:3];
+        }
+        textField.text = scanString;
+    } else if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleNumber) {
+        if (scanString.length > 21) {
+            scanString = [scanString substringToIndex:21];
+        }
+        textField.text = [scanString xyj_seperateEveryFourNumber];
+    }
 }
 
 #pragma mark - 废弃

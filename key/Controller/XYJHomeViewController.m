@@ -51,6 +51,19 @@ XYJHomeTabBarDelegate
     [self initAddButton];
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    CGFloat tabBarOriginY = self.navigationController.navigationBar.frame.origin.y +  self.navigationController.navigationBar.frame.size.height;
+    self.tabBar.frame = CGRectMake(0, tabBarOriginY, XYJ_ScreenWidth, 35);
+    
+    float originX = 0;
+    float originY = self.tabBar.frame.origin.y + self.tabBar.frame.size.height;
+    float width = XYJ_ScreenWidth;
+    float height = XYJ_ScreenHeight - originY;
+    self.pageViewController.view.frame = CGRectMake(originX, originY, width, height);
+}
+
 #pragma mark - Initialization
 
 - (void)initNavigationBar {
@@ -76,8 +89,7 @@ XYJHomeTabBarDelegate
 }
 
 - (void)initTabBar {
-    CGFloat originY = self.navigationController.navigationBar.frame.origin.y +  self.navigationController.navigationBar.frame.size.height;
-    self.tabBar = [[XYJHomeTabBar alloc] initWithFrame:CGRectMake(0, originY, XYJ_ScreenWidth, 35)];
+    self.tabBar = [[XYJHomeTabBar alloc] init];
     self.tabBar.delegate = self;
     [self.view addSubview:self.tabBar];
 }
@@ -98,12 +110,6 @@ XYJHomeTabBarDelegate
                                                                   options:nil];
     self.pageViewController.delegate = self;
     self.pageViewController.dataSource = self;
-    
-    float originX = 0;
-    float originY = self.tabBar.frame.origin.y + self.tabBar.frame.size.height;
-    float width = XYJ_ScreenWidth;
-    float height = XYJ_ScreenHeight - originY;
-    self.pageViewController.view.frame = CGRectMake(originX, originY, width, height);
     
     NSArray *initControllers = @[self.vctrlArray[0]];
     [self.pageViewController setViewControllers:initControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];

@@ -65,16 +65,19 @@ UITableViewDelegate
 - (NSArray *)tableViewCells {
     if (!_tableViewCells) {
         XYJDetailLabelCell *cellOne = [[XYJDetailLabelCell alloc] init];
-        [cellOne setTextForTitle:@"Bank Name" picker:@"招商银行"];
+        [cellOne setTextForTitle:@"Bank Name" content:nil placeHolder:@"请输入银行名称"];
         
         XYJDetailLabelCell *cellTwo = [[XYJDetailLabelCell alloc] init];
         [cellTwo setTextForTitle:@"Account Number" content:nil placeHolder:@"请输入银行卡卡号"];
+        cellTwo.textFieldStyle = XYJDetailLabelCellTextFieldStyleNumber;
         
         XYJDetailLabelCell *cellThree = [[XYJDetailLabelCell alloc] init];
-        [cellThree setTextForTitle:@"Valid Thru（Month/Year)" picker:@"09/12"];
+        [cellThree setTextForTitle:@"Valid Thru（MMYY)" content:nil placeHolder:@"请输入四位银行卡有效期"];
+        cellThree.textFieldStyle = XYJDetailLabelCellTextFieldStyleDate;
         
         XYJDetailLabelCell *cellFour = [[XYJDetailLabelCell alloc] init];
         [cellFour setTextForTitle:@"CVV2" content:nil placeHolder:@"请输入三位安全码"];
+        cellFour.textFieldStyle = XYJDetailLabelCellTextFieldStyleCVV;
         
         XYJSimpleLabelCell *cellFive = [[XYJSimpleLabelCell alloc] init];
         [cellFive setCellIconImageName:@"list_icon_card"];

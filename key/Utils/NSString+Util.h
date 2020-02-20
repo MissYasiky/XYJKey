@@ -21,6 +21,11 @@
 - (BOOL)xyj_isPureNumber;
 
 /**
+ 返回字符串中的数字字符串
+*/
+- (NSString *)xyj_scanForNumber;
+
+/**
  将纯数字字符串每四位用一个空格分隔开
  */
 - (NSString *)xyj_seperateEveryFourNumber;

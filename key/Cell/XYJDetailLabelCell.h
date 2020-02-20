@@ -14,11 +14,21 @@ typedef NS_ENUM(NSInteger, XYJDetailLabelCellStyle) {
     XYJDetailLabelCellStylePicker
 };
 
+typedef NS_ENUM(NSInteger, XYJDetailLabelCellTextFieldStyle) {
+    XYJDetailLabelCellTextFieldStyleChinese = 0, // 默认 中文键盘
+    XYJDetailLabelCellTextFieldStyleNumber, // 银行卡类型
+    XYJDetailLabelCellTextFieldStyleDate, // 日期类型
+    XYJDetailLabelCellTextFieldStyleCVV // 三位安全码类型
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface XYJDetailLabelCell : UITableViewCell
 
 @property (nonatomic, assign) XYJDetailLabelCellStyle style;
+
+/// 输入框类型， style 为 XYJDetailLabelCellStyleTextField 时起效
+@property (nonatomic, assign) XYJDetailLabelCellTextFieldStyle textFieldStyle;
 
 /**
  已废弃 - 旧页面在使用
