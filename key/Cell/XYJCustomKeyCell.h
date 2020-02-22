@@ -24,6 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void (^didTapDeleteButton)(NSInteger row);
 
+@property (nonatomic, copy) void (^didTextFieldBeginEditing)(NSInteger row);
+
+@property (nonatomic, copy) void (^didTextFieldChanged)(NSInteger row, NSString * _Nullable keyString, NSString * _Nullable valueString);
+
+- (void)setKey:(NSString *)key value:(NSString *)value;
+
 + (CGFloat)height;
 
 @end

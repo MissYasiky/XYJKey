@@ -205,6 +205,7 @@ UITextFieldDelegate
 
 - (void)textFieldDidChange:(UITextField *)textField {
     if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleChinese) {
+        self.enterContent = textField.text;
         return;
     }
     
@@ -227,6 +228,7 @@ UITextFieldDelegate
         }
         textField.text = [scanString xyj_seperateEveryFourNumber];
     }
+    self.enterContent = textField.text;
 }
 
 #pragma mark - 废弃

@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 输入框类型， style 为 XYJDetailLabelCellStyleTextField 时起效
 @property (nonatomic, assign) XYJDetailLabelCellTextFieldStyle textFieldStyle;
 
+@property (nonatomic, strong) NSString *enterContent;
+
 /**
  已废弃 - 旧页面在使用
  @param type 设置cell的accessoryType，默认是 UITableViewCellAccessoryNone

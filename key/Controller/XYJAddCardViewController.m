@@ -190,7 +190,16 @@ UITableViewDelegate
 }
 
 - (void)saveButtonAction {
+    for (XYJDetailLabelCell *cell in self.tableViewCells) {
+        if ([cell isKindOfClass:[XYJDetailLabelCell class]]) {
+            NSLog(@"cell content: %@", cell.enterContent);
+        }
+    }
+    NSLog(@"%@", [self.tableView indexPathsForSelectedRows]);
     
+    for (NSArray *customKeyValue in self.customKeyArray) {
+        NSLog(@"%@: %@", customKeyValue[0], customKeyValue[1]);
+    }
 }
 
 #pragma mark - Private
@@ -205,6 +214,10 @@ UITableViewDelegate
 - (void)removeCustomKeyAtIndex:(NSInteger)row {
     [self.customKeyArray removeObjectAtIndex:row];
     [self.tableView reloadData];
+}
+
+- (void)tableViewScrollForIndex:(NSInteger)row {
+    [self.tableView setContentOffset:CGPointMake(0, 44 + 102 * 3 + row * 67)];
 }
 
 #pragma mark - NSNotification
@@ -327,8 +340,22 @@ UITableViewDelegate
     __weak __typeof(self) weakSelf = self;
     cell.indexIdentifier = [NSString stringWithFormat:@"%03zd", indexPath.row];
     cell.style = (indexPath.row == [self.customKeyArray count]) ? XYJCustomKeyCellStyleAddKey : XYJCustomKeyCellStyleKeyValue;
+    
+    if (indexPath.row == [self.customKeyArray count]) {
+        return cell;
+    }
+    
+    NSArray *object = self.customKeyArray[indexPath.row];
+    [cell setKey:object[0] value:object[1]];
     cell.didTapDeleteButton = ^(NSInteger row) {
         [weakSelf removeCustomKeyAtIndex:row];
+    };
+    cell.didTextFieldBeginEditing = ^(NSInteger row) {
+        [weakSelf tableViewScrollForIndex:row];
+    };
+    cell.didTextFieldChanged = ^(NSInteger row, NSString * _Nullable keyString, NSString * _Nullable valueString) {
+        NSArray *array = @[keyString ?: @"", valueString ?: @""];
+        [weakSelf.customKeyArray replaceObjectAtIndex:row withObject:array];
     };
     return cell;
 }

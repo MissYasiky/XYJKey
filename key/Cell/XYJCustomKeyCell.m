@@ -10,12 +10,16 @@
 
 static CGFloat kCellHeight = 67.0;
 
-@interface XYJCustomKeyCell ()
+@interface XYJCustomKeyCell ()<
+UITextFieldDelegate
+>
 
 @property (nonatomic, strong) UIButton *button;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIView *seperatorLine;
 @property (nonatomic, strong) UIView *seperatorView;
+@property (nonatomic, strong) UITextField *keyTextField;
+@property (nonatomic, strong) UITextField *valueTextField;
 
 @end
 
@@ -33,6 +37,8 @@ static CGFloat kCellHeight = 67.0;
         [self.contentView addSubview:self.label];
         [self.contentView addSubview:self.seperatorLine];
         [self.contentView addSubview:self.seperatorView];
+        [self.contentView addSubview:self.keyTextField];
+        [self.contentView addSubview:self.valueTextField];
     }
     return self;
 }
@@ -50,6 +56,16 @@ static CGFloat kCellHeight = 67.0;
     self.seperatorLine.frame = CGRectMake(0, 0, 1, 23);
     self.seperatorLine.center = self.contentView.center;
     self.seperatorView.frame = CGRectMake(xPadding, height - 0.5, contentWidth, 0.5);
+     
+    CGFloat textFieldOriginX = xPadding + self.button.frame.size.width + 10;
+    CGFloat textFieldWidth = width / 2 - textFieldOriginX - 10;
+    CGFloat textFieldHeight = 18;
+    CGFloat textFieldOriginY = (height - textFieldHeight) / 2.0;
+    self.keyTextField.frame = CGRectMake(textFieldOriginX, textFieldOriginY, textFieldWidth, textFieldHeight);
+    
+    textFieldOriginX = width / 2 + 10;
+    textFieldWidth = width / 2 - 10 - 25;
+    self.valueTextField.frame = CGRectMake(textFieldOriginX, textFieldOriginY, textFieldWidth, textFieldHeight);
 }
 
 #pragma mark - Getter & Setter
@@ -90,6 +106,28 @@ static CGFloat kCellHeight = 67.0;
     return _seperatorView;
 }
 
+- (UITextField *)keyTextField {
+    if (!_keyTextField) {
+        _keyTextField = [[UITextField alloc] init];
+        _keyTextField.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
+        _keyTextField.font = [UIFont fontWithName:XYJ_Regular_Font size:15];
+        _keyTextField.delegate = self;
+        [_keyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    }
+    return _keyTextField;
+}
+
+- (UITextField *)valueTextField {
+    if (!_valueTextField) {
+        _valueTextField = [[UITextField alloc] init];
+        _valueTextField.textColor = [XYJColorUtils colorWithHexString:XYJ_Text_Color];
+        _valueTextField.font = [UIFont fontWithName:XYJ_Regular_Font size:15];
+        _valueTextField.delegate = self;
+        [_valueTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    }
+    return _valueTextField;
+}
+
 - (void)setStyle:(XYJCustomKeyCellStyle)style {
     if (_style == style) {
         return;
@@ -103,6 +141,8 @@ static CGFloat kCellHeight = 67.0;
             [self.button setImage:[UIImage imageNamed:@"list_btn_delete"] forState:UIControlStateNormal];
             self.label.hidden = YES;
             self.seperatorLine.hidden = NO;
+            self.keyTextField.hidden = NO;
+            self.valueTextField.hidden = NO;
             break;
         }
         case XYJCustomKeyCellStyleAddKey:
@@ -111,6 +151,8 @@ static CGFloat kCellHeight = 67.0;
             [self.button setImage:[UIImage imageNamed:@"list_btn_add"] forState:UIControlStateNormal];
             self.label.hidden = NO;
             self.seperatorLine.hidden = YES;
+            self.keyTextField.hidden = YES;
+            self.valueTextField.hidden = YES;
             break;
         }
         default:
@@ -126,7 +168,28 @@ static CGFloat kCellHeight = 67.0;
     }
 }
 
+#pragma mark - UITextField Delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (self.didTextFieldBeginEditing) {
+        self.didTextFieldBeginEditing([self.indexIdentifier integerValue]);
+    }
+}
+
+- (void)textFieldDidChange:(UITextField *)textField {
+    if (self.didTextFieldChanged == nil) {
+        return;
+    }
+    
+    self.didTextFieldChanged([self.indexIdentifier integerValue], self.keyTextField.text, self.valueTextField.text);
+}
+
 #pragma mark - Public
+
+- (void)setKey:(NSString *)key value:(NSString *)value {
+    self.keyTextField.text = key;
+    self.valueTextField.text = value;
+}
 
 + (CGFloat)height {
     return kCellHeight;
