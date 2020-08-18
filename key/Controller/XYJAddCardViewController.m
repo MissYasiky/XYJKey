@@ -255,7 +255,7 @@ UITableViewDelegate
     self.dragBeginPoint = dragBeginPoint;
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!self.showKeyboard) {
         return;
     }
