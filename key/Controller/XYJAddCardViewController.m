@@ -10,6 +10,7 @@
 #import "XYJDetailLabelCell.h"
 #import "XYJSimpleLabelCell.h"
 #import "XYJCustomKeyCell.h"
+#import "XYJCardModel.h"
 
 @interface XYJAddCardViewController ()<
 UITableViewDataSource,
@@ -190,16 +191,42 @@ UITableViewDelegate
 }
 
 - (void)saveButtonAction {
-    for (XYJDetailLabelCell *cell in self.tableViewCells) {
-        if ([cell isKindOfClass:[XYJDetailLabelCell class]]) {
-            NSLog(@"cell content: %@", cell.enterContent);
+    XYJCardModel *model = [[XYJCardModel alloc] init];
+    for (int i = 0; i < 4; i++) {
+        XYJDetailLabelCell *cell = self.tableViewCells[i];
+        if (i == 0) {
+            model.bankName = cell.enterContent;
+        } else if (i == 1) {
+            model.accountNum = cell.enterContent;
+        } else if (i == 2) {
+            model.validThru = cell.enterContent;
+        } else {
+            model.cvv2 = cell.enterContent;
         }
     }
-    NSLog(@"%@", [self.tableView indexPathsForSelectedRows]);
     
-    for (NSArray *customKeyValue in self.customKeyArray) {
-        NSLog(@"%@: %@", customKeyValue[0], customKeyValue[1]);
+    for (NSIndexPath *selectIndexPath in [self.tableView indexPathsForSelectedRows]) {
+        if (selectIndexPath.row == 4) {
+            model.creditCard = 1;
+        } else if (selectIndexPath.row == 5) {
+            model.myOwn = 1;
+        }
     }
+    
+    NSMutableDictionary *muDict = [[NSMutableDictionary alloc] initWithCapacity:[self.customKeyArray count]];
+    for (NSArray *customKeyValue in self.customKeyArray) {
+        if ([customKeyValue count] < 2) {
+            continue;
+        }
+        NSString *key = customKeyValue[0];
+        NSString *value = customKeyValue[1];
+        if (!key || ![key isKindOfClass:[NSString class]] || key.length == 0 ||
+            !value || ![value isKindOfClass:[NSString class]] || value.length == 0) {
+            continue;
+        }
+        muDict[key] = value;
+    }
+    model.externDict = [muDict copy];
 }
 
 #pragma mark - Private

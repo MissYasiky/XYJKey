@@ -201,34 +201,46 @@ UITextFieldDelegate
     return kCellHeight;
 }
 
-#pragma mark - UITextField Delegate
+#pragma mark - Private
 
-- (void)textFieldDidChange:(UITextField *)textField {
+- (NSString *)correctEnter:(NSString *)text {
     if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleChinese) {
-        self.enterContent = textField.text;
-        return;
+        return text;
     }
     
-    NSString *originText = textField.text;
-    NSString *scanString = [originText xyj_scanForNumber];
+    NSString *scanString = [text xyj_scanForNumber];
     
     if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleDate) {
         if (scanString.length > 4) {
             scanString = [scanString substringToIndex:4];
         }
-        textField.text = scanString;
+        return scanString;
     } else if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleCVV) {
         if (scanString.length > 3) {
             scanString = [scanString substringToIndex:3];
         }
-        textField.text = scanString;
+        return scanString;
     } else if (self.textFieldStyle == XYJDetailLabelCellTextFieldStyleNumber) {
         if (scanString.length > 21) {
             scanString = [scanString substringToIndex:21];
         }
-        textField.text = [scanString xyj_seperateEveryFourNumber];
+        return [scanString xyj_seperateEveryFourNumber];
     }
-    self.enterContent = textField.text;
+    return nil;
+}
+
+#pragma mark - UITextField Delegate
+
+- (void)textFieldDidChange:(UITextField *)textField {
+    NSString *correctText = [self correctEnter:textField.text];
+    self.textField.text = correctText;
+    self.enterContent = correctText;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSString *correctText = [self correctEnter:textField.text];
+    self.textField.text = correctText;
+    self.enterContent = correctText;
 }
 
 #pragma mark - 废弃
