@@ -26,6 +26,7 @@
 		218405B823E581EA000BB9E2 /* XYJHomeTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 218405B723E581EA000BB9E2 /* XYJHomeTabBar.m */; };
 		218405BE23E5BCB1000BB9E2 /* XYJCardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218405BD23E5BCB1000BB9E2 /* XYJCardListViewController.m */; };
 		218405C123E5BF9F000BB9E2 /* XYJHomeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 218405C023E5BF9F000BB9E2 /* XYJHomeListCell.m */; };
+		218473F4256AA0AF00D188CF /* XYJCardModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 218473F3256AA0AF00D188CF /* XYJCardModel.mm */; };
 		21C902A723E02BC900FE636C /* XYJSecrecyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C902A623E02BC900FE636C /* XYJSecrecyManager.m */; };
 		21D1F11521B2608500671A89 /* XYJDataConstant.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21D1F11421B2608500671A89 /* XYJDataConstant.plist */; };
 		21DDA3F8223CDE130099ED73 /* XYJMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DDA3F7223CDE130099ED73 /* XYJMenuViewController.m */; };
@@ -83,6 +84,9 @@
 		218405BD23E5BCB1000BB9E2 /* XYJCardListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJCardListViewController.m; sourceTree = "<group>"; };
 		218405BF23E5BF9F000BB9E2 /* XYJHomeListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJHomeListCell.h; sourceTree = "<group>"; };
 		218405C023E5BF9F000BB9E2 /* XYJHomeListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJHomeListCell.m; sourceTree = "<group>"; };
+		218473F2256AA0AF00D188CF /* XYJCardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJCardModel.h; sourceTree = "<group>"; };
+		218473F3256AA0AF00D188CF /* XYJCardModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = XYJCardModel.mm; sourceTree = "<group>"; };
+		21C23DB8257A760B00F2A5D3 /* XYJCardModel+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XYJCardModel+WCTTableCoding.h"; sourceTree = "<group>"; };
 		21C902A523E02BC900FE636C /* XYJSecrecyManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJSecrecyManager.h; sourceTree = "<group>"; };
 		21C902A623E02BC900FE636C /* XYJSecrecyManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJSecrecyManager.m; sourceTree = "<group>"; };
 		21D1F11421B2608500671A89 /* XYJDataConstant.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = XYJDataConstant.plist; sourceTree = "<group>"; };
@@ -165,6 +169,16 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		218473F1256AA01900D188CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				21C23DB8257A760B00F2A5D3 /* XYJCardModel+WCTTableCoding.h */,
+				218473F2256AA0AF00D188CF /* XYJCardModel.h */,
+				218473F3256AA0AF00D188CF /* XYJCardModel.mm */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		21C902A423E02B7700FE636C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +216,7 @@
 				21E425B121A5887D0072D134 /* Utils */,
 				2159E06D21BD21A2004590BD /* DataBase */,
 				2126558221C4A5B300A74BAF /* ViewModel */,
+				218473F1256AA01900D188CF /* Model */,
 				21E425C521A59D2F0072D134 /* Controller */,
 				2178CDB323E6C85C0039160C /* Cell */,
 				21E425BD21A59CC60072D134 /* View */,
@@ -428,6 +443,7 @@
 				2178CDAC23E6AEAF0039160C /* XYJSettingViewController.m in Sources */,
 				21E425C321A59D060072D134 /* XYJViewController.m in Sources */,
 				2126558521C4A5EE00A74BAF /* XYJBankCardViewModel.m in Sources */,
+				218473F4256AA0AF00D188CF /* XYJCardModel.mm in Sources */,
 				218405BE23E5BCB1000BB9E2 /* XYJCardListViewController.m in Sources */,
 				21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */,
 			);
