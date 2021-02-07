@@ -14,12 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XYJCardModel (WCTTableCoding)<WCTTableCoding>
 
 WCDB_PROPERTY(createTime)
+WCDB_PROPERTY(isCreditCard)
+WCDB_PROPERTY(isOwn)
 WCDB_PROPERTY(bankName)
 WCDB_PROPERTY(accountNum)
 WCDB_PROPERTY(validThru)
 WCDB_PROPERTY(cvv2)
-WCDB_PROPERTY(creditCard)
-WCDB_PROPERTY(myOwn)
 WCDB_PROPERTY(externDict)
 
 @end

@@ -107,10 +107,10 @@
 		21E425B521A589250072D134 /* XYJTextFieldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJTextFieldCell.m; sourceTree = "<group>"; };
 		21E425B921A595820072D134 /* XYJTextViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJTextViewCell.h; sourceTree = "<group>"; };
 		21E425BA21A595820072D134 /* XYJTextViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJTextViewCell.m; sourceTree = "<group>"; };
-		21E425BF21A59D060072D134 /* XYJAddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYJAddBankCardViewController.h; path = key/Controller/XYJAddBankCardViewController.h; sourceTree = SOURCE_ROOT; };
-		21E425C021A59D060072D134 /* XYJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYJViewController.m; path = key/Controller/XYJViewController.m; sourceTree = SOURCE_ROOT; };
-		21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYJAddBankCardViewController.m; path = key/Controller/XYJAddBankCardViewController.m; sourceTree = SOURCE_ROOT; };
-		21E425C221A59D060072D134 /* XYJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYJViewController.h; path = key/Controller/XYJViewController.h; sourceTree = SOURCE_ROOT; };
+		21E425BF21A59D060072D134 /* XYJAddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYJAddBankCardViewController.h; path = key/Controller/1.x/XYJAddBankCardViewController.h; sourceTree = SOURCE_ROOT; };
+		21E425C021A59D060072D134 /* XYJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYJViewController.m; path = key/Controller/1.x/XYJViewController.m; sourceTree = SOURCE_ROOT; };
+		21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYJAddBankCardViewController.m; path = key/Controller/1.x/XYJAddBankCardViewController.m; sourceTree = SOURCE_ROOT; };
+		21E425C221A59D060072D134 /* XYJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYJViewController.h; path = key/Controller/1.x/XYJViewController.h; sourceTree = SOURCE_ROOT; };
 		21E425C621A838A80072D134 /* XYJPickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJPickerCell.h; sourceTree = "<group>"; };
 		21E425C721A838A80072D134 /* XYJPickerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJPickerCell.m; sourceTree = "<group>"; };
 		21E425C921A847AB0072D134 /* XYJSwitchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJSwitchCell.h; sourceTree = "<group>"; };
@@ -136,11 +136,78 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2126558221C4A5B300A74BAF /* ViewModel */ = {
+		003C0EA625CF8B4F00664970 /* 1.x */ = {
+			isa = PBXGroup;
+			children = (
+				21E425C221A59D060072D134 /* XYJViewController.h */,
+				21E425C021A59D060072D134 /* XYJViewController.m */,
+				21DDA3F6223CDE130099ED73 /* XYJMenuViewController.h */,
+				21DDA3F7223CDE130099ED73 /* XYJMenuViewController.m */,
+				21E425BF21A59D060072D134 /* XYJAddBankCardViewController.h */,
+				21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */,
+				2171455721B2CDDC00878C5D /* XYJBankCardDetailViewController.h */,
+				2171455821B2CDDC00878C5D /* XYJBankCardDetailViewController.m */,
+			);
+			path = 1.x;
+			sourceTree = "<group>";
+		};
+		003C0EA725CF8C2500664970 /* 1.x */ = {
+			isa = PBXGroup;
+			children = (
+				21E425B421A589250072D134 /* XYJTextFieldCell.h */,
+				21E425B521A589250072D134 /* XYJTextFieldCell.m */,
+				21E425B921A595820072D134 /* XYJTextViewCell.h */,
+				21E425BA21A595820072D134 /* XYJTextViewCell.m */,
+				21E425C621A838A80072D134 /* XYJPickerCell.h */,
+				21E425C721A838A80072D134 /* XYJPickerCell.m */,
+				21E425C921A847AB0072D134 /* XYJSwitchCell.h */,
+				21E425CA21A847AB0072D134 /* XYJSwitchCell.m */,
+			);
+			path = 1.x;
+			sourceTree = "<group>";
+		};
+		003C0EAD25CF918A00664970 /* ThirdPart */ = {
+			isa = PBXGroup;
+			children = (
+				21E425CC21AA78470072D134 /* LYLUnicode.h */,
+				21E425CD21AA78470072D134 /* LYLUnicode.m */,
+				21DE4FCF21EF24AA003F7F59 /* RetainCycleLoggerPlugin.h */,
+				21DE4FCE21EF24AA003F7F59 /* RetainCycleLoggerPlugin.m */,
+			);
+			path = ThirdPart;
+			sourceTree = "<group>";
+		};
+		003C0EAF25CF940C00664970 /* 1.x */ = {
+			isa = PBXGroup;
+			children = (
+				21E425CF21AA7B150072D134 /* XYJCacheUtils.h */,
+				21E425D021AA7B150072D134 /* XYJCacheUtils.m */,
+			);
+			path = 1.x;
+			sourceTree = "<group>";
+		};
+		003C0EBE25CFD05100664970 /* 1.x */ = {
+			isa = PBXGroup;
+			children = (
+				2159E06E21BE9A00004590BD /* XYJBankCardDao.h */,
+				2159E06F21BE9A00004590BD /* XYJBankCardDao.m */,
+			);
+			path = 1.x;
+			sourceTree = "<group>";
+		};
+		003C0EC025CFD14900664970 /* 1.x */ = {
 			isa = PBXGroup;
 			children = (
 				2126558321C4A5EE00A74BAF /* XYJBankCardViewModel.h */,
 				2126558421C4A5EE00A74BAF /* XYJBankCardViewModel.m */,
+			);
+			path = 1.x;
+			sourceTree = "<group>";
+		};
+		2126558221C4A5B300A74BAF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				003C0EC025CFD14900664970 /* 1.x */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -148,8 +215,8 @@
 		2159E06D21BD21A2004590BD /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
-				2159E06E21BE9A00004590BD /* XYJBankCardDao.h */,
-				2159E06F21BE9A00004590BD /* XYJBankCardDao.m */,
+				003C0EBE25CFD05100664970 /* 1.x */,
+				218473F1256AA01900D188CF /* Model */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -213,13 +280,12 @@
 				21E42588218C8DF20072D134 /* XYJAppDelegate.h */,
 				21E42589218C8DF20072D134 /* XYJAppDelegate.m */,
 				21C902A423E02B7700FE636C /* Manager */,
-				21E425B121A5887D0072D134 /* Utils */,
-				2159E06D21BD21A2004590BD /* DataBase */,
-				2126558221C4A5B300A74BAF /* ViewModel */,
-				218473F1256AA01900D188CF /* Model */,
 				21E425C521A59D2F0072D134 /* Controller */,
-				2178CDB323E6C85C0039160C /* Cell */,
 				21E425BD21A59CC60072D134 /* View */,
+				2126558221C4A5B300A74BAF /* ViewModel */,
+				2159E06D21BD21A2004590BD /* DataBase */,
+				21E425B121A5887D0072D134 /* Utils */,
+				003C0EAD25CF918A00664970 /* ThirdPart */,
 				21E425AC219D789C0072D134 /* Supporting Files */,
 			);
 			path = key;
@@ -240,18 +306,13 @@
 		21E425B121A5887D0072D134 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				003C0EAF25CF940C00664970 /* 1.x */,
 				218405AE23E530DC000BB9E2 /* XYJColorUtils.h */,
 				218405AF23E530DC000BB9E2 /* XYJColorUtils.m */,
 				21E425A2219D72E30072D134 /* XYJDailyTools.h */,
 				21E425A9219D779B0072D134 /* XYJDailyTools.m */,
-				21E425CC21AA78470072D134 /* LYLUnicode.h */,
-				21E425CD21AA78470072D134 /* LYLUnicode.m */,
-				21E425CF21AA7B150072D134 /* XYJCacheUtils.h */,
-				21E425D021AA7B150072D134 /* XYJCacheUtils.m */,
 				2126558621C7EFB300A74BAF /* NSString+Util.h */,
 				2126558721C7EFB300A74BAF /* NSString+Util.m */,
-				21DE4FCF21EF24AA003F7F59 /* RetainCycleLoggerPlugin.h */,
-				21DE4FCE21EF24AA003F7F59 /* RetainCycleLoggerPlugin.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -259,18 +320,12 @@
 		21E425BD21A59CC60072D134 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				003C0EA725CF8C2500664970 /* 1.x */,
+				2178CDB323E6C85C0039160C /* Cell */,
 				218405B623E581EA000BB9E2 /* XYJHomeTabBar.h */,
 				218405B723E581EA000BB9E2 /* XYJHomeTabBar.m */,
 				2178CDB423E6C88C0039160C /* XYJCardView.h */,
 				2178CDB523E6C88C0039160C /* XYJCardView.m */,
-				21E425B421A589250072D134 /* XYJTextFieldCell.h */,
-				21E425B521A589250072D134 /* XYJTextFieldCell.m */,
-				21E425B921A595820072D134 /* XYJTextViewCell.h */,
-				21E425BA21A595820072D134 /* XYJTextViewCell.m */,
-				21E425C621A838A80072D134 /* XYJPickerCell.h */,
-				21E425C721A838A80072D134 /* XYJPickerCell.m */,
-				21E425C921A847AB0072D134 /* XYJSwitchCell.h */,
-				21E425CA21A847AB0072D134 /* XYJSwitchCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -278,6 +333,7 @@
 		21E425C521A59D2F0072D134 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				003C0EA625CF8B4F00664970 /* 1.x */,
 				2158B3AE21B6BD8C00399A97 /* XYJPasswordViewController.h */,
 				2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */,
 				218405AB23E46A2C000BB9E2 /* XYJHomeViewController.h */,
@@ -290,14 +346,6 @@
 				211C883B23F8238200684341 /* XYJAddCardViewController.m */,
 				2178CDB023E6BF640039160C /* XYJCardDetailViewController.h */,
 				2178CDB123E6BF640039160C /* XYJCardDetailViewController.m */,
-				21E425C221A59D060072D134 /* XYJViewController.h */,
-				21E425C021A59D060072D134 /* XYJViewController.m */,
-				21DDA3F6223CDE130099ED73 /* XYJMenuViewController.h */,
-				21DDA3F7223CDE130099ED73 /* XYJMenuViewController.m */,
-				21E425BF21A59D060072D134 /* XYJAddBankCardViewController.h */,
-				21E425C121A59D060072D134 /* XYJAddBankCardViewController.m */,
-				2171455721B2CDDC00878C5D /* XYJBankCardDetailViewController.h */,
-				2171455821B2CDDC00878C5D /* XYJBankCardDetailViewController.m */,
 				2178CDAA23E6AEAF0039160C /* XYJSettingViewController.h */,
 				2178CDAB23E6AEAF0039160C /* XYJSettingViewController.m */,
 			);

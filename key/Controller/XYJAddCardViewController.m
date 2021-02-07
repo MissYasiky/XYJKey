@@ -207,9 +207,9 @@ UITableViewDelegate
     
     for (NSIndexPath *selectIndexPath in [self.tableView indexPathsForSelectedRows]) {
         if (selectIndexPath.row == 4) {
-            model.creditCard = 1;
+            model.isCreditCard = 1;
         } else if (selectIndexPath.row == 5) {
-            model.myOwn = 1;
+            model.isOwn = 1;
         }
     }
     
