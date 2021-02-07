@@ -1,5 +1,5 @@
 //
-//  XYJCardModel.h
+//  XYJCard.h
 //  key
 //
 //  Created by MissYasiky on 2020/11/22.
@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// 银行卡数据模型
-@interface XYJCardModel : NSObject
+@interface XYJCard : NSObject
 
 /// 数据创建时间，数据库关键字段
 @property (nonatomic, assign) NSTimeInterval createTime;

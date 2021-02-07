@@ -10,7 +10,7 @@
 #import "XYJDetailLabelCell.h"
 #import "XYJSimpleLabelCell.h"
 #import "XYJCustomKeyCell.h"
-#import "XYJCardModel.h"
+#import "XYJCard.h"
 
 @interface XYJAddCardViewController ()<
 UITableViewDataSource,
@@ -191,7 +191,7 @@ UITableViewDelegate
 }
 
 - (void)saveButtonAction {
-    XYJCardModel *model = [[XYJCardModel alloc] init];
+    XYJCard *model = [[XYJCard alloc] init];
     for (int i = 0; i < 4; i++) {
         XYJDetailLabelCell *cell = self.tableViewCells[i];
         if (i == 0) {

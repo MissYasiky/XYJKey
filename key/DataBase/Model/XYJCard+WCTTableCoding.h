@@ -1,17 +1,17 @@
 //
-//  XYJCardModel+WCTTableCoding.h
+//  XYJCard+WCTTableCoding.h
 //  key
 //
 //  Created by MissYasiky on 2020/12/4.
 //  Copyright © 2020 netease. All rights reserved.
 //
 
-#import "XYJCardModel.h"
+#import "XYJCard.h"
 #import <WCDB/WCDB.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XYJCardModel (WCTTableCoding)<WCTTableCoding>
+@interface XYJCard (WCTTableCoding)<WCTTableCoding>
 
 WCDB_PROPERTY(createTime)
 WCDB_PROPERTY(isCreditCard)
