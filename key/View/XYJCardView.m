@@ -7,6 +7,8 @@
 //
 
 #import "XYJCardView.h"
+#import "XYJCard.h"
+#import "NSString+Util.h"
 
 #define XYJCardTextColor @"0xC1D9F5"
 
@@ -22,15 +24,18 @@
 @property (nonatomic, strong) UILabel *ownerLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 
+@property (nonatomic, strong) XYJCard *card;
+
 @end
 
 @implementation XYJCardView
 
 #pragma mark - Life Cycle
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithCard:(XYJCard *)card {
+    self = [super init];
     if (self) {
+        _card = card;
         [self initUI];
     }
     return self;
@@ -92,7 +97,7 @@
         _numLabel = [[UILabel alloc] init];
         _numLabel.font = [UIFont fontWithName:XYJ_Bold_Font size:19];
         _numLabel.textColor = [XYJColorUtils colorWithHexString:XYJCardTextColor];
-        _numLabel.text = @"6217 8880 9868 7657 289";
+        _numLabel.text = [self.card.accountNum xyj_seperateEveryFourNumber]; 
     }
     return _numLabel;
 }
@@ -102,7 +107,7 @@
         _typeLabel = [[UILabel alloc] init];
         _typeLabel.font = [UIFont fontWithName:XYJ_Bold_Font size:12];
         _typeLabel.textColor = [UIColor whiteColor];
-        _typeLabel.text = @"借记卡";
+        _typeLabel.text = self.card.isCreditCard == 1 ? @"信用卡" : @"借记卡";
     }
     return _typeLabel;
 }
@@ -113,7 +118,7 @@
         _cvvLabel.font = [UIFont fontWithName:XYJ_Bold_Font size:12];
         _cvvLabel.textColor = [XYJColorUtils colorWithHexString:XYJCardTextColor];
         _cvvLabel.textAlignment = NSTextAlignmentRight;
-        _cvvLabel.text = @"CVV2/423";
+        _cvvLabel.text = [NSString stringWithFormat:@"CVV2/%@", self.card.cvv2];
     }
     return _cvvLabel;
 }
@@ -144,7 +149,8 @@
         _ownerLabel = [[UILabel alloc] init];
         _ownerLabel.font = [UIFont fontWithName:XYJ_Bold_Font size:12];
         _ownerLabel.textColor = [UIColor whiteColor];
-        _ownerLabel.text = @"SOMEBODY";
+        NSString *owner = self.card.isOwn ? @"XIE YUN JIA" : @"OTHER";
+        _ownerLabel.text = owner;
     }
     return _ownerLabel;
 }
@@ -155,7 +161,9 @@
         _dateLabel.font = [UIFont fontWithName:XYJ_Bold_Font size:12];
         _dateLabel.textColor = [UIColor whiteColor];
         _dateLabel.textAlignment = NSTextAlignmentCenter;
-        _dateLabel.text = @"09/29";
+        NSString *month = [self.card.validThru substringToIndex:2];
+        NSString *year = [self.card.validThru substringFromIndex:2];
+        _dateLabel.text = [NSString stringWithFormat:@"%@/%@", month, year];
     }
     return _dateLabel;
 }

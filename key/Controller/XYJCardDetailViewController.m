@@ -7,8 +7,11 @@
 //
 
 #import "XYJCardDetailViewController.h"
+#import "XYJCardEditViewController.h"
 #import "XYJDetailLabelCell.h"
 #import "XYJCardView.h"
+#import "XYJCard.h"
+#import "XYJCardDataBase.h"
 
 @interface XYJCardDetailViewController ()<
 UITableViewDelegate,
@@ -18,6 +21,7 @@ UITableViewDataSource
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) XYJCardView *cardView;
+@property (nonatomic, strong) XYJCard *card;
 
 @end
 
@@ -25,10 +29,18 @@ UITableViewDataSource
 
 #pragma mark - Life Cycle
 
+- (instancetype)initWithCard:(XYJCard *)card {
+    self = [super init];
+    if (self) {
+        _card = card;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"招商银行";
+    self.title = self.card.bankName;
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self initNavigationBar];
@@ -68,8 +80,7 @@ UITableViewDataSource
 
 - (XYJCardView *)cardView {
     if (_cardView == nil) {
-        _cardView = [[XYJCardView alloc] init];
-        
+        _cardView = [[XYJCardView alloc] initWithCard:self.card];
         CGFloat padding = 25;
         CGFloat cardBgHeight = (XYJ_ScreenWidth - padding * 2) * 210 / 325;
         CGFloat height = cardBgHeight + padding * 2;
@@ -84,7 +95,7 @@ UITableViewDataSource
     __weak __typeof(self) weakSelf = self;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+        [weakSelf editCardAction];
     }];
     [editAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Blue_Color] forKey:@"titleTextColor"];
 
@@ -104,10 +115,16 @@ UITableViewDataSource
 
 #pragma mark - Private
 
+- (void)editCardAction {
+    XYJCardEditViewController *vctrl = [[XYJCardEditViewController alloc] initWithCard:self.card];
+    vctrl.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.navigationController presentViewController:vctrl animated:YES completion:nil];
+}
+
 - (void)showDeleteAlert {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"确定要删除该银行卡信息？" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
+        [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.card.createTime];
     }];
     [deleteAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Red_Color] forKey:@"titleTextColor"];
     
@@ -122,17 +139,23 @@ UITableViewDataSource
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataArray count];
+    return [self.card.externDict count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row >= [self.card.externDict count]) {
+        return [UITableViewCell new];
+    }
+    
     static NSString *cellIdentifier = @"cellIdentifier";
     XYJDetailLabelCell *cell = (XYJDetailLabelCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[XYJDetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
     }
-    [cell setTextForLineOne:@"查询密码" lineTwo:@"333333"];
+    NSString *title = [self.card.externDict allKeys][indexPath.row];
+    NSString *content = [self.card.externDict allValues][indexPath.row];
+    [cell setTextForLineOne:title lineTwo:content];
     return cell;
 }
 
