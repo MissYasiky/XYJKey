@@ -61,7 +61,8 @@ UITableViewDelegate
             self.card = card;
             self.editMode = YES;
             self.editedCardcreateTime = card.createTime;
-            self.card.createTime = [[NSDate date] timeIntervalSince1970];
+            NSTimeInterval createTime = [[NSDate date] timeIntervalSince1970];
+            self.card.createTime = createTime;
         } else {
             self.card = [[XYJCard alloc] init];
         }
@@ -174,13 +175,6 @@ UITableViewDelegate
 
 #pragma mark - Getter & Setter
 
-- (XYJCard *)card {
-    if (!_card) {
-        _card = [[XYJCard alloc] init];
-    }
-    return _card;
-}
-
 - (UITableView *)tableView {
     if (!_tableView) {
         CGFloat originY = XYJ_StatusBarHeight + XYJ_NavigationBarHeight;
@@ -252,7 +246,7 @@ UITableViewDelegate
     if (success) {
         if (self.editMode) {
             BOOL deleteSuccess = [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.editedCardcreateTime];
-            if (deleteSuccess) {
+            if (!deleteSuccess) {
                 NSLog(@"删除旧数据失败");
             }
         }

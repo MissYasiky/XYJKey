@@ -129,8 +129,9 @@ UITableViewDataSource
 
 - (void)editCardAction {
     XYJCardEditViewController *vctrl = [[XYJCardEditViewController alloc] initWithCard:self.card];
-    vctrl.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self.navigationController presentViewController:vctrl animated:YES completion:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vctrl];
+    nav.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)deleteCardAction {

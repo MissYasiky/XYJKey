@@ -74,7 +74,7 @@ static NSString *kCardDataBaseTableName = @"XYJCard";
 
 - (BOOL)deleteDataWithCreateTime:(NSTimeInterval)createTime {
     BOOL result = [self.database deleteObjectsFromTable:kCardDataBaseTableName where:XYJCard.createTime == createTime];
-    NSString *logMessage = [NSString stringWithFormat:@"删除数据\"createTime = %f\"%@", createTime, result ? @"成功" : @"失败"];
+    NSString *logMessage = [NSString stringWithFormat:@"删除数据 createTime = %f %@", createTime, result ? @"成功" : @"失败"];
     [self logForMessage:logMessage];
     return result;
 }
