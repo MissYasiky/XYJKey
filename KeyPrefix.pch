@@ -16,4 +16,7 @@
 #import "XYJDailyTools.h"
 #import "NSString+Util.h"
 
+#define XYJCardDataAddNotification @"cardDataAddNotification"
+#define XYJCardDataDeleteNotification @"cardDataDeleteNotification"
+
 #endif /* KeyPrefix_pch */

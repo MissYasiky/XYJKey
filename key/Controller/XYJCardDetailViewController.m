@@ -19,7 +19,6 @@ UITableViewDataSource
 >
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) XYJCardView *cardView;
 @property (nonatomic, strong) XYJCard *card;
 
@@ -44,13 +43,16 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self initNavigationBar];
-    
-    self.dataArray = [[NSMutableArray alloc] initWithArray:@[@"aaa", @"bbb"]];
+
     [self.view addSubview:self.tableView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardDataAdd:) name:XYJCardDataAddNotification object:nil];
 }
 
 - (void)dealloc {
     _tableView.delegate = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Initialization
@@ -62,6 +64,16 @@ UITableViewDataSource
     [rightButton addTarget:self action:@selector(menuButtonAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *menuItem =[[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = menuItem;
+}
+
+#pragma mark - Notification
+
+- (void)cardDataAdd:(NSNotification *)notif {
+    XYJCard *card = (XYJCard *)notif.object;
+    self.card = card;
+    
+    [self.tableView reloadData];
+    [self.cardView updateCard:card];
 }
 
 #pragma mark - Getter & Setter
@@ -121,10 +133,20 @@ UITableViewDataSource
     [self.navigationController presentViewController:vctrl animated:YES completion:nil];
 }
 
+- (void)deleteCardAction {
+    BOOL success = [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.card.createTime];
+    if (success) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:XYJCardDataDeleteNotification object:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        NSLog(@"删除失败");
+    }
+}
+
 - (void)showDeleteAlert {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"确定要删除该银行卡信息？" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.card.createTime];
+        [self deleteCardAction];
     }];
     [deleteAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Red_Color] forKey:@"titleTextColor"];
     

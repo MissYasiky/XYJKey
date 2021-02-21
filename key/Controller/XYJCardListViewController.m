@@ -30,9 +30,20 @@ UITableViewDataSource
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _dataArray = [[NSMutableArray alloc] initWithArray:[[XYJCardDataBase sharedDataBase] getAllData]];
+        [self getCardDataFromDataBase];
     }
     return self;
+}
+
+- (void)getCardDataFromDataBase {
+    NSArray *dataArray = [[XYJCardDataBase sharedDataBase] getAllData];
+    if (!_dataArray) {
+        self.dataArray = [[NSMutableArray alloc] init];
+    }
+    if (dataArray) {
+        [self.dataArray removeAllObjects];
+        [self.dataArray addObjectsFromArray:dataArray];
+    }
 }
 
 - (void)viewDidLoad {
@@ -40,15 +51,15 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.tableView];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardDataChange:) name:XYJCardDataAddNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardDataChange:) name:XYJCardDataDeleteNotification object:nil];
 }
 
 - (void)dealloc {
     _tableView.delegate = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Getter & Setter
@@ -65,6 +76,13 @@ UITableViewDataSource
         _tableView.tableFooterView = view;
     }
     return _tableView;
+}
+
+#pragma mark - Notification
+
+- (void)cardDataChange:(NSNotification *)notif {
+    [self getCardDataFromDataBase];
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableView DataSource

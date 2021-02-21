@@ -251,8 +251,12 @@ UITableViewDelegate
     BOOL success = [[XYJCardDataBase sharedDataBase] insertData:self.card];
     if (success) {
         if (self.editMode) {
-            [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.editedCardcreateTime];
+            BOOL deleteSuccess = [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.editedCardcreateTime];
+            if (deleteSuccess) {
+                NSLog(@"删除旧数据失败");
+            }
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:XYJCardDataAddNotification object:self.card];
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         NSLog(@"保存数据失败");

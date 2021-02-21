@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithCard:(XYJCard *)card;
 
+- (void)updateCard:(XYJCard *)card;
+
 @end
 
 NS_ASSUME_NONNULL_END
