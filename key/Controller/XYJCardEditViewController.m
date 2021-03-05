@@ -54,6 +54,10 @@ UITableViewDelegate
 
 #pragma mark - Life Cycle
 
+- (instancetype)init {
+    return [self initWithCard:nil];
+}
+
 - (instancetype)initWithCard:(XYJCard *)card {
     self = [super init];
     if (self) {
@@ -61,7 +65,7 @@ UITableViewDelegate
             self.card = card;
             self.editMode = YES;
             self.editedCardcreateTime = card.createTime;
-            NSTimeInterval createTime = [[NSDate date] timeIntervalSince1970];
+            NSTimeInterval createTime = floor([[NSDate date] timeIntervalSince1970] * 1000);
             self.card.createTime = createTime;
         } else {
             self.card = [[XYJCard alloc] init];

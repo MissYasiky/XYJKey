@@ -181,7 +181,11 @@ UITextFieldDelegate
 - (void)setTextForTitle:(NSString *)text content:(NSString *)content placeHolder:(NSString *)placeHolder {
     self.style = XYJDetailLabelCellStyleTextField;
     self.topLabel.text = text;
-    self.textField.text = content;
+    
+    if (content) {
+        self.textField.text = content;
+        self.enterContent = content;
+    }
     
     if (placeHolder && placeHolder.length > 0) {
         NSDictionary *placeHolderAttributes = @{NSFontAttributeName:[UIFont fontWithName:XYJ_Regular_Font size:15],

@@ -34,7 +34,7 @@ WCDB_PRIMARY(XYJCard, createTime)
     self = [super init];
     if (self) {
         _isOwn = 1;
-        _createTime = [[NSDate date] timeIntervalSince1970];
+        _createTime = floor([[NSDate date] timeIntervalSince1970] * 1000);
     }
     return self;
 }
