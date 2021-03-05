@@ -1,37 +1,35 @@
 //
-//  XYJCardDetailViewController.m
+//  XYJAccountDetailViewController.m
 //  key
 //
-//  Created by MissYasiky on 2020/2/2.
-//  Copyright © 2020 netease. All rights reserved.
+//  Created by MissYasiky on 2021/3/5.
+//  Copyright © 2021 netease. All rights reserved.
 //
 
-#import "XYJCardDetailViewController.h"
-#import "XYJCardEditViewController.h"
+#import "XYJAccountDetailViewController.h"
+#import "XYJAccountEditViewController.h"
 #import "XYJDetailLabelCell.h"
-#import "XYJCardView.h"
-#import "XYJCard.h"
-#import "XYJCardDataBase.h"
+#import "XYJAccount.h"
+#import "XYJAccountDataBase.h"
 
-@interface XYJCardDetailViewController ()<
+@interface XYJAccountDetailViewController ()<
 UITableViewDelegate,
 UITableViewDataSource
 >
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) XYJCardView *cardView;
-@property (nonatomic, strong) XYJCard *card;
+@property (nonatomic, strong) XYJAccount *account;
 
 @end
 
-@implementation XYJCardDetailViewController
+@implementation XYJAccountDetailViewController
 
 #pragma mark - Life Cycle
 
-- (instancetype)initWithCard:(XYJCard *)card {
+- (instancetype)initWithAccount:(XYJAccount *)account {
     self = [super init];
     if (self) {
-        _card = card;
+        _account = account;
     }
     return self;
 }
@@ -39,14 +37,14 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = self.card.bankName;
+    self.title = self.account.accountName;
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self initNavigationBar];
 
     [self.view addSubview:self.tableView];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardDataAdd:) name:XYJCardDataAddNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountDataAdd:) name:XYJAccountDataAddNotification object:nil];
 }
 
 - (void)dealloc {
@@ -68,13 +66,12 @@ UITableViewDataSource
 
 #pragma mark - Notification
 
-- (void)cardDataAdd:(NSNotification *)notif {
-    XYJCard *card = (XYJCard *)notif.object;
-    self.card = card;
+- (void)accountDataAdd:(NSNotification *)notif {
+    XYJAccount *account = (XYJAccount *)notif.object;
+    self.account = account;
     
-    self.title = self.card.bankName;
+    self.title = self.account.accountName;
     [self.tableView reloadData];
-    [self.cardView updateCard:card];
 }
 
 #pragma mark - Getter & Setter
@@ -86,20 +83,8 @@ UITableViewDataSource
         _tableView.rowHeight = [XYJDetailLabelCell height];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.tableFooterView = self.cardView;
     }
     return _tableView;
-}
-
-- (XYJCardView *)cardView {
-    if (_cardView == nil) {
-        _cardView = [[XYJCardView alloc] initWithCard:self.card];
-        CGFloat padding = 25;
-        CGFloat cardBgHeight = (XYJ_ScreenWidth - padding * 2) * 210 / 325;
-        CGFloat height = cardBgHeight + padding * 2;
-        _cardView.frame = CGRectMake(0, 0, XYJ_ScreenWidth, height);
-    }
-    return _cardView;
 }
 
 #pragma mark - Action
@@ -108,7 +93,7 @@ UITableViewDataSource
     __weak __typeof(self) weakSelf = self;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf editCardAction];
+        [weakSelf editAccountAction];
     }];
     [editAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Blue_Color] forKey:@"titleTextColor"];
 
@@ -128,17 +113,17 @@ UITableViewDataSource
 
 #pragma mark - Private
 
-- (void)editCardAction {
-    XYJCardEditViewController *vctrl = [[XYJCardEditViewController alloc] initWithCard:self.card];
+- (void)editAccountAction {
+    XYJAccountEditViewController *vctrl = [[XYJAccountEditViewController alloc] initWithAccount:self.account];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vctrl];
     nav.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)deleteCardAction {
-    BOOL success = [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.card.createTime];
+- (void)deleteAccountAction {
+    BOOL success = [[XYJAccountDataBase sharedDataBase] deleteDataWithCreateTime:self.account.createTime];
     if (success) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:XYJCardDataDeleteNotification object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:XYJAccountDataDeleteNotification object:nil];
         [self.navigationController popViewControllerAnimated:YES];
     } else {
         NSLog(@"删除失败");
@@ -146,9 +131,9 @@ UITableViewDataSource
 }
 
 - (void)showDeleteAlert {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"确定要删除该银行卡信息？" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"确定要删除该账户信息？" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self deleteCardAction];
+        [self deleteAccountAction];
     }];
     [deleteAction setValue:[XYJColorUtils colorWithHexString:XYJ_Theme_Red_Color] forKey:@"titleTextColor"];
     
@@ -163,11 +148,11 @@ UITableViewDataSource
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.card.externDict count];
+    return [self.account.externDict count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row >= [self.card.externDict count]) {
+    if (indexPath.row >= [self.account.externDict count]) {
         return [UITableViewCell new];
     }
     
@@ -177,8 +162,8 @@ UITableViewDataSource
         cell = [[XYJDetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
     }
-    NSString *title = [self.card.externDict allKeys][indexPath.row];
-    NSString *content = [self.card.externDict allValues][indexPath.row];
+    NSString *title = [self.account.externDict allKeys][indexPath.row];
+    NSString *content = [self.account.externDict allValues][indexPath.row];
     [cell setTextForLineOne:title lineTwo:content];
     return cell;
 }

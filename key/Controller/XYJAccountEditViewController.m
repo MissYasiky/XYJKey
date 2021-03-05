@@ -1,23 +1,22 @@
 //
-//  XYJCardEditViewController.m
+//  XYJAccountEditViewController.m
 //  key
 //
-//  Created by MissYasiky on 2020/2/15.
-//  Copyright © 2020 netease. All rights reserved.
+//  Created by MissYasiky on 2021/3/5.
+//  Copyright © 2021 netease. All rights reserved.
 //
 
-#import "XYJCardEditViewController.h"
+#import "XYJAccountEditViewController.h"
 
 /// UI
 #import "XYJDetailLabelCell.h"
-#import "XYJSimpleLabelCell.h"
 #import "XYJCustomKeyCell.h"
 
 /// 数据
-#import "XYJCard.h"
-#import "XYJCardDataBase.h"
+#import "XYJAccount.h"
+#import "XYJAccountDataBase.h"
 
-@interface XYJCardEditViewController ()<
+@interface XYJAccountEditViewController ()<
 UITableViewDataSource,
 UITableViewDelegate
 >
@@ -32,9 +31,9 @@ UITableViewDelegate
 // 是否编辑模式，默认为NO
 @property (nonatomic, assign) BOOL editMode;
 // editMode为YES时不为0，原数据创建时间，数据库关键字段
-@property (nonatomic, assign) NSTimeInterval editedCardCreateTime;
+@property (nonatomic, assign) NSTimeInterval editedAccountCreateTime;
 // 核心数据，编辑模式时通过页面初始化带进来
-@property (nonatomic, strong) XYJCard *card;
+@property (nonatomic, strong) XYJAccount *account;
 @property (nonatomic, strong) NSMutableArray *customKeyArray;
 
 #pragma mark 键盘
@@ -50,25 +49,25 @@ UITableViewDelegate
 
 @end
 
-@implementation XYJCardEditViewController
+@implementation XYJAccountEditViewController
 
 #pragma mark - Life Cycle
 
 - (instancetype)init {
-    return [self initWithCard:nil];
+    return [self initWithAccount:nil];
 }
 
-- (instancetype)initWithCard:(XYJCard *)card {
+- (instancetype)initWithAccount:(XYJAccount *)account {
     self = [super init];
     if (self) {
-        if (card) { // 编辑模式下，保存原的数据库关键字，用于删除旧数据，重新生成新的关键字字段，用于编辑后重新写入数据库
-            self.card = card;
+        if (account) { // 编辑模式下，保存原的数据库关键字，用于删除旧数据，重新生成新的关键字字段，用于编辑后重新写入数据库
+            self.account = account;
             self.editMode = YES;
-            self.editedCardCreateTime = card.createTime;
+            self.editedAccountCreateTime = account.createTime;
             NSTimeInterval createTime = floor([[NSDate date] timeIntervalSince1970] * 1000);
-            self.card.createTime = createTime;
+            self.account.createTime = createTime;
         } else {
-            self.card = [[XYJCard alloc] init];
+            self.account = [[XYJAccount alloc] init];
         }
     }
     return self;
@@ -77,7 +76,7 @@ UITableViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = self.editMode ? @"EDIT CARD" : @"ADD CARD";
+    self.title = self.editMode ? @"EDIT ACCOUNT" : @"ADD ACCOUNT";
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self initData];
@@ -93,8 +92,8 @@ UITableViewDelegate
 #pragma mark - Initialization
 
 - (void)initData {
-    if (self.card.externDict && [self.card.externDict count] > 0) {
-        NSDictionary *externDict = self.card.externDict;
+    if (self.account.externDict && [self.account.externDict count] > 0) {
+        NSDictionary *externDict = self.account.externDict;
         NSInteger customKeyCount = [externDict count];
         self.customKeyArray = [[NSMutableArray alloc] initWithCapacity:customKeyCount];
         for (NSString *key in externDict.allKeys) {
@@ -111,45 +110,15 @@ UITableViewDelegate
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.saveButton];
-    
-    if (self.card.isCreditCard) {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    }
-    if (self.card.isOwn) {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    }
 }
 
 - (void)initCellWithData {
-    XYJCard *card = self.editMode ? self.card : nil;
+    XYJAccount *account = self.editMode ? self.account : nil;
     
     XYJDetailLabelCell *cellOne = [[XYJDetailLabelCell alloc] init];
-    [cellOne setTextForTitle:@"Bank Name" content:card.bankName placeHolder:@"请输入银行名称"];
+    [cellOne setTextForTitle:@"Name" content:account.accountName placeHolder:@"请输入账户名称"];
     
-    XYJDetailLabelCell *cellTwo = [[XYJDetailLabelCell alloc] init];
-    NSString *accountNum = [card.accountNum xyj_seperateEveryFourNumber];
-    [cellTwo setTextForTitle:@"Account Number" content:accountNum placeHolder:@"请输入银行卡卡号"];
-    cellTwo.textFieldStyle = XYJDetailLabelCellTextFieldStyleNumber;
-    
-    XYJDetailLabelCell *cellThree = [[XYJDetailLabelCell alloc] init];
-    [cellThree setTextForTitle:@"Valid Thru（MMYY)" content:card.validThru placeHolder:@"请输入四位银行卡有效期"];
-    cellThree.textFieldStyle = XYJDetailLabelCellTextFieldStyleDate;
-    
-    XYJDetailLabelCell *cellFour = [[XYJDetailLabelCell alloc] init];
-    [cellFour setTextForTitle:@"CVV2" content:card.cvv2 placeHolder:@"请输入三位安全码"];
-    cellFour.textFieldStyle = XYJDetailLabelCellTextFieldStyleCVV;
-    
-    XYJSimpleLabelCell *cellFive = [[XYJSimpleLabelCell alloc] init];
-    [cellFive setCellIconImageName:@"list_icon_card"];
-    [cellFive setLabelText:@"Credit Card"];
-    cellFive.style = XYJSimpleLabelCellCheck;
-    
-    XYJSimpleLabelCell *cellSix = [[XYJSimpleLabelCell alloc] init];
-    [cellSix setCellIconImageName:@"list_icon_profile"];
-    [cellSix setLabelText:@"My Own"];
-    cellSix.style = XYJSimpleLabelCellCheck;
-    
-    self.tableViewCells = @[cellOne, cellTwo, cellThree, cellFour, cellFive, cellSix];
+    self.tableViewCells = @[cellOne];
 }
 
 - (void)initNavigationBar {
@@ -244,17 +213,17 @@ UITableViewDelegate
 }
 
 - (void)saveButtonAction {
-    [self updateCard];
+    [self updateAccount];
     
-    BOOL success = [[XYJCardDataBase sharedDataBase] insertData:self.card];
+    BOOL success = [[XYJAccountDataBase sharedDataBase] insertData:self.account];
     if (success) {
         if (self.editMode) {
-            BOOL deleteSuccess = [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.editedCardCreateTime];
+            BOOL deleteSuccess = [[XYJAccountDataBase sharedDataBase] deleteDataWithCreateTime:self.editedAccountCreateTime];
             if (!deleteSuccess) {
                 NSLog(@"删除旧数据失败");
             }
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:XYJCardDataAddNotification object:self.card];
+        [[NSNotificationCenter defaultCenter] postNotificationName:XYJAccountDataAddNotification object:self.account];
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         NSLog(@"保存数据失败");
@@ -262,27 +231,11 @@ UITableViewDelegate
 }
 
 // 根据页面填写数据更新card数据模型
-- (void)updateCard {
-    for (int i = 0; i < 4; i++) {
+- (void)updateAccount {
+    for (int i = 0; i < [self.tableViewCells count]; i++) {
         XYJDetailLabelCell *cell = self.tableViewCells[i];
         if (i == 0) {
-            self.card.bankName = cell.enterContent;
-        } else if (i == 1) {
-            NSString *accountNum = [cell.enterContent stringByReplacingOccurrencesOfString:@" " withString:@""];
-            self.card.accountNum = accountNum;
-        } else if (i == 2) {
-            self.card.validThru = cell.enterContent;
-        } else {
-            self.card.cvv2 = cell.enterContent;
-        }
-    }
-    
-    self.card.isCreditCard = self.card.isOwn = NO;
-    for (NSIndexPath *selectIndexPath in [self.tableView indexPathsForSelectedRows]) {
-        if (selectIndexPath.row == 4) {
-            self.card.isCreditCard = 1;
-        } else if (selectIndexPath.row == 5) {
-            self.card.isOwn = 1;
+            self.account.accountName = cell.enterContent;
         }
     }
     
@@ -300,7 +253,7 @@ UITableViewDelegate
             }
             muDict[key] = value;
         }
-        self.card.externDict = [muDict copy];
+        self.account.externDict = [muDict copy];
     }
 }
 
@@ -374,7 +327,7 @@ UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return (indexPath.row < 4) ? [XYJDetailLabelCell height] : [XYJSimpleLabelCell height];
+        return [XYJDetailLabelCell height];
     } else {
         return [XYJCustomKeyCell height];
     }
@@ -470,7 +423,7 @@ UITableViewDelegate
 }
 
 - (void)tableViewScrollForIndex:(NSInteger)row {
-    [self.tableView setContentOffset:CGPointMake(0, 44 + 102 * 3 + row * 67)];
+    [self.tableView setContentOffset:CGPointMake(0, 44 + row * 67)];
 }
 
 @end

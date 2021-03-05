@@ -7,7 +7,12 @@
 //
 
 #import "XYJAccountListViewController.h"
+#import "XYJAccountDetailViewController.h"
 #import "XYJHomeListCell.h"
+
+/// 数据
+#import "XYJAccount.h"
+#import "XYJAccountDataBase.h"
 
 @interface XYJAccountListViewController ()<
 UITableViewDelegate,
@@ -15,7 +20,7 @@ UITableViewDataSource
 >
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray <XYJAccount *> *dataArray;
 
 @end
 
@@ -27,21 +32,39 @@ UITableViewDataSource
 
 #pragma mark - Life Cycle
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self getAccountDataFromDataBase];
+    }
+    return self;
+}
+
+- (void)getAccountDataFromDataBase {
+    NSArray *dataArray = [[XYJAccountDataBase sharedDataBase] getAllData];
+    if (!_dataArray) {
+        self.dataArray = [[NSMutableArray alloc] init];
+    }
+    if (dataArray) {
+        [self.dataArray removeAllObjects];
+        [self.dataArray addObjectsFromArray:dataArray];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.dataArray = [[NSMutableArray alloc] initWithArray:@[@"aaa", @"bbb", @"ccc"]];
     [self.view addSubview:self.tableView];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardDataChange:) name:XYJAccountDataAddNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardDataChange:) name:XYJAccountDataDeleteNotification object:nil];
 }
 
 - (void)dealloc {
     _tableView.delegate = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Getter & Setter
@@ -60,6 +83,13 @@ UITableViewDataSource
     return _tableView;
 }
 
+#pragma mark - Notification
+
+- (void)cardDataChange:(NSNotification *)notif {
+    [self getAccountDataFromDataBase];
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -67,6 +97,9 @@ UITableViewDataSource
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row >= [self.dataArray count]) {
+        return [UITableViewCell new];
+    }
     static NSString *cellIdentifier = @"cellIdentifier";
     XYJHomeListCell *cell = (XYJHomeListCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
@@ -74,7 +107,13 @@ UITableViewDataSource
                                          reuseIdentifier:cellIdentifier];
         [cell setCellStyleForAccount:YES];
     }
-    [cell setTextForLineOne:@"云闪付" lineTwo:nil lineThree:@"手机号：13316191900"];
+    XYJAccount *account = [self.dataArray objectAtIndex:indexPath.row];
+    NSString *detailString = @"";
+    if (account.externDict && [account.externDict count] > 0) {
+        NSString *keyString = [account.externDict allKeys][0];
+        detailString = [NSString stringWithFormat:@"%@: %@", keyString, account.externDict[keyString]];
+    }
+    [cell setTextForLineOne:account.accountName lineTwo:nil lineThree:detailString];
     return cell;
 }
 
@@ -82,8 +121,9 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    XYJBankCardDetailViewController *vctrl = [[XYJBankCardDetailViewController alloc] initWithData:self.dataArray[indexPath.row]];
-//    [self.navigationController pushViewController:vctrl animated:YES];
+    XYJAccount *account = [self.dataArray objectAtIndex:indexPath.row];
+    XYJAccountDetailViewController *vctrl = [[XYJAccountDetailViewController alloc] initWithAccount:account];
+    [self.navigationController pushViewController:vctrl animated:YES];
 }
 
 @end

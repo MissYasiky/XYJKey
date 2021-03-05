@@ -19,4 +19,7 @@
 #define XYJCardDataAddNotification @"cardDataAddNotification"
 #define XYJCardDataDeleteNotification @"cardDataDeleteNotification"
 
+#define XYJAccountDataAddNotification @"accountDataAddNotification"
+#define XYJAccountDataDeleteNotification @"accountDataDeleteNotification"
+
 #endif /* KeyPrefix_pch */
