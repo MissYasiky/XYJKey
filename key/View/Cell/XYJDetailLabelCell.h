@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, XYJDetailLabelCellStyle) {
-    XYJDetailLabelCellStyleLabel = 0, // 默认 style 纯文本展示
-    XYJDetailLabelCellStyleTextField,
-    XYJDetailLabelCellStylePicker
+    XYJDetailLabelCellStyleLabel = 0, // 纯文本展示
+    XYJDetailLabelCellStyleTextField, // 带输入框
 };
 
 typedef NS_ENUM(NSInteger, XYJDetailLabelCellTextFieldStyle) {
-    XYJDetailLabelCellTextFieldStyleChinese = 0, // 默认 中文键盘
+    XYJDetailLabelCellTextFieldStyleChinese = 0, // 中文键盘
     XYJDetailLabelCellTextFieldStyleNumber, // 银行卡类型
     XYJDetailLabelCellTextFieldStyleDate, // 日期类型
     XYJDetailLabelCellTextFieldStyleCVV // 三位安全码类型
@@ -47,9 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 调用此方法，style 为 XYJDetailLabelCellStyleTextField
 - (void)setTextForTitle:(NSString *)text content:(NSString  * _Nullable)content placeHolder:(NSString *)placeHolder;
-
-/// 调用此方法，style 为 XYJDetailLabelCellStylePicker
-- (void)setTextForTitle:(NSString *)text picker:(NSString *)pickerText;
 
 + (CGFloat)height;
 

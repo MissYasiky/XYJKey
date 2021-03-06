@@ -17,7 +17,7 @@ UITextFieldDelegate
 @property (nonatomic, strong) UILabel *topLabel;
 @property (nonatomic, strong) UILabel *bottomLabel;
 @property (nonatomic, strong) UIView *seperatorView;
-@property (nonatomic, strong) UIImageView *indicatorImageView;
+@property (nonatomic, strong) UIImageView *indicatorImageView; // 暂时没用上该控件
 @property (nonatomic, strong) UITextField *textField;
 
 @end
@@ -37,6 +37,10 @@ UITextFieldDelegate
         [self.contentView addSubview:self.seperatorView];
         [self.contentView addSubview:self.indicatorImageView];
         [self.contentView addSubview:self.textField];
+        
+        UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] init];
+        [gesture addTarget:self action:@selector(longPressAction)];
+        [self.contentView addGestureRecognizer:gesture];
     }
     return self;
 }
@@ -126,13 +130,6 @@ UITextFieldDelegate
             self.textField.hidden = NO;
             break;
         }
-        case XYJDetailLabelCellStylePicker:
-        {
-            self.indicatorImageView.hidden = NO;
-            self.bottomLabel.hidden = NO;
-            self.textField.hidden = YES;
-            break;
-        }
         default:
             break;
     }
@@ -170,6 +167,18 @@ UITextFieldDelegate
     }
 }
 
+#pragma mark - Action
+
+- (void)longPressAction {
+    if (self.style != XYJDetailLabelCellStyleLabel) {
+        return;
+    }
+    
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    pasteBoard.string = self.bottomLabel.text;
+//    NSString *message = pasteBoard.string ? @"拷贝成功" : @"拷贝失败";
+}
+
 #pragma mark - Public
 
 - (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString *)lineTwoText {
@@ -193,12 +202,6 @@ UITextFieldDelegate
         };
         self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeHolder attributes:placeHolderAttributes];
     }
-}
-
-- (void)setTextForTitle:(NSString *)text picker:(NSString *)pickerText {
-    self.style = XYJDetailLabelCellStylePicker;
-    self.topLabel.text = text;
-    self.bottomLabel.text = pickerText;
 }
 
 + (CGFloat)height {

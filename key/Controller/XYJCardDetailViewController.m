@@ -46,6 +46,9 @@ UITableViewDataSource
 
     [self.view addSubview:self.tableView];
     
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction)];
+    [self.cardView addGestureRecognizer:gesture];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardDataAdd:) name:XYJCardDataAddNotification object:nil];
 }
 
@@ -103,6 +106,12 @@ UITableViewDataSource
 }
 
 #pragma mark - Action
+
+- (void)longPressAction {
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    pasteBoard.string = self.card.accountNum;
+//    NSString *message = pasteBoard.string ? @"拷贝成功" : @"拷贝失败";
+}
 
 - (void)menuButtonAction {
     __weak __typeof(self) weakSelf = self;
