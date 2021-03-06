@@ -28,10 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 银行卡号，不可为空，应为不带符号的数字字符串
 @property (nonatomic, copy) NSString *accountNum;
 
-/// 信用卡有效期，不可为空，应为不带符号的4位数字字符串
+/// 信用卡有效期，应为不带符号的4位数字字符串
 @property (nonatomic, copy) NSString * _Nullable validThru;
 
-/// 信用卡安全码，不可为空，应为不带符号的3位数字字符串
+/// 信用卡安全码，应为不带符号的3位数字字符串
 @property (nonatomic, copy) NSString * _Nullable cvv2;
 
 /// 自定义信息，用于各种其他信息补充
@@ -47,9 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 检查字段 cvv2 是否符号要求
 + (BOOL)isValidCvv2:(NSString *)cvv2;
-
-/// 检查不可为空的字段是否都非空
-- (BOOL)isValid;
 
 #pragma mark - View Model
 

@@ -52,7 +52,7 @@ static NSString *kCardDataBaseTableName = @"XYJCard";
 - (NSString *)databasePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentPath = paths[0];
-    NSString *path = [NSString stringWithFormat:@"%@/db_card", documentPath];
+    NSString *path = [NSString stringWithFormat:@"%@/db_card.db", documentPath];
     return path;
 }
 

@@ -134,12 +134,6 @@ WCDB_PRIMARY(XYJCard, createTime)
     return YES;
 }
 
-/// 检查不可为空的字段是否都非空
-- (BOOL)isValid {
-    BOOL valid = self.createTime && self.bankName && self.accountNum;
-    return valid;
-}
-
 #pragma mark - View Model
 
 /// 根据字段 isCreditCard 返回 “信用卡”/“借记卡”

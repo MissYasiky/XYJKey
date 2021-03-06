@@ -52,7 +52,7 @@ static NSString *kAccountDataBaseTableName = @"XYJAccount";
 - (NSString *)databasePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentPath = paths[0];
-    NSString *path = [NSString stringWithFormat:@"%@/db_Account", documentPath];
+    NSString *path = [NSString stringWithFormat:@"%@/db_account.db", documentPath];
     return path;
 }
 

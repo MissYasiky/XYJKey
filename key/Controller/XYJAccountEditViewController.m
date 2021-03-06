@@ -215,6 +215,11 @@ UITableViewDelegate
 - (void)saveButtonAction {
     [self updateAccount];
     
+    if (!self.account.accountName || self.account.accountName.length == 0) {
+        NSLog(@"账户名称不可为空！");
+        return;
+    }
+    
     BOOL success = [[XYJAccountDataBase sharedDataBase] insertData:self.account];
     if (success) {
         if (self.editMode) {

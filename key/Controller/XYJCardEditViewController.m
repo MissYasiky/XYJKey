@@ -246,6 +246,12 @@ UITableViewDelegate
 - (void)saveButtonAction {
     [self updateCard];
     
+    if (!self.card.bankName  || self.card.bankName.length == 0 ||
+        !self.card.accountNum || self.card.accountNum.length == 0) {
+        NSLog(@"银行名称和银行卡卡号不可为空！");
+        return;
+    }
+    
     BOOL success = [[XYJCardDataBase sharedDataBase] insertData:self.card];
     if (success) {
         if (self.editMode) {
