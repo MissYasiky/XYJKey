@@ -39,16 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *enterContent;
 
-/**
- 已废弃 - 旧页面在使用
- @param type 设置cell的accessoryType，默认是 UITableViewCellAccessoryNone
- @param selectionStyle 设置cell的selectionStyle，默认是UITableViewCellSelectionStyleNone
- */
-- (void)setAccessoryType:(UITableViewCellAccessoryType)type selectionStyle:(UITableViewCellSelectionStyle)selectionStyle;
-
-/// 已废弃 - 旧页面在使用
-- (void)setLeftLabelText:(NSString *)leftContent rightLabelText:(NSString *)rightContent;
-
 /// 调用此方法，style 为 XYJDetailLabelCellStyleLabel
 - (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString *)lineTwoText;
 

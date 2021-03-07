@@ -7,7 +7,7 @@
 //
 
 #import "XYJPasswordViewController.h"
-#import "XYJViewController.h"
+#import "XYJHomeViewController.h"
 #import "XYJSecrecyManager.h"
 
 @interface XYJPasswordViewController ()<
@@ -79,7 +79,7 @@ UITextViewDelegate
 - (void)jumpToHomeView {
     [[XYJSecrecyManager sharedManager] unlockForSeconds];
     
-    XYJViewController *vctrl = [[XYJViewController alloc] init];
+    XYJHomeViewController *vctrl = [[XYJHomeViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
     [UIApplication sharedApplication].keyWindow.rootViewController = navi;
 }

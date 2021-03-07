@@ -253,21 +253,4 @@ UITextFieldDelegate
     self.enterContent = correctText;
 }
 
-#pragma mark - 废弃
-
-- (void)setAccessoryType:(UITableViewCellAccessoryType)type selectionStyle:(UITableViewCellSelectionStyle)selectionStyle {
-    self.accessoryType = type;
-    self.selectionStyle = selectionStyle;
-    [self layoutIfNeeded];
-}
-
-- (void)setLeftLabelText:(NSString *)leftContent rightLabelText:(NSString *)rightContent {
-    if (leftContent != nil && leftContent.length != 0) {
-        self.textLabel.text = leftContent;
-    }
-    if (rightContent != nil && rightContent.length != 0) {
-//        self.rightLabel.text = rightContent;
-    }
-}
-
 @end
