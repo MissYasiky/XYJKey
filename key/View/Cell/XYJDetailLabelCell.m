@@ -176,7 +176,10 @@ UITextFieldDelegate
     
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
     pasteBoard.string = self.bottomLabel.text;
-//    NSString *message = pasteBoard.string ? @"拷贝成功" : @"拷贝失败";
+    if (self.delegate) {
+        NSString *message = pasteBoard.string ? @"拷贝成功" : @"拷贝失败";
+        [self.delegate detailLabelCell_showToast:message];
+    }
 }
 
 #pragma mark - Public

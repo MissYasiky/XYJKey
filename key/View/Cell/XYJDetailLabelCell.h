@@ -22,7 +22,15 @@ typedef NS_ENUM(NSInteger, XYJDetailLabelCellTextFieldStyle) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol XYJDetailLabelCellProtocol <NSObject>
+
+- (void)detailLabelCell_showToast:(NSString *)message;
+
+@end
+
 @interface XYJDetailLabelCell : UITableViewCell
+
+@property (nonatomic, weak) id<XYJDetailLabelCellProtocol> delegate;
 
 @property (nonatomic, assign) XYJDetailLabelCellStyle style;
 

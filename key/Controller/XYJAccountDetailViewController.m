@@ -14,7 +14,8 @@
 
 @interface XYJAccountDetailViewController ()<
 UITableViewDelegate,
-UITableViewDataSource
+UITableViewDataSource,
+XYJDetailLabelCellProtocol
 >
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -126,7 +127,7 @@ UITableViewDataSource
         [[NSNotificationCenter defaultCenter] postNotificationName:XYJAccountDataDeleteNotification object:nil];
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        NSLog(@"删除失败");
+        [XYJToast showToastWithMessage:@"删除失败" inView:self.view];
     }
 }
 
@@ -161,11 +162,18 @@ UITableViewDataSource
     if (cell == nil) {
         cell = [[XYJDetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
+        cell.delegate = self;
     }
     NSString *title = [self.account.externDict allKeys][indexPath.row];
     NSString *content = [self.account.externDict allValues][indexPath.row];
     [cell setTextForLineOne:title lineTwo:content];
     return cell;
+}
+
+#pragma mark - XYJDetailLabelCell Protocol
+
+- (void)detailLabelCell_showToast:(NSString *)message {
+    [XYJToast showToastWithMessage:message inView:self.view];
 }
 
 @end

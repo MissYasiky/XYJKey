@@ -15,6 +15,7 @@
 #import "XYJColorUtils.h"
 #import "XYJDailyTools.h"
 #import "NSString+Util.h"
+#import "XYJToast.h"
 
 #define XYJCardDataAddNotification @"cardDataAddNotification"
 #define XYJCardDataDeleteNotification @"cardDataDeleteNotification"

@@ -248,7 +248,7 @@ UITableViewDelegate
     
     if (!self.card.bankName  || self.card.bankName.length == 0 ||
         !self.card.accountNum || self.card.accountNum.length == 0) {
-        NSLog(@"银行名称和银行卡卡号不可为空！");
+        [XYJToast showToastWithMessage:@"银行名称和银行卡卡号不可为空" inView:self.view];
         return;
     }
     
@@ -257,13 +257,13 @@ UITableViewDelegate
         if (self.editMode) {
             BOOL deleteSuccess = [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.editedCardCreateTime];
             if (!deleteSuccess) {
-                NSLog(@"删除旧数据失败");
+                [XYJToast showToastWithMessage:@"删除旧数据失败" inView:self.view];
             }
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:XYJCardDataAddNotification object:self.card];
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
-        NSLog(@"保存数据失败");
+        [XYJToast showToastWithMessage:@"保存数据失败" inView:self.view];
     }
 }
 

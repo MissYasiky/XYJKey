@@ -216,7 +216,7 @@ UITableViewDelegate
     [self updateAccount];
     
     if (!self.account.accountName || self.account.accountName.length == 0) {
-        NSLog(@"账户名称不可为空！");
+        [XYJToast showToastWithMessage:@"账户名称不可为空" inView:self.view];
         return;
     }
     
@@ -225,13 +225,13 @@ UITableViewDelegate
         if (self.editMode) {
             BOOL deleteSuccess = [[XYJAccountDataBase sharedDataBase] deleteDataWithCreateTime:self.editedAccountCreateTime];
             if (!deleteSuccess) {
-                NSLog(@"删除旧数据失败");
+                [XYJToast showToastWithMessage:@"删除旧数据失败" inView:self.view];
             }
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:XYJAccountDataAddNotification object:self.account];
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
-        NSLog(@"保存数据失败");
+        [XYJToast showToastWithMessage:@"保存数据失败" inView:self.view];
     }
 }
 
