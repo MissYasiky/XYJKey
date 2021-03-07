@@ -56,6 +56,10 @@ UITableViewDataSource
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cardDataChange:) name:XYJCardDataDeleteNotification object:nil];
 }
 
+- (void)viewWillLayoutSubviews {
+    self.tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+}
+
 - (void)dealloc {
     _tableView.delegate = nil;
     

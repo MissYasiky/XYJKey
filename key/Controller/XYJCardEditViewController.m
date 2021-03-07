@@ -455,6 +455,7 @@ UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1 && indexPath.row == [self.customKeyArray count]) {
         [self addCustomKey];
+        [self tableViewScrollForIndex:indexPath.row];
     }
 }
 
@@ -476,7 +477,9 @@ UITableViewDelegate
 }
 
 - (void)tableViewScrollForIndex:(NSInteger)row {
-    [self.tableView setContentOffset:CGPointMake(0, 44 + 102 * 3 + row * 67)];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView setContentOffset:CGPointMake(0, 44 + 102 * 3 + row * 67)];
+    });
 }
 
 @end
