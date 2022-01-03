@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define XYJ_Memory_Monitor 0
-
 #define XYJ_Bold_Font @"PingFangSC-Semibold"
 
 #define XYJ_Regular_Font @"PingFangSC-Regular"
