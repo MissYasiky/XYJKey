@@ -109,7 +109,6 @@ UITableViewDataSource
     if (cell == nil) {
         cell = [[XYJHomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
-        [cell setCellStyleForAccount:YES];
     }
     XYJAccount *account = [self.dataArray objectAtIndex:indexPath.row];
     NSString *detailString = @"";

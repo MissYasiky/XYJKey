@@ -12,7 +12,6 @@ static CGFloat const kCellHeight = 90.0;
 
 @interface XYJHomeListCell ()
 
-@property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UIImageView *indicatorImageView;
 @property (nonatomic, strong) UILabel *topLabel;
 @property (nonatomic, strong) UILabel *midLabel;
@@ -32,7 +31,6 @@ static CGFloat const kCellHeight = 90.0;
         self.backgroundColor = [UIColor clearColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        [self.contentView addSubview:self.iconImageView];
         [self.contentView addSubview:self.indicatorImageView];
         [self.contentView addSubview:self.topLabel];
         [self.contentView addSubview:self.midLabel];
@@ -49,28 +47,18 @@ static CGFloat const kCellHeight = 90.0;
     CGFloat width = XYJ_ScreenWidth;
     CGFloat height = kCellHeight;
     CGFloat xPadding = 25.0;
-    self.iconImageView.frame = CGRectMake(xPadding, (height - 44) / 2.0, 44, 44);
     self.indicatorImageView.frame = CGRectMake(width - xPadding - 20, (height - 16) / 2.0, 20, 16);
     
-    CGFloat originX = 94.0;
-    CGFloat labelWidth = self.indicatorImageView.frame.origin.x - originX;
-    self.topLabel.frame = CGRectMake(originX, 13, labelWidth, 17);
-    self.midLabel.frame = CGRectMake(originX, 33, labelWidth, 13);
-    self.bottomLabel.frame = CGRectMake(originX, 60, labelWidth, 17);
-    self.seperatorView.frame = CGRectMake(originX, height - 0.5, width - originX - xPadding, 0.5);
+    CGFloat labelWidth = self.indicatorImageView.frame.origin.x - xPadding;
+    self.topLabel.frame = CGRectMake(xPadding, 13, labelWidth, 17);
+    self.midLabel.frame = CGRectMake(xPadding, 33, labelWidth, 13);
+    self.bottomLabel.frame = CGRectMake(xPadding, 60, labelWidth, 17);
+    self.seperatorView.frame = CGRectMake(xPadding, height - 0.5, width - xPadding * 2, 0.5);
     
     self.taLabel.frame = CGRectMake(self.indicatorImageView.frame.origin.x - 22, (height - 25) / 2.0, 22, 25);
 }
 
 #pragma mark - Getter & Setter
-
-- (UIImageView *)iconImageView {
-    if (_iconImageView == nil) {
-        _iconImageView = [[UIImageView alloc] init];
-        [_iconImageView setImage:[UIImage imageNamed:@"home_list_icon_card"]];
-    }
-    return _iconImageView;
-}
 
 - (UIImageView *)indicatorImageView {
     if (_indicatorImageView == nil) {
@@ -138,11 +126,6 @@ static CGFloat const kCellHeight = 90.0;
 }
 
 #pragma mark - Public
-
-- (void)setCellStyleForAccount:(BOOL)account {
-    NSString *imageName = account ? @"home_list_icon_account" : @"home_list_icon_card";
-    [self.iconImageView setImage:[UIImage imageNamed:imageName]];
-}
 
 - (void)setTextForLineOne:(NSString *)lineOneText lineTwo:(NSString *)lineTwoText lineThree:(NSString *)lineThreeText {
     [self setTextForLineOne:lineOneText lineTwo:lineTwoText lineThree:lineThreeText other:NO];
