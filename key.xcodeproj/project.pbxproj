@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,9 @@
 		211C883C23F8238200684341 /* XYJCardEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 211C883B23F8238200684341 /* XYJCardEditViewController.m */; };
 		21254FA423E08A9200C8FE03 /* xyj_shield_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 21254FA323E08A9200C8FE03 /* xyj_shield_bg.png */; };
 		2126558821C7EFB300A74BAF /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 2126558721C7EFB300A74BAF /* NSString+Util.m */; };
+		212C25EB2AF8D3CB006CC928 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212C25EA2AF8D3CB006CC928 /* Card.swift */; };
+		212C260F2AFA1A93006CC928 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212C260E2AFA1A93006CC928 /* Account.swift */; };
+		212C26112AFA1D35006CC928 /* CardDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212C26102AFA1D35006CC928 /* CardDataBase.swift */; };
 		2158B3B021B6BD8C00399A97 /* XYJPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */; };
 		2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2171455521B2850000878C5D /* XYJDetailLabelCell.m */; };
 		2178A67925F274EF00E31E29 /* XYJAccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2178A67825F274EF00E31E29 /* XYJAccountEditViewController.m */; };
@@ -37,7 +40,8 @@
 		21E42598218C8DF50072D134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42597218C8DF50072D134 /* main.m */; };
 		21E425AA219D779B0072D134 /* XYJDailyTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425A9219D779B0072D134 /* XYJDailyTools.m */; };
 		21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E425CD21AA78470072D134 /* LYLUnicode.m */; };
-		8E2746835B231D36EB2015F7 /* libPods-key.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB4183B23D97C082962A9B5 /* libPods-key.a */; };
+		21E48B852AFA265B0044904F /* AccountDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E48B842AFA265B0044904F /* AccountDataBase.swift */; };
+		70ED5535E8818345E2598729 /* Pods_key.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961FA982499FABD744052768 /* Pods_key.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +54,10 @@
 		21254FA323E08A9200C8FE03 /* xyj_shield_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xyj_shield_bg.png; sourceTree = "<group>"; };
 		2126558621C7EFB300A74BAF /* NSString+Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		2126558721C7EFB300A74BAF /* NSString+Util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
+		212C25E92AF8D3CB006CC928 /* key-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "key-Bridging-Header.h"; sourceTree = "<group>"; };
+		212C25EA2AF8D3CB006CC928 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		212C260E2AFA1A93006CC928 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		212C26102AFA1D35006CC928 /* CardDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDataBase.swift; sourceTree = "<group>"; };
 		2158B3AE21B6BD8C00399A97 /* XYJPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJPasswordViewController.h; sourceTree = "<group>"; };
 		2158B3AF21B6BD8C00399A97 /* XYJPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJPasswordViewController.m; sourceTree = "<group>"; };
 		2171455421B2850000878C5D /* XYJDetailLabelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJDetailLabelCell.h; sourceTree = "<group>"; };
@@ -102,7 +110,8 @@
 		21E425AD219D78E20072D134 /* KeyPrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyPrefix.pch; sourceTree = SOURCE_ROOT; };
 		21E425CC21AA78470072D134 /* LYLUnicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYLUnicode.h; sourceTree = "<group>"; };
 		21E425CD21AA78470072D134 /* LYLUnicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYLUnicode.m; sourceTree = "<group>"; };
-		7EB4183B23D97C082962A9B5 /* libPods-key.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-key.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21E48B842AFA265B0044904F /* AccountDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataBase.swift; sourceTree = "<group>"; };
+		961FA982499FABD744052768 /* Pods_key.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_key.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FA61AA0FCC3EADB0071FBF6 /* Pods-key.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-key.release.xcconfig"; path = "Pods/Target Support Files/Pods-key/Pods-key.release.xcconfig"; sourceTree = "<group>"; };
 		AA923611CADB915CAC9753B7 /* Pods-key.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-key.debug.xcconfig"; path = "Pods/Target Support Files/Pods-key/Pods-key.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E2746835B231D36EB2015F7 /* libPods-key.a in Frameworks */,
+				70ED5535E8818345E2598729 /* Pods_key.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +140,10 @@
 		2159E06D21BD21A2004590BD /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
+				212C25EA2AF8D3CB006CC928 /* Card.swift */,
+				212C26102AFA1D35006CC928 /* CardDataBase.swift */,
+				212C260E2AFA1A93006CC928 /* Account.swift */,
+				21E48B842AFA265B0044904F /* AccountDataBase.swift */,
 				218473F1256AA01900D188CF /* Model */,
 				003C0ECE25CFD3E800664970 /* XYJCardDataBase.h */,
 				003C0ECF25CFD3E800664970 /* XYJCardDataBase.mm */,
@@ -215,6 +228,7 @@
 		21E425AC219D789C0072D134 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				212C25E92AF8D3CB006CC928 /* key-Bridging-Header.h */,
 				21E42591218C8DF50072D134 /* Assets.xcassets */,
 				21E42596218C8DF50072D134 /* Info.plist */,
 				21E42597218C8DF50072D134 /* main.m */,
@@ -279,7 +293,7 @@
 		2459CFD5A269DBE648726083 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7EB4183B23D97C082962A9B5 /* libPods-key.a */,
+				961FA982499FABD744052768 /* Pods_key.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -304,6 +318,7 @@
 				21E42581218C8DF20072D134 /* Sources */,
 				21E42582218C8DF20072D134 /* Frameworks */,
 				21E42583218C8DF20072D134 /* Resources */,
+				C65CE50D789D2946FD7BA5C8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -325,6 +340,7 @@
 				TargetAttributes = {
 					21E42584218C8DF20072D134 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -378,6 +394,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C65CE50D789D2946FD7BA5C8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-key/Pods-key-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-key/Pods-key-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-key/Pods-key-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -394,6 +427,7 @@
 				2178CDAF23E6B35E0039160C /* XYJSimpleLabelCell.m in Sources */,
 				2178A68425F2795200E31E29 /* XYJAccountDataBase.mm in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
+				212C260F2AFA1A93006CC928 /* Account.swift in Sources */,
 				211C883C23F8238200684341 /* XYJCardEditViewController.m in Sources */,
 				21C902A723E02BC900FE636C /* XYJSecrecyManager.m in Sources */,
 				2178CDB223E6BF640039160C /* XYJCardDetailViewController.m in Sources */,
@@ -404,9 +438,12 @@
 				2178A67E25F276B300E31E29 /* XYJAccount.mm in Sources */,
 				21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */,
 				2178CDB623E6C88C0039160C /* XYJCardView.m in Sources */,
+				212C25EB2AF8D3CB006CC928 /* Card.swift in Sources */,
 				2178CDA923E6AD410039160C /* XYJAccountListViewController.m in Sources */,
+				21E48B852AFA265B0044904F /* AccountDataBase.swift in Sources */,
 				2171455621B2850000878C5D /* XYJDetailLabelCell.m in Sources */,
 				2178A67925F274EF00E31E29 /* XYJAccountEditViewController.m in Sources */,
+				212C26112AFA1D35006CC928 /* CardDataBase.swift in Sources */,
 				2178CDAC23E6AEAF0039160C /* XYJSettingViewController.m in Sources */,
 				218473F4256AA0AF00D188CF /* XYJCard.mm in Sources */,
 				218405BE23E5BCB1000BB9E2 /* XYJCardListViewController.m in Sources */,
@@ -453,6 +490,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -512,6 +550,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -536,6 +575,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 11;
@@ -552,6 +592,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.polyv.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Dev Profile";
+				SWIFT_OBJC_BRIDGING_HEADER = "key/key-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -562,6 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 11;
@@ -577,6 +621,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.polyv.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Profile";
+				SWIFT_OBJC_BRIDGING_HEADER = "key/key-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
