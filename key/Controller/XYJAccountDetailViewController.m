@@ -9,8 +9,6 @@
 #import "XYJAccountDetailViewController.h"
 #import "XYJAccountEditViewController.h"
 #import "XYJDetailLabelCell.h"
-#import "XYJAccount.h"
-#import "XYJAccountDataBase.h"
 
 @interface XYJAccountDetailViewController ()<
 UITableViewDelegate,
@@ -19,7 +17,7 @@ XYJDetailLabelCellProtocol
 >
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) XYJAccount *account;
+@property (nonatomic, strong) Account *account;
 
 @end
 
@@ -27,7 +25,7 @@ XYJDetailLabelCellProtocol
 
 #pragma mark - Life Cycle
 
-- (instancetype)initWithAccount:(XYJAccount *)account {
+- (instancetype)initWithAccount:(Account *)account {
     self = [super init];
     if (self) {
         _account = account;
@@ -68,7 +66,7 @@ XYJDetailLabelCellProtocol
 #pragma mark - Notification
 
 - (void)accountDataAdd:(NSNotification *)notif {
-    XYJAccount *account = (XYJAccount *)notif.object;
+    Account *account = (Account *)notif.object;
     self.account = account;
     
     self.title = self.account.accountName;
@@ -122,7 +120,7 @@ XYJDetailLabelCellProtocol
 }
 
 - (void)deleteAccountAction {
-    BOOL success = [[XYJAccountDataBase sharedDataBase] deleteDataWithCreateTime:self.account.createTime];
+    BOOL success = [[AccountDataBase shared] deleteDataWithCreateTime:self.account.createTime];
     if (success) {
         [[NSNotificationCenter defaultCenter] postNotificationName:XYJAccountDataDeleteNotification object:nil];
         [self.navigationController popViewControllerAnimated:YES];

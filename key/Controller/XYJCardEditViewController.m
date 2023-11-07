@@ -13,10 +13,6 @@
 #import "XYJSimpleLabelCell.h"
 #import "XYJCustomKeyCell.h"
 
-/// 数据
-#import "XYJCard.h"
-#import "XYJCardDataBase.h"
-
 @interface XYJCardEditViewController ()<
 UITableViewDataSource,
 UITableViewDelegate
@@ -34,7 +30,7 @@ UITableViewDelegate
 // editMode为YES时不为0，原数据创建时间，数据库关键字段
 @property (nonatomic, assign) NSTimeInterval editedCardCreateTime;
 // 核心数据，编辑模式时通过页面初始化带进来
-@property (nonatomic, strong) XYJCard *card;
+@property (nonatomic, strong) Card *card;
 @property (nonatomic, strong) NSMutableArray *customKeyArray;
 
 #pragma mark 键盘
@@ -58,7 +54,7 @@ UITableViewDelegate
     return [self initWithCard:nil];
 }
 
-- (instancetype)initWithCard:(XYJCard *)card {
+- (instancetype)initWithCard:(Card *)card {
     self = [super init];
     if (self) {
         if (card) { // 编辑模式下，保存原的数据库关键字，用于删除旧数据，重新生成新的关键字字段，用于编辑后重新写入数据库
@@ -68,7 +64,7 @@ UITableViewDelegate
             NSTimeInterval createTime = floor([[NSDate date] timeIntervalSince1970] * 1000);
             self.card.createTime = createTime;
         } else {
-            self.card = [[XYJCard alloc] init];
+            self.card = [[Card alloc] init];
         }
     }
     return self;
@@ -121,7 +117,7 @@ UITableViewDelegate
 }
 
 - (void)initCellWithData {
-    XYJCard *card = self.editMode ? self.card : nil;
+    Card *card = self.editMode ? self.card : nil;
     
     XYJDetailLabelCell *cellOne = [[XYJDetailLabelCell alloc] init];
     [cellOne setTextForTitle:@"Bank Name" content:card.bankName placeHolder:@"请输入银行名称"];
@@ -252,10 +248,10 @@ UITableViewDelegate
         return;
     }
     
-    BOOL success = [[XYJCardDataBase sharedDataBase] insertData:self.card];
+    BOOL success = [[CardDataBase shared] insertDataWithData:self.card];
     if (success) {
         if (self.editMode) {
-            BOOL deleteSuccess = [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.editedCardCreateTime];
+            BOOL deleteSuccess = [[CardDataBase shared] deleteDataWithCreateTime:self.editedCardCreateTime];
             if (!deleteSuccess) {
                 [XYJToast showToastWithMessage:@"删除旧数据失败" inView:self.view];
             }

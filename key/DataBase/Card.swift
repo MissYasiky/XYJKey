@@ -78,26 +78,26 @@ struct threeDigitalString {
     }
 }
 
-final class Card: TableCodable {
-    var createTime: TimeInterval = NSDate().timeIntervalSince1970 * 1000
-    var isCreditCard: Bool = false
-    var isOwn: Bool = true
+@objc public final class Card: NSObject, TableCodable {
+    @objc public var createTime: TimeInterval = NSDate().timeIntervalSince1970 * 1000
+    @objc public var isCreditCard: Bool = false
+    @objc public var isOwn: Bool = true
     
-    var bankName: String? = nil
-    var externDict: Dictionary<String, String>? = nil
+    @objc public var bankName: String? = nil
+    @objc public var externDict: Dictionary<String, String>? = nil
     
-    var accountNum: String? = nil
-    var validThru: String? = nil
-    var cvv2: String? = nil
+    @objc public var accountNum: String? = nil
+    @objc public var validThru: String? = nil
+    @objc public var cvv2: String? = nil
     
 //    @digitalString var accountNum: String?
 //    @validThruString var validThru: String?
 //    @threeDigitalString var cvv2: String?
     
-    enum CodingKeys: String, CodingTableKey {
-        typealias Root = Card
-        static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-            BindColumnConstraint(createTime, isPrimary: true, orderBy OrderTerm:.descending)
+    public enum CodingKeys: String, CodingTableKey {
+        public typealias Root = Card
+        public static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+            BindColumnConstraint(createTime, isPrimary: true, orderBy:.descending)
         }
         
         case createTime
@@ -110,19 +110,19 @@ final class Card: TableCodable {
         case cvv2
     }
 
-    var cardType: String {
+    @objc public var cardType: String {
         get {
             return isCreditCard ? "信用卡" : "借记卡"
         }
     }
 
-    var cardOwner: String {
+    @objc public var cardOwner: String {
         get {
             return isOwn ? "XIE YUN JIA" : "OTHER"
         }
     }
 
-    var formatedValidThru: String? {
+    @objc public var formatedValidThru: String? {
         get {
             if let temp = validThru {
                 if temp.isEmpty {
@@ -133,7 +133,7 @@ final class Card: TableCodable {
                     let startIndex = temp.startIndex
                     let endIndex = temp.endIndex
                     let seprateIndex = temp.index(startIndex, offsetBy: 2)
-                    return temp[startIndex..<seprateIndex] + "/" + temp[seprateIndex...endIndex]
+                    return temp[startIndex..<seprateIndex] + "/" + temp[seprateIndex..<endIndex]
                 }
             }
             return nil

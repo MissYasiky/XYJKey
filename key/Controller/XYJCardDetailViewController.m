@@ -10,8 +10,6 @@
 #import "XYJCardEditViewController.h"
 #import "XYJDetailLabelCell.h"
 #import "XYJCardView.h"
-#import "XYJCard.h"
-#import "XYJCardDataBase.h"
 
 @interface XYJCardDetailViewController ()<
 UITableViewDelegate,
@@ -21,7 +19,7 @@ XYJDetailLabelCellProtocol
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) XYJCardView *cardView;
-@property (nonatomic, strong) XYJCard *card;
+@property (nonatomic, strong) Card *card;
 
 @end
 
@@ -29,7 +27,7 @@ XYJDetailLabelCellProtocol
 
 #pragma mark - Life Cycle
 
-- (instancetype)initWithCard:(XYJCard *)card {
+- (instancetype)initWithCard:(Card *)card {
     self = [super init];
     if (self) {
         _card = card;
@@ -73,7 +71,7 @@ XYJDetailLabelCellProtocol
 #pragma mark - Notification
 
 - (void)cardDataAdd:(NSNotification *)notif {
-    XYJCard *card = (XYJCard *)notif.object;
+    Card *card = (Card *)notif.object;
     self.card = card;
     
     self.title = self.card.bankName;
@@ -147,7 +145,7 @@ XYJDetailLabelCellProtocol
 }
 
 - (void)deleteCardAction {
-    BOOL success = [[XYJCardDataBase sharedDataBase] deleteDataWithCreateTime:self.card.createTime];
+    BOOL success = [[CardDataBase shared] deleteDataWithCreateTime:self.card.createTime];
     if (success) {
         [[NSNotificationCenter defaultCenter] postNotificationName:XYJCardDataDeleteNotification object:nil];
         [self.navigationController popViewControllerAnimated:YES];

@@ -10,11 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class XYJCard;
-
 @interface XYJCardDetailViewController : UIViewController
 
-- (instancetype)initWithCard:(XYJCard *)card;
+- (instancetype)initWithCard:(Card *)card;
 
 @end
 

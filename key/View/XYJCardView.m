@@ -7,7 +7,6 @@
 //
 
 #import "XYJCardView.h"
-#import "XYJCard.h"
 #import "NSString+Util.h"
 
 #define XYJCardTextColor @"0xC1D9F5"
@@ -29,7 +28,7 @@
 
 #pragma mark - Life Cycle
 
-- (instancetype)initWithCard:(XYJCard *)card {
+- (instancetype)initWithCard:(Card *)card {
     self = [super init];
     if (self) {
         [self initUI];
@@ -73,17 +72,12 @@
     [self.bgImageView addSubview:self.dateLabel];
 }
 
-- (void)updateCard:(XYJCard *)card {
+- (void)updateCard:(Card *)card {
     self.numLabel.text = [card.accountNum xyj_seperateEveryFourNumber];
-    self.typeLabel.text = card.isCreditCard == 1 ? @"信用卡" : @"借记卡";
-    self.cvvLabel.text = [NSString stringWithFormat:@"CVV2/%@", card.cvv2];
-    
-    NSString *owner = card.isOwn ? @"XIE YUN JIA" : @"OTHER";
-    self.ownerLabel.text = owner;
-    
-    NSString *month = [card.validThru substringToIndex:2];
-    NSString *year = [card.validThru substringFromIndex:2];
-    self.dateLabel.text = [NSString stringWithFormat:@"%@/%@", month, year];
+    self.typeLabel.text = card.cardType;
+    self.cvvLabel.text = [NSString stringWithFormat:@"CVV2/%@", card.cvv2 ?: @""];
+    self.ownerLabel.text = card.cardOwner;
+    self.dateLabel.text = card.formatedValidThru ?: @"";
 }
 
 #pragma mark - Getter & Setter

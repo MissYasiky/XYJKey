@@ -10,17 +10,13 @@
 #import "XYJAccountDetailViewController.h"
 #import "XYJHomeListCell.h"
 
-/// 数据
-#import "XYJAccount.h"
-#import "XYJAccountDataBase.h"
-
 @interface XYJAccountListViewController ()<
 UITableViewDelegate,
 UITableViewDataSource
 >
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray <XYJAccount *> *dataArray;
+@property (nonatomic, strong) NSMutableArray <Account *> *dataArray;
 
 @end
 
@@ -41,7 +37,7 @@ UITableViewDataSource
 }
 
 - (void)getAccountDataFromDataBase {
-    NSArray *dataArray = [[XYJAccountDataBase sharedDataBase] getAllData];
+    NSArray *dataArray = [[AccountDataBase shared] getAllData];
     if (!_dataArray) {
         self.dataArray = [[NSMutableArray alloc] init];
     }
@@ -110,7 +106,7 @@ UITableViewDataSource
         cell = [[XYJHomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
     }
-    XYJAccount *account = [self.dataArray objectAtIndex:indexPath.row];
+    Account *account = [self.dataArray objectAtIndex:indexPath.row];
     NSString *detailString = @"";
     if (account.externDict && [account.externDict count] > 0) {
         NSString *keyString = [account.externDict allKeys][0];
@@ -124,7 +120,7 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    XYJAccount *account = [self.dataArray objectAtIndex:indexPath.row];
+    Account *account = [self.dataArray objectAtIndex:indexPath.row];
     XYJAccountDetailViewController *vctrl = [[XYJAccountDetailViewController alloc] initWithAccount:account];
     [self.navigationController pushViewController:vctrl animated:YES];
 }

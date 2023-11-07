@@ -10,11 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class XYJAccount;
-
 @interface XYJAccountDetailViewController : UIViewController
 
-- (instancetype)initWithAccount:(XYJAccount *)account;
+- (instancetype)initWithAccount:(Account *)account;
 
 @end
 

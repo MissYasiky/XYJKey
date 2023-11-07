@@ -10,16 +10,13 @@
 #import "XYJCardDetailViewController.h"
 #import "XYJHomeListCell.h"
 
-#import "XYJCard.h"
-#import "XYJCardDataBase.h"
-
 @interface XYJCardListViewController ()<
 UITableViewDelegate,
 UITableViewDataSource
 >
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray <XYJCard *> *dataArray;
+@property (nonatomic, strong) NSMutableArray <Card *> *dataArray;
 
 @end
 
@@ -36,7 +33,7 @@ UITableViewDataSource
 }
 
 - (void)getCardDataFromDataBase {
-    NSArray *dataArray = [[XYJCardDataBase sharedDataBase] getAllData];
+    NSArray *dataArray = [[CardDataBase shared] getAllData];
     if (!_dataArray) {
         self.dataArray = [[NSMutableArray alloc] init];
     }
@@ -105,9 +102,8 @@ UITableViewDataSource
         cell = [[XYJHomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
     }
-    XYJCard *card = [self.dataArray objectAtIndex:indexPath.row];
-    NSString *creditCardString = card.isCreditCard == 1 ? @"信用卡" : @"借记卡";
-    [cell setTextForLineOne:card.bankName lineTwo:creditCardString lineThree:card.accountNum other:card.isOwn == 0];
+    Card *card = [self.dataArray objectAtIndex:indexPath.row];
+    [cell setTextForLineOne:card.bankName lineTwo:card.cardType lineThree:card.accountNum other:!card.isOwn];
     return cell;
 }
 
@@ -115,7 +111,7 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    XYJCard *card = [self.dataArray objectAtIndex:indexPath.row];
+    Card *card = [self.dataArray objectAtIndex:indexPath.row];
     XYJCardDetailViewController *vctrl = [[XYJCardDetailViewController alloc] initWithCard:card];
     [self.navigationController pushViewController:vctrl animated:YES];
 }

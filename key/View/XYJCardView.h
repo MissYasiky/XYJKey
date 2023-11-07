@@ -10,13 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class XYJCard;
-
 @interface XYJCardView : UIView
 
-- (instancetype)initWithCard:(XYJCard *)card;
+- (instancetype)initWithCard:(Card *)card;
 
-- (void)updateCard:(XYJCard *)card;
+- (void)updateCard:(Card *)card;
 
 @end
 

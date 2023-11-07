@@ -12,10 +12,6 @@
 #import "XYJDetailLabelCell.h"
 #import "XYJCustomKeyCell.h"
 
-/// 数据
-#import "XYJAccount.h"
-#import "XYJAccountDataBase.h"
-
 @interface XYJAccountEditViewController ()<
 UITableViewDataSource,
 UITableViewDelegate
@@ -33,7 +29,7 @@ UITableViewDelegate
 // editMode为YES时不为0，原数据创建时间，数据库关键字段
 @property (nonatomic, assign) NSTimeInterval editedAccountCreateTime;
 // 核心数据，编辑模式时通过页面初始化带进来
-@property (nonatomic, strong) XYJAccount *account;
+@property (nonatomic, strong) Account *account;
 @property (nonatomic, strong) NSMutableArray *customKeyArray;
 
 #pragma mark 键盘
@@ -57,7 +53,7 @@ UITableViewDelegate
     return [self initWithAccount:nil];
 }
 
-- (instancetype)initWithAccount:(XYJAccount *)account {
+- (instancetype)initWithAccount:(Account *)account {
     self = [super init];
     if (self) {
         if (account) { // 编辑模式下，保存原的数据库关键字，用于删除旧数据，重新生成新的关键字字段，用于编辑后重新写入数据库
@@ -67,7 +63,7 @@ UITableViewDelegate
             NSTimeInterval createTime = floor([[NSDate date] timeIntervalSince1970] * 1000);
             self.account.createTime = createTime;
         } else {
-            self.account = [[XYJAccount alloc] init];
+            self.account = [[Account alloc] init];
         }
     }
     return self;
@@ -113,7 +109,7 @@ UITableViewDelegate
 }
 
 - (void)initCellWithData {
-    XYJAccount *account = self.editMode ? self.account : nil;
+    Account *account = self.editMode ? self.account : nil;
     
     XYJDetailLabelCell *cellOne = [[XYJDetailLabelCell alloc] init];
     [cellOne setTextForTitle:@"Name" content:account.accountName placeHolder:@"请输入账户名称"];
@@ -220,10 +216,10 @@ UITableViewDelegate
         return;
     }
     
-    BOOL success = [[XYJAccountDataBase sharedDataBase] insertData:self.account];
+    BOOL success = [[AccountDataBase shared] insertDataWithData:self.account];
     if (success) {
         if (self.editMode) {
-            BOOL deleteSuccess = [[XYJAccountDataBase sharedDataBase] deleteDataWithCreateTime:self.editedAccountCreateTime];
+            BOOL deleteSuccess = [[AccountDataBase shared] deleteDataWithCreateTime:self.editedAccountCreateTime];
             if (!deleteSuccess) {
                 [XYJToast showToastWithMessage:@"删除旧数据失败" inView:self.view];
             }

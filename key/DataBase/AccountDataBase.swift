@@ -9,34 +9,58 @@
 import Foundation
 import WCDBSwift
 
-final class AccountDataBase {
+@objc public final class AccountDataBase: NSObject {
     static let tableName = "AccountTable"
     let database: Database
     
-    static let shared = AccountDataBase()
-    private init() {
+    @objc public static let shared = AccountDataBase()
+    private override init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let path = paths[0] + "/account.db"
-        database = Database(withPath: path)
-        database.create(table: AccountDataBase.tableName, of: Account.self)
+        database = Database(at: path)
+        do {
+            try database.create(table: AccountDataBase.tableName, of: Account.self)
+        } catch {
+            print("create AccountDataBase tableName error");
+        }
     }
     
-    func getAllData() -> Array<Account> {
-        let objects: [Account] = try database.getObjects(fromTable: AccountDataBase.tableName)
-        return
+    @objc public func getAllData() -> Array<Account> {
+        do {
+            let objects: [Account] = try database.getObjects(fromTable: AccountDataBase.tableName)
+            return objects
+        } catch {
+            print("error")
+        }
+        return []
     }
     
-    func insertData(data: Account) {
-        try database.insert(objects: data, intoTable: AccountDataBase.tableName)
+    @objc public func insertData(data: Account) -> Bool {
+        do {
+            try database.insert(data, intoTable: AccountDataBase.tableName)
+            return true
+        } catch {
+            return false
+        }
     }
     
-    func insertOrReplaceData(data: Account) {
-        try database.insertOrReplace(objects: data, intoTable: AccountDataBase.tableName)
+    @objc public func insertOrReplaceData(data: Account) -> Bool {
+        do {
+            try database.insertOrReplace(data, intoTable: AccountDataBase.tableName)
+            return true
+        } catch {
+            return false
+        }
     }
     
-    func deleteData(createTime: NSTimeInterval) {
-        try database.delete(fromTable: AccountDataBase.tableName,
-                            where: Account.Properties.createTime == createTime)
+    @objc public func deleteData(createTime: TimeInterval) -> Bool {
+        do {
+            try database.delete(fromTable: AccountDataBase.tableName,
+                                where: Account.Properties.createTime == createTime)
+            return true
+        } catch {
+            return false
+        }
     }
 }
 
