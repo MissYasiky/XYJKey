@@ -7,11 +7,13 @@
 //
 
 #import "XYJAppDelegate.h"
-#import "XYJSecrecyManager.h"
-#import "XYJPasswordViewController.h"
 #import "XYJHomeViewController.h"
 
-@interface XYJAppDelegate ()
+#define XYJ_PassWord_Necessary 1
+
+@interface XYJAppDelegate ()<
+PasswordViewControllerDelegate
+>
 
 @property (nonatomic, strong) UIImageView *shieldView;
 
@@ -24,7 +26,8 @@
     [self customNavigationBar];
     
 #if XYJ_PassWord_Necessary
-    XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
+    PasswordViewController *vctrl = [[PasswordViewController alloc] init];
+    vctrl.delegate = self;
     self.window.rootViewController = vctrl;
 #else
     XYJHomeViewController *vctrl = [[XYJHomeViewController alloc] init];
@@ -45,12 +48,11 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     [self shield];
-    [self lockApp];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [self unshield];
     [self lockApp];
+    [self unshield];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -65,12 +67,12 @@
 
 - (void)lockApp {
 #if XYJ_PassWord_Necessary
-    if ([self.window.rootViewController isKindOfClass:[XYJPasswordViewController class]]) { // 已加密
+    if ([self.window.rootViewController isKindOfClass:[PasswordViewController class]]) { // 已加密
         return;
-    } else if ([XYJSecrecyManager sharedManager].unlock) { // 在 1min 解密期限内
+    } else if (![[SecurityManager shared] isLock]) { // 在 1min 解密期限内
         return;
     } else { // 恢复加密状态
-        XYJPasswordViewController *vctrl = [[XYJPasswordViewController alloc] init];
+        PasswordViewController *vctrl = [[PasswordViewController alloc] init];
         self.window.rootViewController = vctrl;
     }
 #endif
@@ -101,6 +103,16 @@
                                       NSKernAttributeName:@(3)
     };
     [[UINavigationBar appearance] setTitleTextAttributes:titleAttributes];
+}
+
+#pragma mark - PasswordViewControllerDelegate
+
+- (void)dismissWithPasswordViewController:(PasswordViewController *)passwordViewController {
+    [[SecurityManager shared] unlockForSeconds];
+    
+    XYJHomeViewController *vctrl = [[XYJHomeViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
+    [UIApplication sharedApplication].keyWindow.rootViewController = navi;
 }
 
 @end

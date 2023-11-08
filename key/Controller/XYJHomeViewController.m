@@ -7,7 +7,6 @@
 //
 
 #import "XYJHomeViewController.h"
-#import "XYJSettingViewController.h"
 #import "XYJCardListViewController.h"
 #import "XYJAccountListViewController.h"
 #import "XYJCardEditViewController.h"
@@ -144,7 +143,7 @@ XYJHomeTabBarDelegate
 #pragma mark - Action
 
 - (void)settingButtonAction {
-    XYJSettingViewController *vctrl = [[XYJSettingViewController alloc] init];
+    PreferenceViewController *vctrl = [[PreferenceViewController alloc] init];
     [self.navigationController pushViewController:vctrl animated:YES];
 }
 
