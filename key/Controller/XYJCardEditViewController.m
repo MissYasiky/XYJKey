@@ -7,6 +7,7 @@
 //
 
 #import "XYJCardEditViewController.h"
+#import "NSString+Util.h"
 
 /// UI
 #import "XYJDetailLabelCell.h"

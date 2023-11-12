@@ -7,6 +7,7 @@
 //
 
 #import "XYJDetailLabelCell.h"
+#import "NSString+Util.h"
 
 static CGFloat kCellHeight = 102.0;
 

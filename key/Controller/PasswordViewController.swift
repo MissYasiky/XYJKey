@@ -37,9 +37,9 @@ import UIKit
         for i in 0...3 {
             let label = UILabel(frame: CGRectMake(originX + Double(i) * (width + span), 260, width, 35))
             label.frame = CGRectMake(originX + Double(i) * (width + span), 260, width, 35)
-            label.font = UIFont.systemFont(ofSize: 45)
+            label.font = FontUtil.regularFont(size: 45)
             label.textAlignment = .center
-            label.textColor = ColorUtils.color("0x696969")
+            label.textColor = ColorUtil.color("0x696969")
             label.text = "-"
             self.view.addSubview(label)
             

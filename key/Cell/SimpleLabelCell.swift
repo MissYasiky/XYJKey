@@ -36,11 +36,11 @@ class SimpleLabelCell: UITableViewCell {
         self.addSubview(checkImageView)
         self.addSubview(indicatorImageView)
         
-        label.textColor = ColorUtils.color(text_color)
-        label.font = UIFont(name: "PingFangSC-Regular", size: 15)
+        label.textColor = ColorUtil.textColor
+        label.font = FontUtil.regularFont(size: 15)
         self.addSubview(label)
         
-        seperatorView.backgroundColor = ColorUtils.color(line_color)
+        seperatorView.backgroundColor = ColorUtil.lineColor
         self.addSubview(seperatorView)
     }
     
