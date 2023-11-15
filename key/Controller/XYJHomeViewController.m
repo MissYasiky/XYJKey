@@ -11,15 +11,14 @@
 #import "XYJAccountListViewController.h"
 #import "XYJCardEditViewController.h"
 #import "XYJAccountEditViewController.h"
-#import "XYJHomeTabBar.h"
 
 @interface XYJHomeViewController () <
 UIPageViewControllerDelegate,
 UIPageViewControllerDataSource,
-XYJHomeTabBarDelegate
+HomeTabBarDelegate
 >
 
-@property (nonatomic, strong) XYJHomeTabBar *tabBar;
+@property (nonatomic, strong) HomeTabBar *tabBar;
 
 /// 翻页控制器
 @property (nonatomic, strong) UIPageViewController *pageViewController;
@@ -89,7 +88,7 @@ XYJHomeTabBarDelegate
 }
 
 - (void)initTabBar {
-    self.tabBar = [[XYJHomeTabBar alloc] init];
+    self.tabBar = [[HomeTabBar alloc] init];
     self.tabBar.delegate = self;
     [self.view addSubview:self.tabBar];
 }
@@ -177,9 +176,9 @@ XYJHomeTabBarDelegate
     return [self.vctrlArray indexOfObject:viewController];
 }
 
-#pragma mark - XYJHomeTabBar Delegate
+#pragma mark - HomeTabBar Delegate
 
-- (void)selectTabBarAtIndex:(NSInteger)index {
+- (void)selectTabBarWithIndex:(NSInteger)index {
     if (index < 0 || index >= [self.vctrlArray count]) {
         return;
     }
@@ -221,7 +220,7 @@ XYJHomeTabBarDelegate
 
 -(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
     if (completed) {
-        [self.tabBar selectedAtIndex:self.selectedIndex];
+        [self.tabBar selectWithIndex:self.selectedIndex];
     }
 }
 

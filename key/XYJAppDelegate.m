@@ -9,7 +9,7 @@
 #import "XYJAppDelegate.h"
 #import "XYJHomeViewController.h"
 
-#define XYJ_PassWord_Necessary 1
+#define XYJ_PassWord_Necessary 0
 
 @interface XYJAppDelegate ()<
 PasswordViewControllerDelegate
