@@ -8,12 +8,11 @@
 
 #import "XYJAccountDetailViewController.h"
 #import "XYJAccountEditViewController.h"
-#import "XYJDetailLabelCell.h"
 
 @interface XYJAccountDetailViewController ()<
 UITableViewDelegate,
 UITableViewDataSource,
-XYJDetailLabelCellProtocol
+DetailLabelCellDelegate
 >
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -79,7 +78,7 @@ XYJDetailLabelCellProtocol
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.rowHeight = [XYJDetailLabelCell height];
+        _tableView.rowHeight = [DetailLabelCell height];
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }
@@ -156,22 +155,25 @@ XYJDetailLabelCellProtocol
     }
     
     static NSString *cellIdentifier = @"cellIdentifier";
-    XYJDetailLabelCell *cell = (XYJDetailLabelCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    DetailLabelCell *cell = (DetailLabelCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[XYJDetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[DetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
         cell.delegate = self;
     }
     NSString *title = [self.account.externDict allKeys][indexPath.row];
     NSString *content = [self.account.externDict allValues][indexPath.row];
-    [cell setTextForLineOne:title lineTwo:content];
+    [cell setTextWithLineOneText:title lineTwoText:content];
     return cell;
 }
 
-#pragma mark - XYJDetailLabelCell Protocol
+#pragma mark - DetailLabelCell Delegate
 
-- (void)detailLabelCell_showToast:(NSString *)message {
-    [XYJToast showToastWithMessage:message inView:self.view];
+- (void)longPressWithMessage:(NSString *)message {
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    pasteBoard.string = message;
+    NSString *tips = pasteBoard.string ? @"拷贝成功" : @"拷贝失败";
+    [XYJToast showToastWithMessage:tips inView:self.view];
 }
 
 @end

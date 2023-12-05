@@ -1,5 +1,5 @@
 //
-//  FontUtil.swift
+//  UIFont+Util.swift
 //  key
 //
 //  Created by MissYasiky on 2023/11/12.
@@ -12,7 +12,7 @@ import UIKit
 private let regular: String = "PingFangSC-Regular"
 private let bold: String = "PingFangSC-Semibold"
 
-class FontUtil {
+extension UIFont {
     class func regularFont(size: CGFloat) -> UIFont? {
         return UIFont(name: regular, size: size)
     }

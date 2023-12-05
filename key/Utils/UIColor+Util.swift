@@ -1,5 +1,5 @@
 //
-//  ColorUtils.swift
+//  UIColor+Util.swift
 //  key
 //
 //  Created by MissYasiky on 2023/11/8.
@@ -14,30 +14,30 @@ private let line_color: String = "0xc1c2c2"
 private let theme_blue_color: String = "0x5392dc"
 private let theme_red_color: String = "0xdd5757"
 
-class ColorUtil {
-    static let textColor: UIColor = ColorUtil.color(text_color)
-    static let lineColor: UIColor = ColorUtil.color(line_color)
-    static let themeBlue: UIColor = ColorUtil.color(theme_blue_color)
-    static let themeRed: UIColor = ColorUtil.color(theme_red_color)
+extension UIColor {
+    static let textColor: UIColor = UIColor.color(text_color)
+    static let lineColor: UIColor = UIColor.color(line_color)
+    static let themeBlue: UIColor = UIColor.color(theme_blue_color)
+    static let themeRed: UIColor = UIColor.color(theme_red_color)
     
     class func textColor(alpha: CGFloat) -> UIColor {
-        return ColorUtil.color(text_color, alpha: alpha)
+        return UIColor.color(text_color, alpha: alpha)
     }
     
     class func lineColor(alpha: CGFloat) -> UIColor {
-        return ColorUtil.color(line_color, alpha: alpha)
+        return UIColor.color(line_color, alpha: alpha)
     }
     
     class func themeBlue(alpha: CGFloat) -> UIColor {
-        return ColorUtil.color(theme_blue_color, alpha: alpha)
+        return UIColor.color(theme_blue_color, alpha: alpha)
     }
     
     class func themeRed(alpha: CGFloat) -> UIColor {
-        return ColorUtil.color(theme_red_color, alpha: alpha)
+        return UIColor.color(theme_red_color, alpha: alpha)
     }
     
     class func color(_ hexString: String) -> UIColor {
-        return ColorUtil.color(hexString, alpha: 1.0)
+        return UIColor.color(hexString, alpha: 1.0)
     }
     
     class func color(_ hexString: String, alpha: Double) -> UIColor {

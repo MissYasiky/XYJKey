@@ -39,8 +39,8 @@ import UIKit
         self.view.addSubview(tableView)
         
         visionLabel = UILabel(frame: CGRect(x: 0, y: screenHeight - 50 - 13, width: screenWidth, height: 13))
-        visionLabel.textColor = ColorUtil.textColor(alpha: 0.5)
-        visionLabel.font = FontUtil.regularFont(size: 11)
+        visionLabel.textColor = UIColor.textColor(alpha: 0.5)
+        visionLabel.font = UIFont.regularFont(size: 11)
         let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         let buildVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
         visionLabel.text = "Version \(appVersion) Build \(buildVersion)"

@@ -35,10 +35,10 @@ import UIKit
             let button = UIButton(type: .custom)
             button.frame = CGRectMake(CGFloat(i) * buttonWidth, 0, buttonWidth, buttonHeight)
             button.setTitle(tabTitleArray[i], for: .normal)
-            button.setTitleColor(ColorUtil.textColor, for: .selected)
-            button.setTitleColor(ColorUtil.textColor(alpha: 0.5), for: .normal)
+            button.setTitleColor(UIColor.textColor, for: .selected)
+            button.setTitleColor(UIColor.textColor(alpha: 0.5), for: .normal)
             button.titleEdgeInsets = UIEdgeInsets(top: -2, left: 0, bottom: 2, right: 0)
-            button.titleLabel?.attributedText = NSAttributedString(string: tabTitleArray[i], attributes: [.font: FontUtil.boldFont(size: 13)!, .kern:3])
+            button.titleLabel?.attributedText = NSAttributedString(string: tabTitleArray[i], attributes: [.font: UIFont.boldFont(size: 13)!, .kern:3])
             button.tag = i + buttonTag
             button.addTarget(self, action: #selector(HomeTabBar.buttonAction), for: .touchUpInside)
             self.addSubview(button)
@@ -51,7 +51,7 @@ import UIKit
         }
         
         selectedLine = UIView(frame: CGRectMake(0, height - 2.5, 25.0, 2.5))
-        selectedLine.backgroundColor = ColorUtil.textColor
+        selectedLine.backgroundColor = UIColor.textColor
         self.addSubview(selectedLine)
         
         self.select(index: 0)

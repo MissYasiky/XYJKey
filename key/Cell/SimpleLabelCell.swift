@@ -9,20 +9,22 @@
 import UIKit
 import Foundation
 
-enum SimpleLabelCellStyle: Int {
+@objc public enum SimpleLabelCellStyle: Int {
     case indicator // 默认 style 带小箭头
     case check // 对勾模式
     case onlyLabel // 无小箭头
 }
 
-class SimpleLabelCell: UITableViewCell {
-    static let height = 80.0
-    var style: SimpleLabelCellStyle = .indicator
-    let iconImageView = UIImageView()
-    let checkImageView = UIImageView(image: UIImage(named: "list_indicator_uncheck"))
-    let indicatorImageView = UIImageView(image: UIImage(named: "list_indicator_arrow"))
-    let label: UILabel = UILabel()
-    let seperatorView: UIView = UIView()
+@objc public class SimpleLabelCell: UITableViewCell {
+    @objc public static let height = 80.0
+    private var style: SimpleLabelCellStyle = .indicator
+    private let iconImageView = UIImageView()
+    private let checkImageView = UIImageView(image: UIImage(named: "list_indicator_uncheck"))
+    private let indicatorImageView = UIImageView(image: UIImage(named: "list_indicator_arrow"))
+    private let label: UILabel = UILabel()
+    private let seperatorView: UIView = UIView()
+    
+    // MARK: - Life Cycle
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -36,15 +38,15 @@ class SimpleLabelCell: UITableViewCell {
         self.addSubview(checkImageView)
         self.addSubview(indicatorImageView)
         
-        label.textColor = ColorUtil.textColor
-        label.font = FontUtil.regularFont(size: 15)
+        label.textColor = UIColor.textColor
+        label.font = UIFont.regularFont(size: 15)
         self.addSubview(label)
         
-        seperatorView.backgroundColor = ColorUtil.lineColor
+        seperatorView.backgroundColor = UIColor.lineColor
         self.addSubview(seperatorView)
     }
     
-    override func layoutSubviews() {
+    @objc public override func layoutSubviews() {
         super.layoutSubviews()
         
         let width = UIScreen.main.bounds.size.width
@@ -61,7 +63,7 @@ class SimpleLabelCell: UITableViewCell {
         seperatorView.frame = CGRect(x: xPadding, y: height - 0.5, width: width - xPadding - xPadding, height: 0.5)
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    @objc public override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         if style != .check {
@@ -72,7 +74,10 @@ class SimpleLabelCell: UITableViewCell {
         checkImageView.image = UIImage(named: imageName)
     }
     
-    func setStyle(style: SimpleLabelCellStyle) {
+    // MARK: - Public Methods
+    
+    @objc public func setStyle(style: SimpleLabelCellStyle) {
+        self.style = style
         switch style {
         case .indicator:
             indicatorImageView.isHidden = false
@@ -86,11 +91,11 @@ class SimpleLabelCell: UITableViewCell {
         }
     }
     
-    func setCellIconImageName(imageName: String) {
+    @objc public func setCellIconImageName(imageName: String) {
         iconImageView.image = UIImage(named: imageName)
     }
     
-    func setLabelText(text: String) {
+    @objc public func setLabelText(text: String) {
         label.text = text
     }
 }

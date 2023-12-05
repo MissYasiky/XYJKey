@@ -8,10 +8,6 @@
 
 #import "XYJAccountEditViewController.h"
 
-/// UI
-#import "XYJDetailLabelCell.h"
-#import "XYJCustomKeyCell.h"
-
 @interface XYJAccountEditViewController ()<
 UITableViewDataSource,
 UITableViewDelegate
@@ -111,8 +107,8 @@ UITableViewDelegate
 - (void)initCellWithData {
     Account *account = self.editMode ? self.account : nil;
     
-    XYJDetailLabelCell *cellOne = [[XYJDetailLabelCell alloc] init];
-    [cellOne setTextForTitle:@"Name" content:account.accountName placeHolder:@"请输入账户名称"];
+    DetailLabelCell *cellOne = [[DetailLabelCell alloc] init];
+    [cellOne setTextWithTitle:@"Name" content:account.accountName placeholder:@"请输入账户名称"];
     
     self.tableViewCells = @[cellOne];
 }
@@ -234,9 +230,9 @@ UITableViewDelegate
 // 根据页面填写数据更新card数据模型
 - (void)updateAccount {
     for (int i = 0; i < [self.tableViewCells count]; i++) {
-        XYJDetailLabelCell *cell = self.tableViewCells[i];
+        DetailLabelCell *cell = self.tableViewCells[i];
         if (i == 0) {
-            self.account.accountName = cell.enterContent;
+            self.account.accountName = cell.content;
         }
     }
     
@@ -328,9 +324,9 @@ UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return [XYJDetailLabelCell height];
+        return [DetailLabelCell height];
     } else {
-        return [XYJCustomKeyCell height];
+        return [CustomKeyCell height];
     }
 }
 
@@ -371,18 +367,18 @@ UITableViewDelegate
         return self.tableViewCells[indexPath.row];
     } else { // 自定义数据字段
         static NSString *cellIdentifier = @"cellIdentifier";
-        XYJCustomKeyCell *cell = (XYJCustomKeyCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        CustomKeyCell *cell = (CustomKeyCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (!cell) {
-            cell = [[XYJCustomKeyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            cell = [[CustomKeyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         }
         __weak __typeof(self) weakSelf = self;
-        cell.indexIdentifier = [NSString stringWithFormat:@"%03zd", indexPath.row];
+        cell.row = indexPath.row;
         
         if (indexPath.row < [self.customKeyArray count]) { // 填写自定义字段 cell
-            cell.style = XYJCustomKeyCellStyleKeyValue;
+            [cell updateStyleWithStyle:CustomKeyCellStyleKeyValue];
             
             NSArray *object = self.customKeyArray[indexPath.row];
-            [cell setKey:object[0] value:object[1]];
+            [cell setKeyValueWithKey:object[0] value:object[1]];
             cell.didTapDeleteButton = ^(NSInteger row) {
                 [weakSelf removeCustomKeyAtIndex:row];
             };
@@ -394,7 +390,7 @@ UITableViewDelegate
                 [weakSelf.customKeyArray replaceObjectAtIndex:row withObject:array];
             };
         } else { // 新增自定义字段 cell
-            cell.style = XYJCustomKeyCellStyleAddKey;
+            [cell updateStyleWithStyle:CustomKeyCellStyleAddKey];
         }
         return cell;
     }

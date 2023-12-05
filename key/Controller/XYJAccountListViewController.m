@@ -8,7 +8,6 @@
 
 #import "XYJAccountListViewController.h"
 #import "XYJAccountDetailViewController.h"
-#import "XYJHomeListCell.h"
 
 @interface XYJAccountListViewController ()<
 UITableViewDelegate,
@@ -73,7 +72,7 @@ UITableViewDataSource
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.rowHeight = [XYJHomeListCell height];
+        _tableView.rowHeight = [HomeListCell height];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
@@ -101,9 +100,9 @@ UITableViewDataSource
         return [UITableViewCell new];
     }
     static NSString *cellIdentifier = @"cellIdentifier";
-    XYJHomeListCell *cell = (XYJHomeListCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    HomeListCell *cell = (HomeListCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[XYJHomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[HomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
     }
     Account *account = [self.dataArray objectAtIndex:indexPath.row];
@@ -112,7 +111,7 @@ UITableViewDataSource
         NSString *keyString = [account.externDict allKeys][0];
         detailString = [NSString stringWithFormat:@"%@: %@", keyString, account.externDict[keyString]];
     }
-    [cell setTextForLineOne:account.accountName lineTwo:nil lineThree:detailString];
+    [cell setTextWithLineOneText:account.accountName lineTwoText:nil lineThreeText:detailString];
     return cell;
 }
 

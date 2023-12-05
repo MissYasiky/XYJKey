@@ -8,7 +8,6 @@
 
 #import "XYJCardListViewController.h"
 #import "XYJCardDetailViewController.h"
-#import "XYJHomeListCell.h"
 
 @interface XYJCardListViewController ()<
 UITableViewDelegate,
@@ -69,7 +68,7 @@ UITableViewDataSource
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.rowHeight = [XYJHomeListCell height];
+        _tableView.rowHeight = [HomeListCell height];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
@@ -97,13 +96,13 @@ UITableViewDataSource
         return [UITableViewCell new];
     }
     static NSString *cellIdentifier = @"cellIdentifier";
-    XYJHomeListCell *cell = (XYJHomeListCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    HomeListCell *cell = (HomeListCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[XYJHomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[HomeListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
     }
     Card *card = [self.dataArray objectAtIndex:indexPath.row];
-    [cell setTextForLineOne:card.bankName lineTwo:card.cardType lineThree:card.accountNum other:!card.isOwn];
+    [cell setTextWithLineOneText:card.bankName lineTwoText:card.cardType lineThreeText:card.accountNum other:!card.isOwn];
     return cell;
 }
 

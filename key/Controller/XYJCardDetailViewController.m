@@ -8,17 +8,15 @@
 
 #import "XYJCardDetailViewController.h"
 #import "XYJCardEditViewController.h"
-#import "XYJDetailLabelCell.h"
-#import "XYJCardView.h"
 
 @interface XYJCardDetailViewController ()<
 UITableViewDelegate,
 UITableViewDataSource,
-XYJDetailLabelCellProtocol
+DetailLabelCellDelegate
 >
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) XYJCardView *cardView;
+@property (nonatomic, strong) CardView *cardView;
 @property (nonatomic, strong) Card *card;
 
 @end
@@ -76,7 +74,7 @@ XYJDetailLabelCellProtocol
     
     self.title = self.card.bankName;
     [self.tableView reloadData];
-    [self.cardView updateCard:card];
+    [self.cardView updateWithCard:card];
 }
 
 #pragma mark - Getter & Setter
@@ -85,7 +83,7 @@ XYJDetailLabelCellProtocol
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.rowHeight = [XYJDetailLabelCell height];
+        _tableView.rowHeight = [DetailLabelCell height];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = self.cardView;
@@ -93,9 +91,9 @@ XYJDetailLabelCellProtocol
     return _tableView;
 }
 
-- (XYJCardView *)cardView {
+- (CardView *)cardView {
     if (_cardView == nil) {
-        _cardView = [[XYJCardView alloc] initWithCard:self.card];
+        _cardView = [[CardView alloc] initWithCard:self.card];
         CGFloat padding = 25;
         CGFloat cardBgHeight = (XYJ_ScreenWidth - padding * 2) * 210 / 325;
         CGFloat height = cardBgHeight + padding * 2;
@@ -181,22 +179,25 @@ XYJDetailLabelCellProtocol
     }
     
     static NSString *cellIdentifier = @"cellIdentifier";
-    XYJDetailLabelCell *cell = (XYJDetailLabelCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    DetailLabelCell *cell = (DetailLabelCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[XYJDetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[DetailLabelCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:cellIdentifier];
         cell.delegate = self;
     }
     NSString *title = [self.card.externDict allKeys][indexPath.row];
     NSString *content = [self.card.externDict allValues][indexPath.row];
-    [cell setTextForLineOne:title lineTwo:content];
+    [cell setTextWithLineOneText:title lineTwoText:content];
     return cell;
 }
 
-#pragma mark - XYJDetailLabelCell Protocol
+#pragma mark - DetailLabelCell Delegate
 
-- (void)detailLabelCell_showToast:(NSString *)message {
-    [XYJToast showToastWithMessage:message inView:self.view];
+- (void)longPressWithMessage:(NSString *)message {
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    pasteBoard.string = message;
+    NSString *tips = pasteBoard.string ? @"拷贝成功" : @"拷贝失败";
+    [XYJToast showToastWithMessage:tips inView:self.view];
 }
 
 @end
