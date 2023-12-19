@@ -1,20 +1,20 @@
 //
-//  CardEditViewController.swift
+//  AccountEditViewController.swift
 //  key
 //
-//  Created by MissYasiky on 2023/12/11.
+//  Created by MissYasiky on 2023/12/19.
 //  Copyright © 2023 netease. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-@objc public class CardEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    static let dataAddNoti = "cardDataAddNotification"
+@objc public class AccountEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    static let dataAddNoti = "accountDataAddNotification"
     // MARK: 数据
     private let editMode: Bool // 是否编辑模式，默认为NO
-    private let editedCardCreateTime: TimeInterval? // editMode为YES时不为0，原数据创建时间，数据库关键字段
-    private let card: Card // 核心数据，编辑模式时通过页面初始化带进来
+    private let editedCreateTime: TimeInterval? // editMode为YES时不为0，原数据创建时间，数据库关键字段
+    private let account: Account // 核心数据，编辑模式时通过页面初始化带进来
     private var customKeyArray: [(String?, String?)] // 核心数据，编辑模式时通过页面初始化带进来
     // MARK: UI
     private var headerView: UIView!
@@ -32,21 +32,21 @@ import UIKit
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc public init(card: Card?) {
-        editMode = card != nil ? true : false
-        editedCardCreateTime = card?.createTime
-        self.card = card ?? Card()
+    @objc public init(account: Account?) {
+        editMode = account != nil ? true : false
+        editedCreateTime = account?.createTime
+        self.account = account ?? Account()
         customKeyArray = []
         
         super.init(nibName: nil, bundle: nil)
         
-        if let card {
-            card.createTime = floor(NSDate().timeIntervalSince1970 * 1000)
+        if let account {
+            account.createTime = floor(NSDate().timeIntervalSince1970 * 1000)
         }
     }
     
     @objc public convenience init() {
-        self.init(card: nil)
+        self.init(account: nil)
     }
     
     @objc deinit {
@@ -58,7 +58,7 @@ import UIKit
     
     @objc public override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = editMode ? "EDIT CARD" : "ADD CARD"
+        self.title = editMode ? "EDIT ACCOUNT" : "ADD ACCOUNT"
         self.view.backgroundColor = UIColor.white
         
         initData()
@@ -69,7 +69,7 @@ import UIKit
     // MARK: - Private Methods
     
     private func initData() {
-        if let externDict = self.card.externDict {
+        if let externDict = self.account.externDict {
             for key in externDict.keys {
                 self.customKeyArray.append((key, externDict[key]))
             }
@@ -97,13 +97,6 @@ import UIKit
         tableView.dataSource = self
         tableView.delegate = self
         self.view.addSubview(tableView)
-        
-        if self.card.isCreditCard {
-            tableView.selectRow(at: IndexPath(row: 4, section: 0), animated: false, scrollPosition: .none)
-        }
-        if self.card.isOwn {
-            tableView.selectRow(at: IndexPath(row: 5, section: 0), animated: false, scrollPosition: .none)
-        }
         
         let saveButton: UIButton = UIButton(type: .roundedRect)
         saveButton.addTarget(self, action: #selector(self.saveButtonAction), for: .touchUpInside)
@@ -134,32 +127,10 @@ import UIKit
     
     private func initCellWithData() {
         let cell1 = DetailLabelCell()
-        cell1.setText(title: "Bank Name", content: self.card.bankName, placeholder: "请输入银行名称")
+        cell1.setText(title: "Name", content: account.accountName, placeholder: "请输入账户名称")
         cell1.updateTextFieldStyle(style: .Chinese)
-        
-        let cell2 = DetailLabelCell()
-        cell2.setText(title: "Account Number", content: self.card.accountNum?.scanAndSeperateEveryFour(), placeholder: "请输入银行卡卡号")
-        cell2.updateTextFieldStyle(style: .number)
-        
-        let cell3 = DetailLabelCell()
-        cell3.setText(title: "Valid Thru（MMYY)", content: self.card.validThru, placeholder: "请输入四位银行卡有效期")
-        cell3.updateTextFieldStyle(style: .date)
-        
-        let cell4 = DetailLabelCell()
-        cell4.setText(title: "CVV2", content: self.card.cvv2, placeholder: "请输入三位安全码")
-        cell4.updateTextFieldStyle(style: .CVV)
-        
-        let cell5 = SimpleLabelCell()
-        cell5.setCellIconImageName(imageName: "list_icon_card")
-        cell5.setLabelText(text: "Credit Card")
-        cell5.setStyle(style: .check)
-        
-        let cell6 = SimpleLabelCell()
-        cell6.setCellIconImageName(imageName: "list_icon_profile")
-        cell6.setLabelText(text: "My Own")
-        cell6.setStyle(style: .check)
                            
-        self.tableViewCells = [cell1, cell2, cell3, cell4, cell5, cell6]
+        self.tableViewCells = [cell1]
     }
     
     private func addNotification() {
@@ -187,27 +158,11 @@ import UIKit
         self.tableView.setContentOffset(CGPoint(x: 0, y: 44+102*3+row*67), animated: true)
     }
     
-    private func updateCard() {
-        for i in 0..<4 {
+    private func updateAccount() {
+        for i in 0..<self.tableViewCells.count {
             let cell = self.tableViewCells[i] as! DetailLabelCell
             if i == 0 {
-                self.card.bankName = cell.content
-            } else if i == 1 {
-                self.card.accountNum = cell.content?.replacingOccurrences(of: " ", with: "")
-            } else if i == 2 {
-                self.card.validThru = cell.content
-            } else {
-                self.card.cvv2 = cell.content
-            }
-        }
-        
-        self.card.isCreditCard = false
-        self.card.isOwn = false
-        for indexPath in (self.tableView.indexPathsForSelectedRows ?? []) {
-            if indexPath.row == 4 {
-                self.card.isCreditCard = true
-            } else if indexPath.row == 5 {
-                self.card.isOwn = true
+                self.account.accountName = cell.content
             }
         }
         
@@ -217,7 +172,7 @@ import UIKit
                 dict[item.0!] = item.1!
             }
         }
-        self.card.externDict = dict.count > 0 ? dict : nil
+        self.account.externDict = dict.count > 0 ? dict : nil
     }
     
     // MARK: - Event
@@ -228,23 +183,22 @@ import UIKit
     }
     
     @objc public func saveButtonAction() {
-        updateCard()
+        updateAccount()
         
-        if (self.card.bankName == nil ? true : self.card.bankName!.count == 0) ||
-        (self.card.accountNum == nil ? true : self.card.accountNum!.count == 0) {
-            Toast.showToast(message: "银行名称和银行卡卡号不可为空", inView: self.view)
+        if (self.account.accountName == nil ? true : self.account.accountName!.count == 0) {
+            Toast.showToast(message: "账户名称不可为空", inView: self.view)
             return
         }
         
-        let success = CardDataBase.shared.insertData(data: self.card)
+        let success = AccountDataBase.shared.insertData(data: self.account)
         if success {
             if self.editMode {
-                let deleteSuccess = CardDataBase.shared.deleteData(createTime: self.editedCardCreateTime!)
+                let deleteSuccess = AccountDataBase.shared.deleteData(createTime: self.editedCreateTime!)
                 if !deleteSuccess {
                     Toast.showToast(message: "删除旧数据失败", inView: self.view)
                 }
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: CardEditViewController.dataAddNoti), object: self.card)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AccountEditViewController.dataAddNoti), object: self.account)
             self.dismiss(animated: true)
         } else {
             Toast.showToast(message: "保存数据失败", inView: self.view)
@@ -309,7 +263,7 @@ import UIKit
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return indexPath.row < 4 ? DetailLabelCell.height : SimpleLabelCell.height
+            return DetailLabelCell.height
         } else {
             return CustomKeyCell.height
         }

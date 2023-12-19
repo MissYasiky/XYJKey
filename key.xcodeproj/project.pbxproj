@@ -18,14 +18,11 @@
 		215D195A2AFCE6410019B783 /* SecrecyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215D19592AFCE6410019B783 /* SecrecyManager.swift */; };
 		21711C042B270B19004081B6 /* CardEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21711C032B270B19004081B6 /* CardEditViewController.swift */; };
 		2178A69725F3944A00E31E29 /* XYJToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 2178A69525F3944A00E31E29 /* XYJToast.m */; };
-		2178CDA923E6AD410039160C /* XYJAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2178CDA823E6AD410039160C /* XYJAccountListViewController.m */; };
 		217DE4B92AFFA877007DF975 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217DE4B82AFFA877007DF975 /* PasswordViewController.swift */; };
 		218405B023E530DC000BB9E2 /* XYJColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 218405AF23E530DC000BB9E2 /* XYJColorUtils.m */; };
 		218405B523E57230000BB9E2 /* XYJHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218405AC23E46A2C000BB9E2 /* XYJHomeViewController.m */; };
 		21A0F08D2B00D3E600E6CC0F /* UIFont+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A0F08C2B00D3E500E6CC0F /* UIFont+Util.swift */; };
 		21A0F08F2B00D85300E6CC0F /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A0F08E2B00D85300E6CC0F /* Toast.swift */; };
-		21A137722AFB137D004D16B7 /* XYJAccountDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A137702AFB137D004D16B7 /* XYJAccountDetailViewController.m */; };
-		21A1377B2AFB1667004D16B7 /* XYJAccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A137792AFB1667004D16B7 /* XYJAccountEditViewController.m */; };
 		21A1377E2AFB60C8004D16B7 /* SimpleLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A1377D2AFB60C8004D16B7 /* SimpleLabelCell.swift */; };
 		21A137802AFB6A2D004D16B7 /* UIColor+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A1377F2AFB6A2D004D16B7 /* UIColor+Util.swift */; };
 		21B988E62B049C9C00F059F8 /* HomeTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B988E52B049C9C00F059F8 /* HomeTabBar.swift */; };
@@ -35,6 +32,9 @@
 		21D1F11521B2608500671A89 /* XYJDataConstant.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21D1F11421B2608500671A89 /* XYJDataConstant.plist */; };
 		21DED7482B313E1C00AB4719 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DED7472B313E1C00AB4719 /* CardDetailViewController.swift */; };
 		21DED74A2B316BA900AB4719 /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DED7492B316BA900AB4719 /* CardListViewController.swift */; };
+		21DED74C2B3170E000AB4719 /* AccountEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DED74B2B3170E000AB4719 /* AccountEditViewController.swift */; };
+		21DED74E2B31823400AB4719 /* AccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DED74D2B31823400AB4719 /* AccountDetailViewController.swift */; };
+		21DED7502B31849D00AB4719 /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DED74F2B31849D00AB4719 /* AccountListViewController.swift */; };
 		21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42589218C8DF20072D134 /* XYJAppDelegate.m */; };
 		21E42592218C8DF50072D134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E42591218C8DF50072D134 /* Assets.xcassets */; };
 		21E42598218C8DF50072D134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42597218C8DF50072D134 /* main.m */; };
@@ -58,8 +58,6 @@
 		21711C032B270B19004081B6 /* CardEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEditViewController.swift; sourceTree = "<group>"; };
 		2178A69525F3944A00E31E29 /* XYJToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJToast.m; sourceTree = "<group>"; };
 		2178A69625F3944A00E31E29 /* XYJToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYJToast.h; sourceTree = "<group>"; };
-		2178CDA723E6AD410039160C /* XYJAccountListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAccountListViewController.h; sourceTree = "<group>"; };
-		2178CDA823E6AD410039160C /* XYJAccountListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAccountListViewController.m; sourceTree = "<group>"; };
 		217DE4B82AFFA877007DF975 /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		218405AB23E46A2C000BB9E2 /* XYJHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJHomeViewController.h; sourceTree = "<group>"; };
 		218405AC23E46A2C000BB9E2 /* XYJHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJHomeViewController.m; sourceTree = "<group>"; };
@@ -67,10 +65,6 @@
 		218405AF23E530DC000BB9E2 /* XYJColorUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJColorUtils.m; sourceTree = "<group>"; };
 		21A0F08C2B00D3E500E6CC0F /* UIFont+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Util.swift"; sourceTree = "<group>"; };
 		21A0F08E2B00D85300E6CC0F /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
-		21A137702AFB137D004D16B7 /* XYJAccountDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJAccountDetailViewController.m; sourceTree = "<group>"; };
-		21A137712AFB137D004D16B7 /* XYJAccountDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYJAccountDetailViewController.h; sourceTree = "<group>"; };
-		21A137792AFB1667004D16B7 /* XYJAccountEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJAccountEditViewController.m; sourceTree = "<group>"; };
-		21A1377A2AFB1667004D16B7 /* XYJAccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYJAccountEditViewController.h; sourceTree = "<group>"; };
 		21A1377D2AFB60C8004D16B7 /* SimpleLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLabelCell.swift; sourceTree = "<group>"; };
 		21A1377F2AFB6A2D004D16B7 /* UIColor+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Util.swift"; sourceTree = "<group>"; };
 		21B988E52B049C9C00F059F8 /* HomeTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBar.swift; sourceTree = "<group>"; };
@@ -80,6 +74,9 @@
 		21D1F11421B2608500671A89 /* XYJDataConstant.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = XYJDataConstant.plist; sourceTree = "<group>"; };
 		21DED7472B313E1C00AB4719 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		21DED7492B316BA900AB4719 /* CardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewController.swift; sourceTree = "<group>"; };
+		21DED74B2B3170E000AB4719 /* AccountEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEditViewController.swift; sourceTree = "<group>"; };
+		21DED74D2B31823400AB4719 /* AccountDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailViewController.swift; sourceTree = "<group>"; };
+		21DED74F2B31849D00AB4719 /* AccountListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
 		21E42585218C8DF20072D134 /* key.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = key.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E42588218C8DF20072D134 /* XYJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAppDelegate.h; sourceTree = "<group>"; };
 		21E42589218C8DF20072D134 /* XYJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAppDelegate.m; sourceTree = "<group>"; };
@@ -229,14 +226,11 @@
 				21DED7492B316BA900AB4719 /* CardListViewController.swift */,
 				21DED7472B313E1C00AB4719 /* CardDetailViewController.swift */,
 				21711C032B270B19004081B6 /* CardEditViewController.swift */,
+				21DED74F2B31849D00AB4719 /* AccountListViewController.swift */,
+				21DED74D2B31823400AB4719 /* AccountDetailViewController.swift */,
+				21DED74B2B3170E000AB4719 /* AccountEditViewController.swift */,
 				218405AB23E46A2C000BB9E2 /* XYJHomeViewController.h */,
 				218405AC23E46A2C000BB9E2 /* XYJHomeViewController.m */,
-				2178CDA723E6AD410039160C /* XYJAccountListViewController.h */,
-				2178CDA823E6AD410039160C /* XYJAccountListViewController.m */,
-				21A137712AFB137D004D16B7 /* XYJAccountDetailViewController.h */,
-				21A137702AFB137D004D16B7 /* XYJAccountDetailViewController.m */,
-				21A1377A2AFB1667004D16B7 /* XYJAccountEditViewController.h */,
-				21A137792AFB1667004D16B7 /* XYJAccountEditViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -382,17 +376,17 @@
 				21B988E62B049C9C00F059F8 /* HomeTabBar.swift in Sources */,
 				21A0F08F2B00D85300E6CC0F /* Toast.swift in Sources */,
 				21A1377E2AFB60C8004D16B7 /* SimpleLabelCell.swift in Sources */,
-				21A137722AFB137D004D16B7 /* XYJAccountDetailViewController.m in Sources */,
+				21DED74C2B3170E000AB4719 /* AccountEditViewController.swift in Sources */,
 				215D195A2AFCE6410019B783 /* SecrecyManager.swift in Sources */,
 				21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */,
-				21A1377B2AFB1667004D16B7 /* XYJAccountEditViewController.m in Sources */,
+				21DED74E2B31823400AB4719 /* AccountDetailViewController.swift in Sources */,
 				215D19582AFCD1310019B783 /* PreferenceViewController.swift in Sources */,
 				212C25EB2AF8D3CB006CC928 /* Card.swift in Sources */,
-				2178CDA923E6AD410039160C /* XYJAccountListViewController.m in Sources */,
 				21E48B852AFA265B0044904F /* AccountDataBase.swift in Sources */,
 				21A0F08D2B00D3E600E6CC0F /* UIFont+Util.swift in Sources */,
 				212C26112AFA1D35006CC928 /* CardDataBase.swift in Sources */,
 				21A137802AFB6A2D004D16B7 /* UIColor+Util.swift in Sources */,
+				21DED7502B31849D00AB4719 /* AccountListViewController.swift in Sources */,
 				21BA97432B1834A600C09A85 /* String+Util.swift in Sources */,
 				21DED74A2B316BA900AB4719 /* CardListViewController.swift in Sources */,
 				217DE4B92AFFA877007DF975 /* PasswordViewController.swift in Sources */,
