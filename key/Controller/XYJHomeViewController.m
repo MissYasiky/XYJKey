@@ -7,9 +7,7 @@
 //
 
 #import "XYJHomeViewController.h"
-#import "XYJCardListViewController.h"
 #import "XYJAccountListViewController.h"
-#import "XYJCardEditViewController.h"
 #import "XYJAccountEditViewController.h"
 
 @interface XYJHomeViewController () <
@@ -96,7 +94,7 @@ HomeTabBarDelegate
 - (void)initViewControllers {
     self.vctrlArray = [[NSMutableArray alloc] initWithCapacity:2];
     
-    XYJCardListViewController *vctrl1 = [[XYJCardListViewController alloc] init];
+    CardListViewController *vctrl1 = [[CardListViewController alloc] init];
     [self.vctrlArray addObject:vctrl1];
     
     XYJAccountListViewController *vctrl2 = [[XYJAccountListViewController alloc] init];
@@ -149,7 +147,7 @@ HomeTabBarDelegate
 - (void)addButtonAction {
     NSLog(@"add %@", self.selectedIndex == 0 ? @"card" : @"account");
     if (self.selectedIndex == 0) {
-        XYJCardEditViewController *vctrl = [[XYJCardEditViewController alloc] init];
+        CardEditViewController *vctrl = [[CardEditViewController alloc] init];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vctrl];
         nav.modalPresentationStyle = UIModalPresentationFullScreen;
         [self.navigationController presentViewController:nav animated:YES completion:nil];

@@ -16,17 +16,15 @@
 		212C26112AFA1D35006CC928 /* CardDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212C26102AFA1D35006CC928 /* CardDataBase.swift */; };
 		215D19582AFCD1310019B783 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215D19572AFCD1310019B783 /* PreferenceViewController.swift */; };
 		215D195A2AFCE6410019B783 /* SecrecyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215D19592AFCE6410019B783 /* SecrecyManager.swift */; };
+		21711C042B270B19004081B6 /* CardEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21711C032B270B19004081B6 /* CardEditViewController.swift */; };
 		2178A69725F3944A00E31E29 /* XYJToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 2178A69525F3944A00E31E29 /* XYJToast.m */; };
 		2178CDA923E6AD410039160C /* XYJAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2178CDA823E6AD410039160C /* XYJAccountListViewController.m */; };
 		217DE4B92AFFA877007DF975 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217DE4B82AFFA877007DF975 /* PasswordViewController.swift */; };
 		218405B023E530DC000BB9E2 /* XYJColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 218405AF23E530DC000BB9E2 /* XYJColorUtils.m */; };
 		218405B523E57230000BB9E2 /* XYJHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218405AC23E46A2C000BB9E2 /* XYJHomeViewController.m */; };
-		218405BE23E5BCB1000BB9E2 /* XYJCardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218405BD23E5BCB1000BB9E2 /* XYJCardListViewController.m */; };
 		21A0F08D2B00D3E600E6CC0F /* UIFont+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A0F08C2B00D3E500E6CC0F /* UIFont+Util.swift */; };
 		21A0F08F2B00D85300E6CC0F /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A0F08E2B00D85300E6CC0F /* Toast.swift */; };
-		21A1376F2AFB0A18004D16B7 /* XYJCardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A1376D2AFB0A18004D16B7 /* XYJCardDetailViewController.m */; };
 		21A137722AFB137D004D16B7 /* XYJAccountDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A137702AFB137D004D16B7 /* XYJAccountDetailViewController.m */; };
-		21A137782AFB1518004D16B7 /* XYJCardEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A137762AFB1518004D16B7 /* XYJCardEditViewController.m */; };
 		21A1377B2AFB1667004D16B7 /* XYJAccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A137792AFB1667004D16B7 /* XYJAccountEditViewController.m */; };
 		21A1377E2AFB60C8004D16B7 /* SimpleLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A1377D2AFB60C8004D16B7 /* SimpleLabelCell.swift */; };
 		21A137802AFB6A2D004D16B7 /* UIColor+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A1377F2AFB6A2D004D16B7 /* UIColor+Util.swift */; };
@@ -35,6 +33,8 @@
 		21BA97452B186BFF00C09A85 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BA97442B186BFF00C09A85 /* CardView.swift */; };
 		21BA97472B187AF300C09A85 /* DetailLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BA97462B187AF300C09A85 /* DetailLabelCell.swift */; };
 		21D1F11521B2608500671A89 /* XYJDataConstant.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21D1F11421B2608500671A89 /* XYJDataConstant.plist */; };
+		21DED7482B313E1C00AB4719 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DED7472B313E1C00AB4719 /* CardDetailViewController.swift */; };
+		21DED74A2B316BA900AB4719 /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DED7492B316BA900AB4719 /* CardListViewController.swift */; };
 		21E4258A218C8DF20072D134 /* XYJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42589218C8DF20072D134 /* XYJAppDelegate.m */; };
 		21E42592218C8DF50072D134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E42591218C8DF50072D134 /* Assets.xcassets */; };
 		21E42598218C8DF50072D134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E42597218C8DF50072D134 /* main.m */; };
@@ -55,6 +55,7 @@
 		212C26102AFA1D35006CC928 /* CardDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDataBase.swift; sourceTree = "<group>"; };
 		215D19572AFCD1310019B783 /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
 		215D19592AFCE6410019B783 /* SecrecyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecrecyManager.swift; sourceTree = "<group>"; };
+		21711C032B270B19004081B6 /* CardEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEditViewController.swift; sourceTree = "<group>"; };
 		2178A69525F3944A00E31E29 /* XYJToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJToast.m; sourceTree = "<group>"; };
 		2178A69625F3944A00E31E29 /* XYJToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYJToast.h; sourceTree = "<group>"; };
 		2178CDA723E6AD410039160C /* XYJAccountListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAccountListViewController.h; sourceTree = "<group>"; };
@@ -64,16 +65,10 @@
 		218405AC23E46A2C000BB9E2 /* XYJHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJHomeViewController.m; sourceTree = "<group>"; };
 		218405AE23E530DC000BB9E2 /* XYJColorUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJColorUtils.h; sourceTree = "<group>"; };
 		218405AF23E530DC000BB9E2 /* XYJColorUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJColorUtils.m; sourceTree = "<group>"; };
-		218405BC23E5BCB1000BB9E2 /* XYJCardListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJCardListViewController.h; sourceTree = "<group>"; };
-		218405BD23E5BCB1000BB9E2 /* XYJCardListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJCardListViewController.m; sourceTree = "<group>"; };
 		21A0F08C2B00D3E500E6CC0F /* UIFont+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Util.swift"; sourceTree = "<group>"; };
 		21A0F08E2B00D85300E6CC0F /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
-		21A1376D2AFB0A18004D16B7 /* XYJCardDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJCardDetailViewController.m; sourceTree = "<group>"; };
-		21A1376E2AFB0A18004D16B7 /* XYJCardDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYJCardDetailViewController.h; sourceTree = "<group>"; };
 		21A137702AFB137D004D16B7 /* XYJAccountDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJAccountDetailViewController.m; sourceTree = "<group>"; };
 		21A137712AFB137D004D16B7 /* XYJAccountDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYJAccountDetailViewController.h; sourceTree = "<group>"; };
-		21A137762AFB1518004D16B7 /* XYJCardEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJCardEditViewController.m; sourceTree = "<group>"; };
-		21A137772AFB1518004D16B7 /* XYJCardEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYJCardEditViewController.h; sourceTree = "<group>"; };
 		21A137792AFB1667004D16B7 /* XYJAccountEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYJAccountEditViewController.m; sourceTree = "<group>"; };
 		21A1377A2AFB1667004D16B7 /* XYJAccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYJAccountEditViewController.h; sourceTree = "<group>"; };
 		21A1377D2AFB60C8004D16B7 /* SimpleLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLabelCell.swift; sourceTree = "<group>"; };
@@ -83,6 +78,8 @@
 		21BA97442B186BFF00C09A85 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		21BA97462B187AF300C09A85 /* DetailLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLabelCell.swift; sourceTree = "<group>"; };
 		21D1F11421B2608500671A89 /* XYJDataConstant.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = XYJDataConstant.plist; sourceTree = "<group>"; };
+		21DED7472B313E1C00AB4719 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
+		21DED7492B316BA900AB4719 /* CardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewController.swift; sourceTree = "<group>"; };
 		21E42585218C8DF20072D134 /* key.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = key.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E42588218C8DF20072D134 /* XYJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYJAppDelegate.h; sourceTree = "<group>"; };
 		21E42589218C8DF20072D134 /* XYJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYJAppDelegate.m; sourceTree = "<group>"; };
@@ -229,14 +226,11 @@
 			children = (
 				215D19572AFCD1310019B783 /* PreferenceViewController.swift */,
 				217DE4B82AFFA877007DF975 /* PasswordViewController.swift */,
+				21DED7492B316BA900AB4719 /* CardListViewController.swift */,
+				21DED7472B313E1C00AB4719 /* CardDetailViewController.swift */,
+				21711C032B270B19004081B6 /* CardEditViewController.swift */,
 				218405AB23E46A2C000BB9E2 /* XYJHomeViewController.h */,
 				218405AC23E46A2C000BB9E2 /* XYJHomeViewController.m */,
-				218405BC23E5BCB1000BB9E2 /* XYJCardListViewController.h */,
-				218405BD23E5BCB1000BB9E2 /* XYJCardListViewController.m */,
-				21A1376E2AFB0A18004D16B7 /* XYJCardDetailViewController.h */,
-				21A1376D2AFB0A18004D16B7 /* XYJCardDetailViewController.m */,
-				21A137772AFB1518004D16B7 /* XYJCardEditViewController.h */,
-				21A137762AFB1518004D16B7 /* XYJCardEditViewController.m */,
 				2178CDA723E6AD410039160C /* XYJAccountListViewController.h */,
 				2178CDA823E6AD410039160C /* XYJAccountListViewController.m */,
 				21A137712AFB137D004D16B7 /* XYJAccountDetailViewController.h */,
@@ -380,12 +374,13 @@
 				218405B523E57230000BB9E2 /* XYJHomeViewController.m in Sources */,
 				2126558821C7EFB300A74BAF /* NSString+Util.m in Sources */,
 				21BA97472B187AF300C09A85 /* DetailLabelCell.swift in Sources */,
+				21DED7482B313E1C00AB4719 /* CardDetailViewController.swift in Sources */,
 				211F865F2B1EFCC800B76421 /* CustomKeyCell.swift in Sources */,
 				21E42598218C8DF50072D134 /* main.m in Sources */,
+				21711C042B270B19004081B6 /* CardEditViewController.swift in Sources */,
 				212C260F2AFA1A93006CC928 /* Account.swift in Sources */,
 				21B988E62B049C9C00F059F8 /* HomeTabBar.swift in Sources */,
 				21A0F08F2B00D85300E6CC0F /* Toast.swift in Sources */,
-				21A1376F2AFB0A18004D16B7 /* XYJCardDetailViewController.m in Sources */,
 				21A1377E2AFB60C8004D16B7 /* SimpleLabelCell.swift in Sources */,
 				21A137722AFB137D004D16B7 /* XYJAccountDetailViewController.m in Sources */,
 				215D195A2AFCE6410019B783 /* SecrecyManager.swift in Sources */,
@@ -399,9 +394,8 @@
 				212C26112AFA1D35006CC928 /* CardDataBase.swift in Sources */,
 				21A137802AFB6A2D004D16B7 /* UIColor+Util.swift in Sources */,
 				21BA97432B1834A600C09A85 /* String+Util.swift in Sources */,
-				218405BE23E5BCB1000BB9E2 /* XYJCardListViewController.m in Sources */,
+				21DED74A2B316BA900AB4719 /* CardListViewController.swift in Sources */,
 				217DE4B92AFFA877007DF975 /* PasswordViewController.swift in Sources */,
-				21A137782AFB1518004D16B7 /* XYJCardEditViewController.m in Sources */,
 				2178A69725F3944A00E31E29 /* XYJToast.m in Sources */,
 				21E425CE21AA78470072D134 /* LYLUnicode.m in Sources */,
 				21BA97452B186BFF00C09A85 /* CardView.swift in Sources */,
@@ -537,6 +531,7 @@
 				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8BMZBNN3Q5;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ETRBR9HA5V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
@@ -545,9 +540,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.polyv.key;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MissYasiky.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Dev Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = XC_Wild_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "key/key-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -566,6 +562,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 8BMZBNN3Q5;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ETRBR9HA5V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
@@ -574,9 +571,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.polyv.key;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MissYasiky.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "XC_Wildcard_Ad-Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "key/key-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
