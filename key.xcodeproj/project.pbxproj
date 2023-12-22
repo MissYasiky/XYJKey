@@ -541,6 +541,7 @@
 				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ETRBR9HA5V;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ETRBR9HA5V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
@@ -548,10 +549,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.polyv.key;
+				MARKETING_VERSION = 2.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MissYasiky.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "XC Wild Develop";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = XC_Wild_Dev;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -566,6 +568,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = ETRBR9HA5V;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ETRBR9HA5V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = KeyPrefix.pch;
 				INFOPLIST_FILE = key/Info.plist;
@@ -573,10 +576,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.polyv.key;
+				MARKETING_VERSION = 2.0.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MissYasiky.key;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard Adhoc";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "XC_Wildcard_Ad-Hoc";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
