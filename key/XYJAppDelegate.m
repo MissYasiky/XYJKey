@@ -7,7 +7,6 @@
 //
 
 #import "XYJAppDelegate.h"
-#import "XYJHomeViewController.h"
 
 #define XYJ_PassWord_Necessary 0
 
@@ -30,7 +29,7 @@ PasswordViewControllerDelegate
     vctrl.delegate = self;
     self.window.rootViewController = vctrl;
 #else
-    XYJHomeViewController *vctrl = [[XYJHomeViewController alloc] init];
+    HomeViewController *vctrl = [[HomeViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
     self.window.rootViewController = navi;
 #endif
@@ -110,7 +109,7 @@ PasswordViewControllerDelegate
 - (void)dismissWithPasswordViewController:(PasswordViewController *)passwordViewController {
     [[SecurityManager shared] unlockForSeconds];
     
-    XYJHomeViewController *vctrl = [[XYJHomeViewController alloc] init];
+    HomeViewController *vctrl = [[HomeViewController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vctrl];
     [UIApplication sharedApplication].keyWindow.rootViewController = navi;
 }

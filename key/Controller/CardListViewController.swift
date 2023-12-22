@@ -42,6 +42,7 @@ import UIKit
     }
     
     @objc public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         self.tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)
     }
     

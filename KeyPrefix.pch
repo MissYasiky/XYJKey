@@ -13,7 +13,6 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #import "XYJColorUtils.h"
-#import "XYJToast.h"
 #import "key-Swift.h"
 
 #define XYJCardDataAddNotification @"cardDataAddNotification"
