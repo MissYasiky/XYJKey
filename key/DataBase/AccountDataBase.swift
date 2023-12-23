@@ -9,11 +9,11 @@
 import Foundation
 import WCDBSwift
 
-@objc public final class AccountDataBase: NSObject {
+final class AccountDataBase: NSObject {
     static let tableName = "AccountTable"
     let database: Database
     
-    @objc public static let shared = AccountDataBase()
+    static let shared = AccountDataBase()
     private override init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let path = paths[0] + "/account.db"
@@ -25,7 +25,7 @@ import WCDBSwift
         }
     }
     
-    @objc public func getAllData() -> Array<Account> {
+    func getAllData() -> Array<Account> {
         do {
             let objects: [Account] = try database.getObjects(fromTable: AccountDataBase.tableName)
             return objects
@@ -35,7 +35,7 @@ import WCDBSwift
         return []
     }
     
-    @objc public func insertData(data: Account) -> Bool {
+    func insertData(data: Account) -> Bool {
         do {
             try database.insert(data, intoTable: AccountDataBase.tableName)
             return true
@@ -44,7 +44,7 @@ import WCDBSwift
         }
     }
     
-    @objc public func insertOrReplaceData(data: Account) -> Bool {
+    func insertOrReplaceData(data: Account) -> Bool {
         do {
             try database.insertOrReplace(data, intoTable: AccountDataBase.tableName)
             return true
@@ -53,7 +53,7 @@ import WCDBSwift
         }
     }
     
-    @objc public func deleteData(createTime: TimeInterval) -> Bool {
+    func deleteData(createTime: TimeInterval) -> Bool {
         do {
             try database.delete(fromTable: AccountDataBase.tableName,
                                 where: Account.Properties.createTime == createTime)

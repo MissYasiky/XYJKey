@@ -9,14 +9,14 @@
 import Foundation
 import WCDBSwift
 
-@objc public final class Account: NSObject, TableCodable {
-    @objc public var createTime: TimeInterval = NSDate().timeIntervalSince1970 * 1000
-    @objc public var accountName: String? = nil
-    @objc public var externDict: Dictionary<String, String>? = nil
+final class Account: NSObject, TableCodable {
+    var createTime: TimeInterval = NSDate().timeIntervalSince1970 * 1000
+    var accountName: String? = nil
+    var externDict: Dictionary<String, String>? = nil
     
-    public enum CodingKeys: String, CodingTableKey {
-        public typealias Root = Account
-        public static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+    enum CodingKeys: String, CodingTableKey {
+        typealias Root = Account
+        static let objectRelationalMapping = TableBinding(CodingKeys.self) {
             BindColumnConstraint(createTime, isPrimary: true, orderBy:.descending)
         }
         

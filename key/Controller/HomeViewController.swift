@@ -98,6 +98,7 @@ import UIKit
         addButton.layer.shadowOffset = CGSizeMake(0, 6)
         addButton.layer.shadowOpacity = 0.2
         addButton.layer.shadowRadius = 10.0
+        self.view.addSubview(addButton)
         
         let width = 55.0
         let delta = 25.0 + width

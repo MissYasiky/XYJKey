@@ -9,25 +9,25 @@
 import UIKit
 import Foundation
 
-@objc public enum DetailLabelCellStyle: Int {
+enum DetailLabelCellStyle: Int {
     case onlyLabel // 默认，纯文本
     case textField // 带输入框
 }
 
-@objc public enum DetailLabelCellTextFieldStyle: Int {
+enum DetailLabelCellTextFieldStyle: Int {
     case Chinese // 默认，中文键盘
     case number // 银行卡类型
     case date // 日期类型
     case CVV // 三位安全码类型
 }
 
-@objc public protocol DetailLabelCellDelegate {
-    @objc func longPress(message: String)
+protocol DetailLabelCellDelegate {
+    func longPress(message: String)
 }
 
-@objc public class DetailLabelCell: UITableViewCell, UITextFieldDelegate {
-    @objc public static let height = 102.0
-    @objc public var delegate: DetailLabelCellDelegate?
+class DetailLabelCell: UITableViewCell, UITextFieldDelegate {
+    static let height = 102.0
+    var delegate: DetailLabelCellDelegate?
     
     private let topLabel = UILabel()
     private let bottomLabel = UILabel()
@@ -36,7 +36,7 @@ import Foundation
     private var style: DetailLabelCellStyle = .onlyLabel
     private var textFieldStyle: DetailLabelCellTextFieldStyle = .Chinese
     
-    @objc public var content: String? {
+    var content: String? {
         get {
             return textField.text
         }
@@ -59,7 +59,7 @@ import Foundation
         contentView.addGestureRecognizer(gesture)
     }
     
-    @objc public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         let width = UIScreen.main.bounds.size.width
@@ -75,20 +75,20 @@ import Foundation
     
     // MARK: - Public Methods
     
-    @objc public func setText(lineOneText: String, lineTwoText: String) {
+    func setText(lineOneText: String, lineTwoText: String) {
         updateStyle(style: .onlyLabel)
         topLabel.text = lineOneText
         bottomLabel.text = lineTwoText
     }
     
-    @objc public func setText(title: String, content: String?, placeholder: String) {
+    func setText(title: String, content: String?, placeholder: String) {
         updateStyle(style: .textField)
         topLabel.text = title
         textField.text = content
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.font: UIFont.regularFont(size: 15)!,.foregroundColor:UIColor.textColor(alpha: 0.5)])
     }
     
-    @objc public func updateStyle(style: DetailLabelCellStyle) {
+    func updateStyle(style: DetailLabelCellStyle) {
         self.style = style
         switch style {
         case .onlyLabel:
@@ -100,7 +100,7 @@ import Foundation
         }
     }
     
-    @objc public func updateTextFieldStyle(style: DetailLabelCellTextFieldStyle) {
+    func updateTextFieldStyle(style: DetailLabelCellTextFieldStyle) {
         self.textFieldStyle = style
         switch style {
         case .Chinese:
@@ -174,7 +174,7 @@ import Foundation
     // MARK: - Delegate
     // MARK: UITextFile delegate
     
-    @objc public func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         self.textField.text = correctEnter(text: textField.text)
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@objc public class CardDetailViewController: UIViewController, UITableViewDataSource, DetailLabelCellDelegate {
+class CardDetailViewController: UIViewController, UITableViewDataSource, DetailLabelCellDelegate {
     static let dataDeleteNoti = "cardDataDeleteNotification"
     // MARK: 数据
     private var card: Card // 核心数据
@@ -25,18 +25,18 @@ import UIKit
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc public init(card: Card) {
+    init(card: Card) {
         self.card = card
         super.init(nibName: nil, bundle: nil)
     }
     
-    @objc deinit {
+    deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Life Cycle
     
-    @objc public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = self.card.bankName
@@ -83,7 +83,7 @@ import UIKit
     // MARK: - Event
     // MARK: Action
     
-    @objc public func longPressAction() {
+    @objc func longPressAction() {
         guard self.card.accountNum != nil else {
             return
         }
@@ -92,7 +92,7 @@ import UIKit
         Toast.showToast(message: tips, inView: self.view)
     }
     
-    @objc public func menuButtonAction() {
+    @objc func menuButtonAction() {
         let editAction = UIAlertAction(title: "编辑", style: .default) { [unowned self] _ in
             self.editCardAction()
         }
@@ -159,11 +159,11 @@ import UIKit
     
     // MARK: - Delegate
     // MARK: UITableView DataSource & Delegate
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.externDict.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard indexPath.row < self.externDict.count else {
             return UITableViewCell()
         }
@@ -180,7 +180,7 @@ import UIKit
     }
     
     // MARK: DetailLabelCell Delegate
-    public func longPress(message: String) {
+    func longPress(message: String) {
         UIPasteboard.general.string = message
         let tips = UIPasteboard.general.string != nil ? "拷贝成功" : "拷贝失败"
         Toast.showToast(message: tips, inView: self.view)

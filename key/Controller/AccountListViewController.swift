@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@objc public class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AccountListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: 数据
     private var datas: [Account] = []
     // MARK: UI
@@ -20,19 +20,19 @@ import UIKit
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc public init() {
+    init() {
         super.init(nibName: nil, bundle: nil)
         getDataFromDataBase()
     }
     
-    @objc deinit {
+    deinit {
         tableView.delegate = nil
         NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Life Cycle
     
-    @objc public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
@@ -41,7 +41,7 @@ import UIKit
         addNotification()
     }
     
-    @objc public override func viewWillLayoutSubviews() {
+    override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)
     }
@@ -77,11 +77,11 @@ import UIKit
     
     // MARK: - Delegate
     // MARK: UITableView DataSource & Delegate
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.datas.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard indexPath.row < self.datas.count else {
             return UITableViewCell()
         }
@@ -101,7 +101,7 @@ import UIKit
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let account = self.datas[indexPath.row]
         let vctrl = AccountDetailViewController(account: account)

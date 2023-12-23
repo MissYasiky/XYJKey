@@ -11,7 +11,7 @@ import UIKit
 
 private let cardTextColor: String = "0xC1D9F5"
 
-@objc public class CardView: UIView {
+class CardView: UIView {
     private let shadowImageView = UIImageView(image: UIImage(named: "card_bg_shadow"))
     private let bgImageView = UIImageView(image: UIImage(named: "card_bg"))
     private let leftLabel = UILabel()
@@ -30,7 +30,7 @@ private let cardTextColor: String = "0xC1D9F5"
         super.init(frame: frame)
     }
     
-    @objc public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         let cardPadding = 25.0
@@ -53,13 +53,13 @@ private let cardTextColor: String = "0xC1D9F5"
         dateLabel.frame = CGRect(x: cardWidth - padding - 65, y: cardHeight - 40 - middleLabelHeight, width: 65, height: middleLabelHeight)
     }
     
-    @objc public init(card: Card) {
+    init(card: Card) {
         super.init(frame: CGRectZero)
         initUI()
         update(card: card)
     }
     
-    @objc public func update(card: Card) {
+    func update(card: Card) {
         numLabel.text = card.accountNum?.scanAndSeperateEveryFour() ?? ""
         typeLabel.text = card.cardType
         cvvLabel.text = "CVV2/\(card.cvv2 ?? "")"

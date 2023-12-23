@@ -78,25 +78,25 @@ struct threeDigitalString {
     }
 }
 
-@objc public final class Card: NSObject, TableCodable {
-    @objc public var createTime: TimeInterval = NSDate().timeIntervalSince1970 * 1000
-    @objc public var isCreditCard: Bool = false
-    @objc public var isOwn: Bool = true
+final class Card: NSObject, TableCodable {
+    var createTime: TimeInterval = NSDate().timeIntervalSince1970 * 1000
+    var isCreditCard: Bool = false
+    var isOwn: Bool = true
     
-    @objc public var bankName: String? = nil
-    @objc public var externDict: Dictionary<String, String>? = nil
+    var bankName: String? = nil
+    var externDict: Dictionary<String, String>? = nil
     
-    @objc public var accountNum: String? = nil
-    @objc public var validThru: String? = nil
-    @objc public var cvv2: String? = nil
+    var accountNum: String? = nil
+    var validThru: String? = nil
+    var cvv2: String? = nil
     
 //    @digitalString var accountNum: String?
 //    @validThruString var validThru: String?
 //    @threeDigitalString var cvv2: String?
     
-    public enum CodingKeys: String, CodingTableKey {
-        public typealias Root = Card
-        public static let objectRelationalMapping = TableBinding(CodingKeys.self) {
+    enum CodingKeys: String, CodingTableKey {
+        typealias Root = Card
+        static let objectRelationalMapping = TableBinding(CodingKeys.self) {
             BindColumnConstraint(createTime, isPrimary: true, orderBy:.descending)
         }
         
@@ -110,19 +110,19 @@ struct threeDigitalString {
         case cvv2
     }
 
-    @objc public var cardType: String {
+    var cardType: String {
         get {
             return isCreditCard ? "信用卡" : "借记卡"
         }
     }
 
-    @objc public var cardOwner: String {
+    var cardOwner: String {
         get {
             return isOwn ? "XIE YUN JIA" : "OTHER"
         }
     }
 
-    @objc public var formatedValidThru: String? {
+    var formatedValidThru: String? {
         get {
             if let temp = validThru {
                 if temp.isEmpty {

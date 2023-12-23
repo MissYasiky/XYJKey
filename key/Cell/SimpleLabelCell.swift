@@ -9,14 +9,14 @@
 import UIKit
 import Foundation
 
-@objc public enum SimpleLabelCellStyle: Int {
+enum SimpleLabelCellStyle: Int {
     case indicator // 默认 style 带小箭头
     case check // 对勾模式
     case onlyLabel // 无小箭头
 }
 
-@objc public class SimpleLabelCell: UITableViewCell {
-    @objc public static let height = 80.0
+class SimpleLabelCell: UITableViewCell {
+    static let height = 80.0
     private var style: SimpleLabelCellStyle = .indicator
     private let iconImageView = UIImageView()
     private let checkImageView = UIImageView(image: UIImage(named: "list_indicator_uncheck"))
@@ -46,7 +46,7 @@ import Foundation
         self.addSubview(seperatorView)
     }
     
-    @objc public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         let width = UIScreen.main.bounds.size.width
@@ -63,7 +63,7 @@ import Foundation
         seperatorView.frame = CGRect(x: xPadding, y: height - 0.5, width: width - xPadding - xPadding, height: 0.5)
     }
     
-    @objc public override func setSelected(_ selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         if style != .check {
@@ -76,7 +76,7 @@ import Foundation
     
     // MARK: - Public Methods
     
-    @objc public func setStyle(style: SimpleLabelCellStyle) {
+    func setStyle(style: SimpleLabelCellStyle) {
         self.style = style
         switch style {
         case .indicator:
@@ -91,11 +91,11 @@ import Foundation
         }
     }
     
-    @objc public func setCellIconImageName(imageName: String) {
+    func setCellIconImageName(imageName: String) {
         iconImageView.image = UIImage(named: imageName)
     }
     
-    @objc public func setLabelText(text: String) {
+    func setLabelText(text: String) {
         label.text = text
     }
 }

@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-@objc public class PreferenceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @objc public static let passwordGeneratorCellIdentifier = "passwordGeneratorCellIdentifier"
-    @objc public static let exportCellIdentifier = "exportGeneratorCellIdentifier"
+class PreferenceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    static let passwordGeneratorCellIdentifier = "passwordGeneratorCellIdentifier"
+    static let exportCellIdentifier = "exportGeneratorCellIdentifier"
     
     var visionLabel: UILabel!
     var tableView: UITableView!
     
-    @objc public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "SETTING"
         self.view.backgroundColor = UIColor.white
@@ -48,11 +48,11 @@ import UIKit
         self.view.addSubview(visionLabel)
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: PreferenceViewController.passwordGeneratorCellIdentifier, for: indexPath) as! SimpleLabelCell
             cell.setStyle(style: .indicator)
@@ -69,7 +69,7 @@ import UIKit
         return SimpleLabelCell()
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

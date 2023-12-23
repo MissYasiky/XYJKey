@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-@objc public class HomeListCell: UITableViewCell {
-    @objc public static let height = 90.0
+class HomeListCell: UITableViewCell {
+    static let height = 90.0
     
     private let indicatorImageView: UIImageView = UIImageView(image: UIImage(named: "list_indicator_arrow"))
     private let topLabel: UILabel = UILabel()
@@ -32,7 +32,7 @@ import UIKit
         initUI()
     }
     
-    @objc public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         let width = UIScreen.main.bounds.size.width
@@ -52,11 +52,11 @@ import UIKit
     
     // MARK: - Public Methods
     
-    @objc public func setText(lineOneText: String, lineTwoText: String?, lineThreeText: String) {
+    func setText(lineOneText: String, lineTwoText: String?, lineThreeText: String) {
         setText(lineOneText: lineOneText, lineTwoText: lineTwoText, lineThreeText: lineThreeText, other: false)
     }
     
-    @objc public func setText(lineOneText: String, lineTwoText: String?, lineThreeText: String, other: Bool) {
+    func setText(lineOneText: String, lineTwoText: String?, lineThreeText: String, other: Bool) {
         topLabel.text = lineOneText
         midLabel.text = lineTwoText
         bottomLabel.text = lineThreeText

@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 
-@objc public enum CustomKeyCellStyle: Int {
+enum CustomKeyCellStyle: Int {
     case keyValue // 默认 style，key-value输入框模式
     case addKey
 }
 
 class CustomKeyCell: UITableViewCell, UITextFieldDelegate {
-    @objc public static let height = 67.0
+    static let height = 67.0
     
-    @objc public  var row: Int = -1
+     var row: Int = -1
     private let button: UIButton = UIButton(type: .custom)
     private let label: UILabel = UILabel()
     private let seperatorLine: UIView = UIView()
@@ -26,9 +26,9 @@ class CustomKeyCell: UITableViewCell, UITextFieldDelegate {
     private let valueTextField: UITextField = UITextField()
     private var style: CustomKeyCellStyle = .keyValue
     
-    @objc public var didTapDeleteButton: ((_ row: Int) -> Void)?
-    @objc public var didTextFieldBeginEditing: ((_ row: Int) -> Void)?
-    @objc public var didTextFieldChanged: ((_ row: Int, _ key: String, _ value: String) -> Void)?
+    var didTapDeleteButton: ((_ row: Int) -> Void)?
+    var didTextFieldBeginEditing: ((_ row: Int) -> Void)?
+    var didTextFieldChanged: ((_ row: Int, _ key: String, _ value: String) -> Void)?
     
     // MARK: - Life Cycle
     required init?(coder: NSCoder) {
@@ -43,7 +43,7 @@ class CustomKeyCell: UITableViewCell, UITextFieldDelegate {
         updateStyle(style:.keyValue)
     }
     
-    @objc public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         let width = UIScreen.main.bounds.size.width
@@ -69,7 +69,7 @@ class CustomKeyCell: UITableViewCell, UITextFieldDelegate {
     }
     
     // MARK: - Public Methods
-    @objc public func updateStyle(style: CustomKeyCellStyle) {
+    func updateStyle(style: CustomKeyCellStyle) {
         self.style = style
         switch style {
         case .keyValue:
@@ -89,7 +89,7 @@ class CustomKeyCell: UITableViewCell, UITextFieldDelegate {
         }
     }
     
-    @objc public func setKeyValue(key: String?, value: String?) {
+    func setKeyValue(key: String?, value: String?) {
         keyTextField.text = key
         valueTextField.text = value
     }
@@ -143,7 +143,7 @@ class CustomKeyCell: UITableViewCell, UITextFieldDelegate {
     // MARK: - Delegate
     // MARK: UITextField Delegate
     
-    @objc public func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         guard row >= 0 else {
             return
         }

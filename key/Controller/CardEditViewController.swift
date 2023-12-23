@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@objc public class CardEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CardEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     static let dataAddNoti = "cardDataAddNotification"
     // MARK: 数据
     private let editMode: Bool // 是否编辑模式，默认为NO
@@ -32,7 +32,7 @@ import UIKit
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc public init(card: Card?) {
+    init(card: Card?) {
         editMode = card != nil ? true : false
         editedCardCreateTime = card?.createTime
         self.card = card ?? Card()
@@ -45,18 +45,18 @@ import UIKit
         }
     }
     
-    @objc public convenience init() {
+    convenience init() {
         self.init(card: nil)
     }
     
-    @objc deinit {
+    deinit {
         tableView.delegate = nil
         NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Life Cycle
     
-    @objc public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.title = editMode ? "EDIT CARD" : "ADD CARD"
         self.view.backgroundColor = UIColor.white
@@ -223,11 +223,11 @@ import UIKit
     // MARK: - Event
     // MARK: Action
     
-    @objc public func closeButtonAction() {
+    @objc func closeButtonAction() {
         self.dismiss(animated: true)
     }
     
-    @objc public func saveButtonAction() {
+    @objc func saveButtonAction() {
         updateCard()
         
         if (self.card.bankName == nil ? true : self.card.bankName!.count == 0) ||
@@ -269,7 +269,7 @@ import UIKit
     // MARK: - Delegate
     // MARK: UIScrollView Delegate
     
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         guard showKeyboard == true else {
             return
         }
@@ -281,7 +281,7 @@ import UIKit
         }
     }
     
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard showKeyboard == true && self.dragBeginPoint.y > 0 else {
             return
         }
@@ -295,11 +295,11 @@ import UIKit
     }
     
     // MARK: UITableView DataSource & Delegate
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return self.tableViewCells.count
         } else {
@@ -307,7 +307,7 @@ import UIKit
         }
     }
     
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return indexPath.row < 4 ? DetailLabelCell.height : SimpleLabelCell.height
         } else {
@@ -315,7 +315,7 @@ import UIKit
         }
     }
     
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0.0001
         } else {
@@ -323,7 +323,7 @@ import UIKit
         }
     }
     
-    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0.0001
         } else {
@@ -331,7 +331,7 @@ import UIKit
         }
     }
     
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             return nil
         } else {
@@ -339,7 +339,7 @@ import UIKit
         }
     }
     
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 {
             return nil
         } else {
@@ -347,7 +347,7 @@ import UIKit
         }
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             return self.tableViewCells[indexPath.row]
         } else {
@@ -374,7 +374,7 @@ import UIKit
         }
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == self.customKeyArray.count {
             addCustomKey()
             tableViewScrollForIndex(row: indexPath.row)

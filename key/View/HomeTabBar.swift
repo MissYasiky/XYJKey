@@ -9,18 +9,18 @@
 import Foundation
 import UIKit
 
-@objc public protocol HomeTabBarDelegate {
-    @objc func selectTabBar(index: Int)
+protocol HomeTabBarDelegate {
+    func selectTabBar(index: Int)
 }
 
-@objc public class HomeTabBar: UIView {
+class HomeTabBar: UIView {
     private let height = 35.0
     private let buttonTag = 101
     private let tabTitleArray: [String] = ["CARD", "ACCOUNT"]
     private var buttonArray: [UIButton] = []
     private var selectedLine: UIView!
     private var selectedIndex = -1
-    @objc public var delegate: HomeTabBarDelegate?
+    var delegate: HomeTabBarDelegate?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -57,7 +57,7 @@ import UIKit
         self.select(index: 0)
     }
     
-    @objc public func select(index:Int) {
+    func select(index:Int) {
         guard index >= 0 && index < tabTitleArray.count && index != selectedIndex else {
             return
         }
