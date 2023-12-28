@@ -1,5 +1,4 @@
 PODS:
-  - Masonry (1.1.0)
   - WCDB.swift (2.0.4):
     - WCDB.swift/no-arc (= 2.0.4)
     - WCDBOptimizedSQLCipher (~> 1.4.2)
@@ -8,20 +7,17 @@ PODS:
   - WCDBOptimizedSQLCipher (1.4.2)
 
 DEPENDENCIES:
-  - Masonry (~> 1.1.0)
   - WCDB.swift (~> 2.0.4)
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
-    - Masonry
     - WCDB.swift
     - WCDBOptimizedSQLCipher
 
 SPEC CHECKSUMS:
-  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   WCDB.swift: 28dd96180d913abadb3ea9cf99bd6e942262379a
   WCDBOptimizedSQLCipher: ef2be79fed278289a309ad0d4d707c55bf166d6d
 
-PODFILE CHECKSUM: aef20eab55b5e5c3e355c6c8d8083d2b6607a1bf
+PODFILE CHECKSUM: 7df66224821456febfa332e3dc7ddf57f7cb2cd1
 
 COCOAPODS: 1.7.5

@@ -34,14 +34,14 @@ extension String {
      只保留字符串中的数字，并将每四位数字用一个空格分隔开
      */
     func scanAndSeperateEveryFour() -> String {
-        var str = self.scanNumber()
+        let str = self.scanNumber()
         var res = ""
         var i = 0
         while i < str.count {
             if i != 0 && i % 4 == 0 {
                 res += " "
             }
-            var index = str.index(str.startIndex, offsetBy: i)
+            let index = str.index(str.startIndex, offsetBy: i)
             res += str[index...index]
             i += 1
         }

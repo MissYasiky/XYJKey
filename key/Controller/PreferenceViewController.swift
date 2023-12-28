@@ -57,13 +57,13 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
             let cell = tableView.dequeueReusableCell(withIdentifier: PreferenceViewController.passwordGeneratorCellIdentifier, for: indexPath) as! SimpleLabelCell
             cell.setStyle(style: .indicator)
             cell.setLabelText(text: "Password Generator")
-            cell.setCellIconImageName(imageName: "setting_icon_password")
+            cell.setCellIconImageName(imageName: "key.radiowaves.forward")
             return cell
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: PreferenceViewController.exportCellIdentifier, for: indexPath) as! SimpleLabelCell
             cell.setStyle(style: .onlyLabel)
             cell.setLabelText(text: "Export")
-            cell.setCellIconImageName(imageName: "setting_icon_export")
+            cell.setCellIconImageName(imageName: "square.and.arrow.up")
             return cell
         }
         return SimpleLabelCell()

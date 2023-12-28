@@ -88,7 +88,9 @@ class AccountEditViewController: UIViewController, UITableViewDelegate, UITableV
         label.textColor = UIColor.textColor(alpha: 0.5)
         headerView.addSubview(label)
         
-        let originY = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 0)
+        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let originY = statusBarHeight + (self.navigationController?.navigationBar.frame.size.height ?? 0)
         tableView = UITableView(frame: CGRect(x: 0, y: originY, width: screenSize.width, height: screenSize.height - originY - 88), style: .grouped)
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none

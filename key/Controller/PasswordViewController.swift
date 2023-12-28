@@ -9,16 +9,16 @@
 import Foundation
 import UIKit
 
-@objc public protocol PasswordViewControllerDelegate {
-    @objc func dismiss(passwordViewController: PasswordViewController)
+protocol PasswordViewControllerDelegate {
+    func dismiss(passwordViewController: PasswordViewController)
 }
 
-@objc public class PasswordViewController: UIViewController, UITextViewDelegate {
+class PasswordViewController: UIViewController, UITextViewDelegate {
     private var textView: UITextView!
     private var labelArray: Array<UILabel>!
-    @objc public var delegate: PasswordViewControllerDelegate?
+    var delegate: PasswordViewControllerDelegate?
     
-    @objc public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
@@ -39,7 +39,7 @@ import UIKit
             label.frame = CGRectMake(originX + Double(i) * (width + span), 260, width, 35)
             label.font = UIFont.regularFont(size: 45)
             label.textAlignment = .center
-            label.textColor = UIColor.color("0x696969")
+            label.textColor = UIColor.init(named: "AccentColor")
             label.text = "-"
             self.view.addSubview(label)
             
@@ -47,16 +47,16 @@ import UIKit
         }
     }
 
-    @objc public override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         textView.becomeFirstResponder()
     }
     
-    @objc public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    @objc func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return text.count == 0 || (text >= "0" && text <= "9");
     }
     
-    @objc public func textViewDidChange(_ textView: UITextView) {
+    @objc func textViewDidChange(_ textView: UITextView) {
         guard let _ = textView.text else {
             return
         }

@@ -16,7 +16,7 @@ final class AccountDataBase: NSObject {
     static let shared = AccountDataBase()
     private override init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let path = paths[0] + "/account.db"
+        let path = paths[0] + "/db_account.db"
         database = Database(at: path)
         do {
             try database.create(table: AccountDataBase.tableName, of: Account.self)

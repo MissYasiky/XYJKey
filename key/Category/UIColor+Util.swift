@@ -48,7 +48,7 @@ extension UIColor {
         var rgbValue: UInt64 = 0
         let scanner = Scanner(string: hexString)
         if hexString.hasPrefix("#") {
-            scanner.scanLocation = 1
+            scanner.currentIndex = hexString.index(hexString.startIndex, offsetBy: 1)
         }
         scanner.scanHexInt64(&rgbValue)
         let red = CGFloat((rgbValue & 0xFF0000) >> 16)/255.0

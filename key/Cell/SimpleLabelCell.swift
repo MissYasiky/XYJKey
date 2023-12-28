@@ -20,7 +20,7 @@ class SimpleLabelCell: UITableViewCell {
     private var style: SimpleLabelCellStyle = .indicator
     private let iconImageView = UIImageView()
     private let checkImageView = UIImageView(image: UIImage(named: "list_indicator_uncheck"))
-    private let indicatorImageView = UIImageView(image: UIImage(named: "list_indicator_arrow"))
+    private let indicatorImageView = UIImageView(image: UIImage(systemName: "chevron.forward"))
     private let label: UILabel = UILabel()
     private let seperatorView: UIView = UIView()
     
@@ -53,8 +53,11 @@ class SimpleLabelCell: UITableViewCell {
         let height = SimpleLabelCell.height
         let xPadding = 25.0
         
-        iconImageView.frame = CGRect(x: xPadding, y: (height - 23) / 2.0, width: 23, height: 23)
-        indicatorImageView.frame = CGRect(x: width - xPadding - 20, y: (height - 16) / 2.0, width: 20, height: 16)
+        let size = iconImageView.image?.size ?? CGSizeMake(23, 23)
+        iconImageView.frame = CGRect(x: xPadding, y: (height - size.height) / 2.0, width: size.width, height: size.height)
+        
+        let indicatorISize = indicatorImageView.image?.size ?? CGSizeMake(20, 16)
+        indicatorImageView.frame = CGRect(x: width - xPadding - indicatorISize.width, y: (height - indicatorISize.height) / 2.0, width: indicatorISize.width, height: indicatorISize.height)
         checkImageView.frame = CGRect(x: width - xPadding - 20, y: (height - 16) / 2.0, width: 20, height: 16)
         
         let originX = iconImageView.frame.origin.x + iconImageView.frame.size.width + 10
@@ -92,7 +95,7 @@ class SimpleLabelCell: UITableViewCell {
     }
     
     func setCellIconImageName(imageName: String) {
-        iconImageView.image = UIImage(named: imageName)
+        iconImageView.image = UIImage(systemName: imageName)
     }
     
     func setLabelText(text: String) {

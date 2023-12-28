@@ -88,7 +88,9 @@ class CardEditViewController: UIViewController, UITableViewDelegate, UITableView
         label.textColor = UIColor.textColor(alpha: 0.5)
         headerView.addSubview(label)
         
-        let originY = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 0)
+        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let originY = statusBarHeight + (self.navigationController?.navigationBar.frame.size.height ?? 0)
         tableView = UITableView(frame: CGRect(x: 0, y: originY, width: screenSize.width, height: screenSize.height - originY - 88), style: .grouped)
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none
@@ -150,12 +152,12 @@ class CardEditViewController: UIViewController, UITableViewDelegate, UITableView
         cell4.updateTextFieldStyle(style: .CVV)
         
         let cell5 = SimpleLabelCell()
-        cell5.setCellIconImageName(imageName: "list_icon_card")
+        cell5.setCellIconImageName(imageName: "creditcard")
         cell5.setLabelText(text: "Credit Card")
         cell5.setStyle(style: .check)
         
         let cell6 = SimpleLabelCell()
-        cell6.setCellIconImageName(imageName: "list_icon_profile")
+        cell6.setCellIconImageName(imageName: "person")
         cell6.setLabelText(text: "My Own")
         cell6.setStyle(style: .check)
                            

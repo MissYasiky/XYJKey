@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@objc public class HomeViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, HomeTabBarDelegate {
+class HomeViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, HomeTabBarDelegate {
     // MARK: UI
     private var tabBar: HomeTabBar = HomeTabBar()
     private var pageViewController: UIPageViewController! // 翻页控制器
@@ -19,7 +19,7 @@ import UIKit
     
     // MARK: - Life Cycle
     
-    @objc public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "MY KEY";
@@ -32,7 +32,7 @@ import UIKit
         initAddButton()
     }
     
-    @objc public override func viewWillLayoutSubviews() {
+    override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         let screenSize = UIScreen.main.bounds.size
@@ -121,11 +121,11 @@ import UIKit
     // MARK: - Event
     // MARK: Action
     
-    @objc public func settingButtonAction() {
+    @objc func settingButtonAction() {
         self.navigationController?.pushViewController(PreferenceViewController(), animated: true)
     }
     
-    @objc public func addButtonAction() {
+    @objc func addButtonAction() {
         let vctrl = self.selectedIndex == 0 ? CardEditViewController() : AccountEditViewController()
         let nav = UINavigationController.init(rootViewController: vctrl)
         nav.modalPresentationStyle = .fullScreen

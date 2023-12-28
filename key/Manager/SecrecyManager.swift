@@ -16,7 +16,7 @@ import Foundation
     
     @objc public static let shared = SecurityManager()
     private override init() {
-        dateFormatter.dateFormat = "hhmm"
+        dateFormatter.dateFormat = "HHmm"
     }
 
     @objc public func isLock() -> Bool {

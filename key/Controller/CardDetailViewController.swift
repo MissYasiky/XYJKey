@@ -59,7 +59,9 @@ class CardDetailViewController: UIViewController, UITableViewDataSource, DetailL
         cardView = CardView.init(card: self.card)
         cardView.frame = CGRectMake(0, 0, screenSize.width, height)
         
-        let originY = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.size.height ?? 0)
+        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let originY = statusBarHeight + (self.navigationController?.navigationBar.frame.size.height ?? 0)
         tableView = UITableView(frame: CGRectMake(0, originY, screenSize.width, screenSize.height - originY - 88), style: .plain)
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none

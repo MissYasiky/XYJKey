@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1420"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "21E42584218C8DF20072D134"
+               BlueprintIdentifier = "213C985A2B3679680015FFD7"
                BuildableName = "key.app"
                BlueprintName = "key"
                ReferencedContainer = "container:key.xcodeproj">
@@ -27,15 +27,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "21E42584218C8DF20072D134"
-            BuildableName = "key.app"
-            BlueprintName = "key"
-            ReferencedContainer = "container:key.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
@@ -53,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "21E42584218C8DF20072D134"
+            BlueprintIdentifier = "213C985A2B3679680015FFD7"
             BuildableName = "key.app"
             BlueprintName = "key"
             ReferencedContainer = "container:key.xcodeproj">
@@ -70,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "21E42584218C8DF20072D134"
+            BlueprintIdentifier = "213C985A2B3679680015FFD7"
             BuildableName = "key.app"
             BlueprintName = "key"
             ReferencedContainer = "container:key.xcodeproj">

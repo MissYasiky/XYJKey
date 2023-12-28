@@ -16,7 +16,7 @@ final class CardDataBase: NSObject {
     static let shared = CardDataBase()
     private override init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let path = paths[0] + "/card.db"
+        let path = paths[0] + "/db_card.db"
         database = Database(at: path)
         print(path)
         do {
