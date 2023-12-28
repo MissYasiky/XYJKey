@@ -17,7 +17,8 @@ final class Account: NSObject, TableCodable {
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Account
         static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-            BindColumnConstraint(createTime, isPrimary: true, orderBy:.descending)
+            BindColumnConstraint(accountName, isPrimary: true, isNotNull:true, isUnique: true)
+            BindIndex(createTime, namedWith: "_index")
         }
         
         case createTime

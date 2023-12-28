@@ -103,7 +103,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, Deta
     }
     
     private func deleteCardAction() {
-        let success = AccountDataBase.shared.deleteData(createTime: self.account.createTime)
+        let success = AccountDataBase.shared.deleteData(accountName: self.account.accountName!)
         if success {
             NotificationCenter.default.post(name: Notification.Name(AccountDetailViewController.dataDeleteNoti), object: nil)
             self.navigationController?.popViewController(animated: true)

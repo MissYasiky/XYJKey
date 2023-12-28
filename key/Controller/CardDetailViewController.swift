@@ -123,7 +123,7 @@ class CardDetailViewController: UIViewController, UITableViewDataSource, DetailL
     }
     
     private func deleteCardAction() {
-        let success = CardDataBase.shared.deleteData(createTime: self.card.createTime)
+        let success = CardDataBase.shared.deleteData(accountNum: self.card.accountNum!)
         if success {
             NotificationCenter.default.post(name: Notification.Name(CardDetailViewController.dataDeleteNoti), object: nil)
             self.navigationController?.popViewController(animated: true)

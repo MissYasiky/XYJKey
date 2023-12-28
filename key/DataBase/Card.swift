@@ -97,7 +97,8 @@ final class Card: NSObject, TableCodable {
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Card
         static let objectRelationalMapping = TableBinding(CodingKeys.self) {
-            BindColumnConstraint(createTime, isPrimary: true, orderBy:.descending)
+            BindColumnConstraint(accountNum, isPrimary: true, isNotNull:true, isUnique: true)
+            BindIndex(createTime, namedWith: "_index")
         }
         
         case createTime

@@ -13,7 +13,7 @@ class CardEditViewController: UIViewController, UITableViewDelegate, UITableView
     static let dataAddNoti = "cardDataAddNotification"
     // MARK: 数据
     private let editMode: Bool // 是否编辑模式，默认为NO
-    private let editedCardCreateTime: TimeInterval? // editMode为YES时不为0，原数据创建时间，数据库关键字段
+    private let editedCardAccountNum: String? // editMode为YES时不为0，数据库主键
     private let card: Card // 核心数据，编辑模式时通过页面初始化带进来
     private var customKeyArray: [(String?, String?)] // 核心数据，编辑模式时通过页面初始化带进来
     // MARK: UI
@@ -34,7 +34,7 @@ class CardEditViewController: UIViewController, UITableViewDelegate, UITableView
 
     init(card: Card?) {
         editMode = card != nil ? true : false
-        editedCardCreateTime = card?.createTime
+        editedCardAccountNum = card?.accountNum
         self.card = card ?? Card()
         customKeyArray = []
         
@@ -238,18 +238,28 @@ class CardEditViewController: UIViewController, UITableViewDelegate, UITableView
             return
         }
         
-        let success = CardDataBase.shared.insertData(data: self.card)
-        if success {
-            if self.editMode {
-                let deleteSuccess = CardDataBase.shared.deleteData(createTime: self.editedCardCreateTime!)
-                if !deleteSuccess {
-                    Toast.showToast(message: "删除旧数据失败", inView: self.view)
+        if editMode {
+            let success = CardDataBase.shared.insertOrReplaceData(data: self.card)
+            if success {
+                if let editedCardAccountNum, editedCardAccountNum != card.accountNum {
+                    let deleteSuccess = CardDataBase.shared.deleteData(accountNum: editedCardAccountNum)
+                    if !deleteSuccess {
+                        Toast.showToast(message: "删除旧数据失败", inView: self.view)
+                    }
                 }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: CardEditViewController.dataAddNoti), object: self.card)
+                self.dismiss(animated: true)
+            } else {
+                Toast.showToast(message: "保存数据失败", inView: self.view)
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: CardEditViewController.dataAddNoti), object: self.card)
-            self.dismiss(animated: true)
         } else {
-            Toast.showToast(message: "保存数据失败", inView: self.view)
+            let success = CardDataBase.shared.insertData(data: self.card)
+            if success {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: CardEditViewController.dataAddNoti), object: self.card)
+                self.dismiss(animated: true)
+            } else {
+                Toast.showToast(message: "保存数据失败", inView: self.view)
+            }
         }
     }
     

@@ -13,7 +13,7 @@ class AccountEditViewController: UIViewController, UITableViewDelegate, UITableV
     static let dataAddNoti = "accountDataAddNotification"
     // MARK: 数据
     private let editMode: Bool // 是否编辑模式，默认为NO
-    private let editedCreateTime: TimeInterval? // editMode为YES时不为0，原数据创建时间，数据库关键字段
+    private let editedAccountName: String? // editMode为YES时不为0，数据库主键
     private let account: Account // 核心数据，编辑模式时通过页面初始化带进来
     private var customKeyArray: [(String?, String?)] // 核心数据，编辑模式时通过页面初始化带进来
     // MARK: UI
@@ -34,7 +34,7 @@ class AccountEditViewController: UIViewController, UITableViewDelegate, UITableV
 
     init(account: Account?) {
         editMode = account != nil ? true : false
-        editedCreateTime = account?.createTime
+        editedAccountName = account?.accountName
         self.account = account ?? Account()
         customKeyArray = []
         
@@ -192,18 +192,28 @@ class AccountEditViewController: UIViewController, UITableViewDelegate, UITableV
             return
         }
         
-        let success = AccountDataBase.shared.insertData(data: self.account)
-        if success {
-            if self.editMode {
-                let deleteSuccess = AccountDataBase.shared.deleteData(createTime: self.editedCreateTime!)
-                if !deleteSuccess {
-                    Toast.showToast(message: "删除旧数据失败", inView: self.view)
+        if editMode {
+            let success = AccountDataBase.shared.insertOrReplaceData(data: self.account)
+            if success {
+                if let editedAccountName, editedAccountName != account.accountName {
+                    let deleteSuccess = AccountDataBase.shared.deleteData(accountName: editedAccountName)
+                    if !deleteSuccess {
+                        Toast.showToast(message: "删除旧数据失败", inView: self.view)
+                    }
                 }
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AccountEditViewController.dataAddNoti), object: self.account)
+                self.dismiss(animated: true)
+            } else {
+                Toast.showToast(message: "保存数据失败", inView: self.view)
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: AccountEditViewController.dataAddNoti), object: self.account)
-            self.dismiss(animated: true)
         } else {
-            Toast.showToast(message: "保存数据失败", inView: self.view)
+            let success = AccountDataBase.shared.insertData(data: self.account)
+            if success {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: AccountEditViewController.dataAddNoti), object: self.account)
+                self.dismiss(animated: true)
+            } else {
+                Toast.showToast(message: "保存数据失败", inView: self.view)
+            }
         }
     }
     
