@@ -84,6 +84,7 @@ final class Card: NSObject, TableCodable {
     var isOwn: Bool = true
     
     var bankName: String? = nil
+    var externString: String? = nil
     var externDict: Dictionary<String, String>? = nil
     
     var accountNum: String? = nil
@@ -105,6 +106,7 @@ final class Card: NSObject, TableCodable {
         case isCreditCard
         case isOwn
         case bankName
+        case externString
         case externDict
         case accountNum
         case validThru

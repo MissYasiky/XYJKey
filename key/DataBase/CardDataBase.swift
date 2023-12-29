@@ -34,7 +34,7 @@ final class CardDataBase: NSObject {
         do {
             try database.create(table: CardDataBase.tableName, of: Card.self)
         } catch {
-            print("create CardDataBase tableName error");
+            print("【CardDataBase】create table error \(error)")
         }
         
         database.setAutoMigration(enable: true)
@@ -43,9 +43,12 @@ final class CardDataBase: NSObject {
     func getAllData() -> Array<Card> {
         do {
             let objects: [Card] = try database.getObjects(fromTable: CardDataBase.tableName, orderBy: [Card.Properties.createTime.order(.descending)])
+            for data in objects {
+                self.updataData(data: data)
+            }
             return objects
         } catch {
-            print("error")
+            print("【CardDataBase】get all data error \(error)")
         }
         return []
     }
@@ -55,36 +58,58 @@ final class CardDataBase: NSObject {
             let object: Card? = try database.getObject(fromTable: CardDataBase.tableName, where: Card.Properties.accountNum == accountNum)
             return object
         } catch {
-            print("error")
+            print("【CardDataBase】get data error \(error)")
         }
         return nil
     }
     
+    @discardableResult
     func insertData(data: Card) -> Bool {
         do {
             try database.insert(data, intoTable: CardDataBase.tableName)
             return true
         } catch {
+            print("【CardDataBase】insert data error \(error)")
             return false
         }
     }
     
+    @discardableResult
     func insertOrReplaceData(data: Card) -> Bool {
         do {
             try database.insertOrReplace(data, intoTable: CardDataBase.tableName)
             return true
         } catch {
+            print("【CardDataBase】insert or replace data error \(error)")
             return false
         }
     }
     
+    @discardableResult
     func deleteData(accountNum: String) -> Bool {
         do {
             try database.delete(fromTable: CardDataBase.tableName,
                                 where: Card.Properties.accountNum == accountNum)
             return true
         } catch {
+            print("【CardDataBase】delete data error \(error)")
             return false
+        }
+    }
+    
+    func updataData(data: Card) {
+        if let string = data.externString {
+            if let jsonData = string.data(using: .utf8) {
+                do {
+                    if let dict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? Dictionary<String, String> {
+                        data.externDict = dict
+                        data.externString = nil
+                        self.insertOrReplaceData(data: data)
+                    }
+                } catch {
+                    print("【CardDataBase】update old database data error: \(error)")
+                }
+            }
         }
     }
 }

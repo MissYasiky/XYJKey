@@ -34,7 +34,7 @@ final class AccountDataBase: NSObject {
         do {
             try database.create(table: AccountDataBase.tableName, of: Account.self)
         } catch {
-            print("create AccountDataBase tableName error");
+            print("【AccountDataBase】create table error \(error)")
         }
         
         database.setAutoMigration(enable: true)
@@ -43,9 +43,12 @@ final class AccountDataBase: NSObject {
     func getAllData() -> Array<Account> {
         do {
             let objects: [Account] = try database.getObjects(fromTable: AccountDataBase.tableName, orderBy: [Account.Properties.createTime.order(.descending)])
+            for data in objects {
+                self.updataData(data: data)
+            }
             return objects
         } catch {
-            print("error")
+            print("【AccountDataBase】get all data error \(error)")
         }
         return []
     }
@@ -55,36 +58,58 @@ final class AccountDataBase: NSObject {
             let object: Account? = try database.getObject(fromTable: AccountDataBase.tableName, where: Account.Properties.accountName == accountName)
             return object
         } catch {
-            print("error")
+            print("【AccountDataBase】get data error \(error)")
         }
         return nil
     }
     
+    @discardableResult
     func insertData(data: Account) -> Bool {
         do {
             try database.insert(data, intoTable: AccountDataBase.tableName)
             return true
         } catch {
+            print("【AccountDataBase】insert data error \(error)")
             return false
         }
     }
     
+    @discardableResult
     func insertOrReplaceData(data: Account) -> Bool {
         do {
             try database.insertOrReplace(data, intoTable: AccountDataBase.tableName)
             return true
         } catch {
+            print("【AccountDataBase】insert or replace data error \(error)")
             return false
         }
     }
     
+    @discardableResult
     func deleteData(accountName: String) -> Bool {
         do {
             try database.delete(fromTable: AccountDataBase.tableName,
                                 where: Account.Properties.accountName == accountName)
             return true
         } catch {
+            print("【AccountDataBase】delete data error \(error)")
             return false
+        }
+    }
+    
+    func updataData(data: Account) {
+        if let string = data.externString {
+            if let jsonData = string.data(using: .utf8) {
+                do {
+                    if let dict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? Dictionary<String, String> {
+                        data.externDict = dict
+                        data.externString = nil
+                        self.insertOrReplaceData(data: data)
+                    }
+                } catch {
+                    print("【AccountDataBase】update old database data error: \(error)")
+                }
+            }
         }
     }
 }

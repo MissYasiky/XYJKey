@@ -12,6 +12,7 @@ import WCDBSwift
 final class Account: NSObject, TableCodable {
     var createTime: TimeInterval = NSDate().timeIntervalSince1970 * 1000
     var accountName: String? = nil
+    var externString: String? = nil
     var externDict: Dictionary<String, String>? = nil
     
     enum CodingKeys: String, CodingTableKey {
@@ -23,6 +24,7 @@ final class Account: NSObject, TableCodable {
         
         case createTime
         case accountName
+        case externString
         case externDict
     }
 }
