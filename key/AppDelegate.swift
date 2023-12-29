@@ -9,7 +9,7 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, PasswordViewControllerDelegate {
-    static let passWordNecessary = 0
+    static let passWordNecessary = 1
     var window: UIWindow?
     var shieldView: UIImageView?
 
