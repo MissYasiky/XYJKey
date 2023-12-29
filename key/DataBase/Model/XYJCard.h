@@ -35,7 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * _Nullable cvv2;
 
 /// 自定义信息，用于各种其他信息补充
-@property (nonatomic, strong) NSDictionary * _Nullable externDict;
+@property (nonatomic, copy) NSDictionary * _Nullable externDict;
+
+/// externDict的jsonString
+@property (nonatomic, strong) NSString * _Nullable externString;
 
 #pragma mark - 字段格式检查
 

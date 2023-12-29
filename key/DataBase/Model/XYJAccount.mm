@@ -18,6 +18,7 @@ WCDB_IMPLEMENTATION(XYJAccount)
 WCDB_SYNTHESIZE(XYJAccount, createTime)
 WCDB_SYNTHESIZE(XYJAccount, accountName)
 WCDB_SYNTHESIZE(XYJAccount, externDict)
+WCDB_SYNTHESIZE(XYJAccount, externString)
 
 // 数据库关键字
 WCDB_PRIMARY(XYJAccount, createTime)

@@ -84,7 +84,26 @@ static NSString *kAccountDataBaseTableName = @"XYJAccount";
     NSArray<XYJAccount *> *dataArray = [table getObjectsOrderBy:XYJAccount.createTime.order(WCTOrderedDescending)];
     NSString *logMessage = [NSString stringWithFormat:@"获取所有数据 %@", dataArray];
     [self logForMessage:logMessage];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        for (XYJAccount *data in dataArray) {
+            [[XYJAccountDataBase sharedDataBase] updataData:data];
+        }
+    });
+    
     return dataArray;
+}
+
+- (void)updataData:(XYJAccount *)data {
+    if (data.externDict != nil) {
+        data.externString = [XYJDailyTools jsonStringWithJSONObject:data.externDict];
+        NSLog(@"convert data %@ externInfo (%@)", data, data.externString);
+        BOOL success = [self.database updateRowsInTable:kAccountDataBaseTableName onProperty:XYJAccount.externString withObject:data where:XYJAccount.createTime == data.createTime];
+        if (!success) {
+            NSLog(@"updata data failure");
+        }
+    }
 }
 
 #pragma mark - Utils

@@ -21,6 +21,7 @@ WCDB_PROPERTY(accountNum)
 WCDB_PROPERTY(validThru)
 WCDB_PROPERTY(cvv2)
 WCDB_PROPERTY(externDict)
+WCDB_PROPERTY(externString)
 
 @end
 

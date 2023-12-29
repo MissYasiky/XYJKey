@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 WCDB_PROPERTY(createTime)
 WCDB_PROPERTY(accountName)
 WCDB_PROPERTY(externDict)
+WCDB_PROPERTY(externString)
+
 
 @end
 

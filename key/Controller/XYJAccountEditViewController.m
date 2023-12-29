@@ -258,7 +258,11 @@ UITableViewDelegate
             }
             muDict[key] = value;
         }
-        self.account.externDict = [muDict copy];
+        self.account.externDict = muDict;
+        self.account.externString = [XYJDailyTools jsonStringWithJSONObject:self.account.externDict];
+    } else {
+        self.account.externDict = nil;
+        self.account.externString = nil;
     }
 }
 

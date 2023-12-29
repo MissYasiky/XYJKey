@@ -24,6 +24,7 @@ WCDB_SYNTHESIZE(XYJCard, accountNum)
 WCDB_SYNTHESIZE(XYJCard, validThru)
 WCDB_SYNTHESIZE(XYJCard, cvv2)
 WCDB_SYNTHESIZE(XYJCard, externDict)
+WCDB_SYNTHESIZE(XYJCard, externString)
 
 // 数据库关键字
 WCDB_PRIMARY(XYJCard, createTime)

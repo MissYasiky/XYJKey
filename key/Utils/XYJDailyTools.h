@@ -22,4 +22,6 @@
 
 @interface XYJDailyTools : NSObject
 
++ (NSString *)jsonStringWithJSONObject:(id)jsonObject;
+
 @end

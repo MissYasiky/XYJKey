@@ -306,7 +306,11 @@ UITableViewDelegate
             }
             muDict[key] = value;
         }
-        self.card.externDict = [muDict copy];
+        self.card.externDict = muDict;
+        self.card.externString = [XYJDailyTools jsonStringWithJSONObject:self.card.externDict];
+    } else {
+        self.card.externDict = nil;
+        self.card.externString = nil;
     }
 }
 
