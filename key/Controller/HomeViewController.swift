@@ -122,7 +122,7 @@ class HomeViewController: UIViewController, UIPageViewControllerDelegate, UIPage
     // MARK: Action
     
     @objc func settingButtonAction() {
-        self.navigationController?.pushViewController(PreferenceViewController(), animated: true)
+//        self.navigationController?.pushViewController(PreferenceViewController(), animated: true)
     }
     
     @objc func addButtonAction() {
