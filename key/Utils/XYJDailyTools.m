@@ -8,23 +8,27 @@
 
 #import "XYJDailyTools.h"
 
-UIColor *XYJColor(NSInteger hexValue, CGFloat alpha) {
-    NSInteger red = hexValue & 0xff0000 >> 16;
-    NSInteger green = hexValue & 0x00ff00 >> 8;
-    NSInteger blue = hexValue & 0x0000ff;
-    return [UIColor colorWithRed:red/255.0
-                           green:green/255.0
-                            blue:blue/255.0
-                           alpha:MAX(MIN(alpha, 1), 0)];
-}
-
-CGFloat XYJScreenWidth () {
-    return [UIScreen mainScreen].bounds.size.width;
-}
-
-CGFloat XYJScreenHeight () {
-    return [UIScreen mainScreen].bounds.size.height;
-}
 @implementation XYJDailyTools
+
++ (NSString *)jsonStringWithJSONObject:(id)jsonObject {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+    NSMutableString *mutStr = nil;
+    if (jsonData) {
+        NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        mutStr = [NSMutableString stringWithString:jsonString];
+    }
+    if (mutStr) {
+        //去掉字符串中的空格
+        NSRange range = {0, mutStr.length};
+        [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+        //去掉字符串中的换行符
+        NSRange range2 = {0, mutStr.length};
+        [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+        return [mutStr copy];
+    } else {
+        return nil;
+    }
+}
 
 @end
